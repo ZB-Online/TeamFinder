@@ -1,7 +1,7 @@
 {
-  "name": "kanban",
+  "name": "TeamFinder",
   "version": "1.0.0",
-  "description": "Kanban Board",
+  "description": "TeamFinder",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,21 +13,21 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-html": "^6.2.0",
     "eslint-plugin-import": "^2.25.3",
-    "prettier": "^2.5.0"
+    "prettier": "^2.5.0",
+    "nodemon": "^2.0.15"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ZB-Online/Kanban.git"
+    "url": "https://github.com/ZB-Online/TeamFinder"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ZB-Online/Kanban/issues"
+    "url": "https://github.com/ZB-Online/TeamFinder/issues"
   },
-  "homepage": "https://github.com/ZB-Online/Kanban#readme",
+  "homepage": "https://github.com/ZB-Online/TeamFinder#readme",
   "dependencies": {
-    "express": "^4.17.1",
-    "nodemon": "^2.0.15"
+    "express": "^4.17.1"
   }
 }
