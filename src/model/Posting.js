@@ -3,7 +3,8 @@ const posting = {
   title: '',
   writer: '',
   date: '',
-  position: [],
+  location: [],
+  type: [],
   content: '',
   recruit: true,
 };

@@ -1,12 +1,12 @@
 import express from 'express';
 
 // Mock Data
-let postings = Array.from({ length: 5 }, (_, idx) => ({
+let postings = Array.from({ length: 2 }, (_, idx) => ({
   id: idx,
   title: `title ${idx}`,
   writer: `writer ${idx}`,
-  position: [],
-  content: 'Hello',
+  location: [1],
+  type: [3, 4],
   date: '2021-12-13',
   recruit: idx % 2 === 0,
 }));
