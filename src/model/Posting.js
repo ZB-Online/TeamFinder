@@ -7,6 +7,9 @@ const posting = {
   sportsType: [],
   content: '',
   recruit: true,
+  // cycle
+  owner: '', // user id
+  comments: [], // some comment
 };
 
 export default posting;
