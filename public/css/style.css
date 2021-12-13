@@ -1,0 +1,103 @@
+a{
+  text-decoration: none;
+  color: black;
+}
+
+.login-wrap{
+  /* display: none; */
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.login-box{
+  position: absolute;
+  width: 500px;
+  height: 300px;
+  background-color: white;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 8px;
+}
+
+.login-banner{
+  width:100%;
+  top: 0;
+  height: 30px;
+  background-color: rgba(135, 135, 135, 0.233);
+  position: relative;
+  border-radius: 8px 8px 0 0;
+}
+
+.login-banner > img{
+  width: 60px;
+  height: 30px;
+}
+
+.login-banner > span{
+  position: absolute;
+  right: 2px;
+  line-height: 30px;
+  cursor: pointer;
+}
+
+.login-body{
+  padding: 10px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+.input-label{
+  display:block;
+  width: 350px;
+}
+.input-label > span{
+  display: inline-block;
+  width: 30px;
+  text-align: center;
+}
+
+.input{
+  width: 300px;
+  height: 30px;
+}
+
+.input:focus{
+  background-color:rgb(168, 212, 245);
+}
+
+/* #signin-btn {
+  width: 100px;
+} */
+
+#form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 100%;
+}
+
+#form > * {
+  margin: 10px;
+}
+
+#form > button {
+  align-content: center;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 200px;
+  height: 30px;
+  background-color: #ffcd00;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}

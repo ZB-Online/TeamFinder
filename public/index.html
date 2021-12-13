@@ -1,11 +1,44 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TeamFinder</title>
-    <link rel="stylesheet" href="./css/style.css" />
-  </head>
-  <body></body>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TeamFinder</title>
+  <!-- 구글 아이콘 사용 -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css" />
+  <script defer src="js/login.js"></script>
+</head>
+
+<body>
+
+  <button class="login">로그인</button>
+
+  <section class="login-wrap">
+    <div class="login-box">
+      <div class="login-banner">
+        <!-- 로고 대체 이미지 아무거나 집어넣음 -->
+        <img src="./img/favicon-32x32.png" alt="">
+        <span class="material-icons">close</span>
+      </div>
+      <div class="login-body">
+        <form id="form">
+          <label for="" class="input-label">
+            <span>ID</span>
+            <input type="text" class="input" placeholder="아이디를 입력하세요">
+          </label>
+          <label for="" class="input-label">
+            <span>PW</span>
+             <input type="password" class="input" placeholder="비밀번호를 입력하세요">
+          </label>
+          <button type="submit" id="signin-btn">sign in</button>
+        </form>
+        <a href="javascript:void(0)" id="signup">회원가입</a>
+      </div>
+    </div>
+  </section>
+
+</body>
 </html>
