@@ -12,9 +12,20 @@ body {
   width: 1280px;
   margin: 0 auto;
 }
+.navbar > a {
+  text-decoration: none;
+}
 .navbar-logo {
-  width: 50px;
-  height: 50px;
+  padding: 10px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 10px;
+  background-color: black;
+  color: white;
+  font-weight: bold;
+}
+.navbar-logo:hover {
+  background-color: grey;
 }
 
 .navbar-menus {
@@ -72,7 +83,10 @@ body {
   font-weight: 500;
   cursor: pointer;
 }
-
+.user-menu-item:hover {
+  background-color: rgb(0, 0, 0);
+  color: white;
+}
 .banner {
   max-width: 1280px;
   width: 100%;
@@ -107,14 +121,20 @@ body {
   margin: 0 auto;
   width: 100%;
 }
-.filter-wrapper {
+.filter-wrapper-city {
+  background-color: var(--bg-gray);
   box-shadow: 0 0 15px rgb(0 0 0 / 15%);
-  margin-top: 1rem;
+  padding: 10px;
+}
+.filter-wrapper-sports {
   padding: 10px;
   background-color: white;
+  border-top: 1px solid #dfdfdf;
+  border-bottom: 1px solid #dfdfdf;
 }
 
-.filter-list {
+.filter-list-city,
+.filter-list-sports {
   max-width: 1280px;
   width: 100%;
   margin: 0 auto;
@@ -122,6 +142,37 @@ body {
   justify-content: space-evenly;
   align-items: center;
   padding: 0;
+}
+
+.filter-list-city li {
+  font-size: 13px;
+  border-radius: 20px;
+  cursor: pointer;
+  text-align: center;
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  margin: 10px 5px;
+}
+.filter-list-city li p {
+  border-radius: 20px;
+}
+.filter-list-city li:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
+}
+.filter-list-city li.active {
+  color: white;
+  background-color: #000000;
+}
+.filter-item {
+  text-align: center;
+}
+.filter-list-sports li {
+  opacity: 0.4;
+}
+.filter-list-sports li.active {
+  opacity: 1;
 }
 
 .filter-item > img {
@@ -134,6 +185,11 @@ body {
   transform: scale(1.2);
   transition: 0.3s;
 }
+
+.filter-sports-text {
+  margin-top: 10px;
+}
+
 .contents-container {
   width: 100%;
   background-color: var(--bg-gray);
@@ -234,6 +290,13 @@ body {
   justify-content: end;
   align-items: center;
 }
+.info-city {
+  font-size: 13px;
+  background-color: black;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 20px;
+}
 .info-item {
   display: flex;
   justify-content: center;
@@ -249,7 +312,7 @@ body {
 }
 
 .opacity {
-  opacity: 0.5;
+  opacity: 0.4;
 }
 
 .hidden {

@@ -13,7 +13,7 @@
   <body>
     <header>
       <nav class="navbar">
-        <a href="index.html"><img class="navbar-logo" src="./assets/img/logo.png" alt="logo"/></a>
+        <a href="index.html"><p class="navbar-logo">TEAM_FINDER</p></a>
         <ul class="navbar-menus">
           <li><button class="navbar-menus-item">새 글 쓰기</button></li>
           <li><button class="navbar-menus-item hidden">로그인</button></li>
@@ -45,17 +45,20 @@
         <div class="banner-text">
           <h1 class="banner-title">
             <p>
-              원하는 티어와 포지션의 <br />
-              유저를 찾는 가장 쉬운 방법
+              원하는 지역과 스포츠를 <br />
+              함께할 팀원을 찾는 방법
             </p>
           </h1>
-          <h2 class="banner-subtitle">TeamFinder에서 함께 할 팀원을 찾아보세요</h2>
+          <h2 class="banner-subtitle"><strong>TEAM_FINDER</strong>에서 함께 할 팀원을 찾아보세요</h2>
         </div>
         <img class="banner-image" src="https://holaworld.io/images/logo/main.png" alt="people" />
       </article>
       <article class="recruit">
-        <div class="filter-wrapper">
-          <ul class="filter-list"></ul>
+        <div class="filter-wrapper-city">
+          <ul class="filter-list-city"></ul>
+        </div>
+        <div class="filter-wrapper-sports">
+          <ul class="filter-list-sports"></ul>
         </div>
         <section class="contents-container">
           <div class="contents-wrapper">
@@ -71,9 +74,8 @@
                 </li>
               </ul>
               <div class="contents-checkbox">
-                <label for="isRecruited"
-                  ><input type="checkbox" id="filterRecruitInput" checked />모집 중인 글만 보기</label
-                >
+                <input type="checkbox" id="filterRecruitInput" checked />
+                <label for="filterRecruitInput">모집 중인 글만 보기</label>
               </div>
             </header>
             <ul class="content-list"></ul>
