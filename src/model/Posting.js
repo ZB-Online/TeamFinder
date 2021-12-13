@@ -4,7 +4,7 @@ const posting = {
   writer: '',
   date: '',
   city: [],
-  type: [],
+  sportsType: [],
   content: '',
   recruit: true,
 };

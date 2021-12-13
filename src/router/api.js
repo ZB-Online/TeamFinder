@@ -6,7 +6,7 @@ let postings = Array.from({ length: 3 }, (_, idx) => ({
   title: `title ${idx}`,
   writer: `writer ${idx}`,
   city: [1],
-  type: [3, 4],
+  sportsType: [3, 4],
   content: 'hello',
   date: '2021-12-13',
   recruit: idx % 2 === 0,
@@ -21,7 +21,7 @@ apiRouter.get('/postings', (req, res) => res.send(postings));
 // POST
 apiRouter.post('/postings', (req, res) => {
   // body is not null
-  const { title, city, type, content, date } = req.body;
+  const { title, city, sportsType, content, date } = req.body;
 
   const maxId = (() => Math.max(...postings.map(({ id }) => id)))();
 
@@ -31,7 +31,7 @@ apiRouter.post('/postings', (req, res) => {
       title,
       writer: 'writer 1',
       city,
-      type,
+      sportsType,
       content,
       date,
       recruit: true,
@@ -50,12 +50,12 @@ apiRouter.patch('/postings/:id', (req, res) => {
   const {
     params: { id },
     // body is not null
-    body: { title, city, type, content, recruit },
+    body: { title, city, sportsType, content, recruit },
   } = req;
 
   try {
     postings = postings.map(post =>
-      post.id === +id ? Object.assign(post, { title, city, type, content, recruit }) : post
+      post.id === +id ? Object.assign(post, { title, city, sportsType, content, recruit }) : post
     );
 
     res.send(postings);
