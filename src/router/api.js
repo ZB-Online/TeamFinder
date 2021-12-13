@@ -1,12 +1,13 @@
 import express from 'express';
 
 // Mock Data
-let postings = Array.from({ length: 2 }, (_, idx) => ({
+let postings = Array.from({ length: 3 }, (_, idx) => ({
   id: idx,
   title: `title ${idx}`,
   writer: `writer ${idx}`,
   location: [1],
   type: [3, 4],
+  content: 'hello',
   date: '2021-12-13',
   recruit: idx % 2 === 0,
 }));
@@ -19,20 +20,48 @@ apiRouter.get('/postings', (req, res) => res.send(postings));
 
 // POST
 apiRouter.post('/postings', (req, res) => {
-  const newPosting = req.body;
-  postings = [...postings, newPosting];
+  // body is not null
+  const { title, location, type, content, date } = req.body;
 
-  res.send(postings);
+  const maxId = (() => Math.max(...postings.map(({ id }) => id)))();
+
+  try {
+    const newPosting = {
+      id: maxId + 1,
+      title,
+      writer: 'writer 1',
+      location,
+      type,
+      content,
+      date,
+      recruit: true,
+    };
+
+    postings = [...postings, newPosting];
+
+    res.send(postings);
+  } catch (error) {
+    res.status(400).send(error);
+  }
 });
 
 // PATCH
 apiRouter.patch('/postings/:id', (req, res) => {
-  const { id } = req.params;
-  const modifiedPosting = req.body;
+  const {
+    params: { id },
+    // body is not null
+    body: { title, location, type, content, recruit },
+  } = req;
 
-  postings = postings.map(post => (post.id === +id ? { ...post, ...modifiedPosting } : post));
+  try {
+    postings = postings.map(post =>
+      post.id === +id ? Object.assign(post, { title, location, type, content, recruit }) : post
+    );
 
-  res.send(postings);
+    res.send(postings);
+  } catch (error) {
+    res.status(400).send(error);
+  }
 });
 
 // DELETE
