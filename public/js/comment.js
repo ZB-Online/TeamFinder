@@ -1,3 +1,6 @@
+// Posting Id
+const POSTING_ID = 1;
+
 // Login State
 const loggedIn = true;
 
@@ -60,7 +63,7 @@ const formatContent = content => content.replace(/\n/g, '<br />');
 
 // Init
 window.addEventListener('DOMContentLoaded', () => {
-  fetchPosting(1); // posting id
+  fetchPosting(POSTING_ID);
 });
 
 // Event Button(Upload) Click
