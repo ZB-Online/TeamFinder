@@ -1,5 +1,5 @@
 import { DUMMY } from '../dummy/data.js';
-import { FILTER_KEYWORDS } from './filter.js';
+import { initialFilter } from '../store/filter.js';
 
 function getPostingElements (data) {
   return data.map(postingData => {
@@ -16,17 +16,17 @@ function getPostingElements (data) {
       <li class="content-filter">
       <img 
         class="content-filter-icon"
-        src="./assets/img/filter/${FILTER_KEYWORDS.SPORTS[positionId]}.png"
-        alt="${FILTER_KEYWORDS.SPORTS[positionId]} icon"
+        src="./assets/img/filter/${initialFilter.sports[positionId]}.png"
+        alt="${initialFilter.sports[positionId]} icon"
       />
-      <p class="content-filter-name">${FILTER_KEYWORDS.SPORTS[positionId]}</p>
+      <p class="content-filter-name">${initialFilter.sports[positionId]}</p>
       </li>
-    `
+    `,
       )
       .join('')}
   </ul>
   <div class="infos">
-    <span class="info-city">${postingData.city.map(city => FILTER_KEYWORDS.CITY[city]).join(' ')}</span>
+    <span class="info-city">${initialFilter.cities[postingData.city]}</span>
     <div class="info-item">
       <box-icon class="info-icon" name="message-rounded-dots"></box-icon>
       <span class="comments">11</span>
@@ -46,23 +46,27 @@ function getPostingElements (data) {
   });
 }
 
-function renderPostingData (parent, data) {
-  getPostingElements(data).forEach(postingElement => {
-    parent.appendChild(postingElement);
+function getRecruitingPostings (data) {
+  return data.filter(posting => posting.recruit);
+}
+
+export function renderPostings (data, onlyRecruiting) {
+  const $contentList = document.querySelector('.content-list');
+  $contentList.innerHTML = ``;
+  getPostingElements(onlyRecruiting ? getRecruitingPostings(data) : data).forEach(postingElement => {
+    $contentList.appendChild(postingElement);
   });
 }
 
-export async function renderPostingAll () {
-  const $contentList = document.querySelector('.content-list');
-  $contentList.innerHTML = ``;
+export async function renderPostingAll (onlyRecruiting) {
   try {
     const res = await fetch('/api/postings');
     // status에 따른 에러 처리
     if (!res.ok) throw new Error('에러 메시지');
-    renderPostingData($contentList, await res.json());
+    renderPostings(await res.json(), onlyRecruiting);
   } catch (e) {
     // 에러 처리 결과
     console.log(e);
-    renderPostingData($contentList, DUMMY.POSTING_DATA);
+    renderPostings(DUMMY.POSTING_DATA, onlyRecruiting);
   }
 }

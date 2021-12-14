@@ -1,5 +1,26 @@
 import express from 'express';
 
+const FILTER = {
+  SPORTS: ['배드민턴', '야구', '농구', '당구', '볼링', '축구', '런닝'],
+  CITIES: [
+    '서울시',
+    '부산시',
+    '대구시',
+    '광주시',
+    '울산시',
+    '대전시',
+    '경기도',
+    '강원도',
+    '충청남도',
+    '충청북도',
+    '경상북도',
+    '경상남도',
+    '전라북도',
+    '전라남도',
+    '제주도',
+  ],
+};
+
 // Mock Data
 let postings = [
   {
@@ -89,7 +110,19 @@ let postings = [
 const apiRouter = express.Router();
 
 // GET
-apiRouter.get('/postings', (req, res) => res.send(postings));
+apiRouter.get('/postings', (req, res) => {
+  let sendingData = [...postings];
+  if (req.query.cities && req.query.sports) {
+    const currentCities = req.query.cities.split(',');
+    const currentSports = req.query.sports.split(',');
+    sendingData = sendingData.filter(
+      posting =>
+        currentCities.includes(FILTER.CITIES[posting.city]) &&
+        posting.sportsType.some(sports => currentSports.includes(FILTER.SPORTS[sports])),
+    );
+  }
+  res.status(200).json(sendingData);
+});
 
 apiRouter.get('/postings/:id', (req, res) => {
   const { id } = req.params;
@@ -120,7 +153,7 @@ apiRouter.post('/postings', (req, res) => {
 
     postings = [...postings, newPosting];
 
-    res.send(postings);
+    res.status(200).send(postings);
   } catch (error) {
     res.status(400).send(error);
   }
@@ -136,7 +169,7 @@ apiRouter.patch('/postings/:id', (req, res) => {
 
   try {
     postings = postings.map(post =>
-      post.id === +id ? Object.assign(post, { title, city, sportsType, content, recruit }) : post
+      post.id === +id ? Object.assign(post, { title, city, sportsType, content, recruit }) : post,
     );
 
     res.send(postings);

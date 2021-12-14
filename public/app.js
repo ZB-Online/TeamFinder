@@ -1,6 +1,6 @@
-import { FILTER_KEYWORDS, FILTER_TYPE, selectFilter } from './Home/filter.js';
-
-import { renderPostingAll } from './Home/posting.js';
+import { FILTER_TYPE, initialFilter } from './store/filter.js';
+import { fetchFiltered, selectFilter } from './Home/filter.js';
+import { renderPostingAll, renderPostings } from './Home/posting.js';
 
 const $filterListCity = document.querySelector('.filter-list-city');
 const $filterListSports = document.querySelector('.filter-list-sports');
@@ -31,13 +31,13 @@ $navUserWrapper.addEventListener('click', () => {
 });
 
 // 필터 키워드에 따른 초기 필터 아이콘 생성
-FILTER_KEYWORDS.CITY.forEach(keyword => {
+initialFilter.cities.forEach(keyword => {
   const $li = createFilterItem(keyword);
   $li.innerHTML = `<p class="filter-city">${keyword}</p>`;
   $filterListCity.appendChild($li);
 });
 
-FILTER_KEYWORDS.SPORTS.forEach(keyword => {
+initialFilter.sports.forEach(keyword => {
   const $li = createFilterItem(keyword);
   $li.innerHTML = `
   <img class="filter-icon" src="./assets/img/filter/${keyword}.png" alt="${keyword} icon" />
@@ -45,19 +45,22 @@ FILTER_KEYWORDS.SPORTS.forEach(keyword => {
   $filterListSports.appendChild($li);
 });
 
-$filterListCity.addEventListener('click', selectFilter($filterListCity, FILTER_TYPE.CITY));
+$filterListCity.addEventListener('click', async e => {
+  selectFilter($filterListCity, FILTER_TYPE.CITIES)(e);
+  renderPostings(await fetchFiltered(), $filterRecruitInput.checked);
+});
 
-$filterListSports.addEventListener('click', selectFilter($filterListSports, FILTER_TYPE.SPORTS));
+$filterListSports.addEventListener('click', async e => {
+  selectFilter($filterListSports, FILTER_TYPE.SPORTS)(e);
+  renderPostings(await fetchFiltered(), $filterRecruitInput.checked);
+});
 
 $contentsFilters.addEventListener('click', e => {
   toggleContentsFilter(e)($contentsFilters.children);
-  // e.target.parentNode의 className이 recent인지 popular인지에 따라 필터링 렌더
-  // do something..
 });
 
-$filterRecruitInput.addEventListener('click', () => {
-  // checked === true이면 모집 중인 글, false이면 모든 글 렌더링
-  $filterRecruitInput.checked ? renderPostingAll() : renderPostingAll();
+$filterRecruitInput.addEventListener('click', async () => {
+  $filterRecruitInput.checked ? renderPostings(await fetchFiltered(), true) : renderPostingAll(false);
 });
 
-renderPostingAll();
+renderPostingAll($filterRecruitInput.checked);
