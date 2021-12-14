@@ -5,11 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TeamFinder</title>
-
     <link rel="stylesheet" href="../css/reset.css" />
     <link rel="stylesheet" href="./css/writing.css" />
-    <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
-    <script defer src="./writing.js"></script>
+    <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
+    <script defer type="module" src="./writing.js"></script>
   </head>
 
   <body>
@@ -19,49 +18,49 @@
         <div class="choose-container city">
           <h3>지역 :</h3>
           <div class="writing-container city-container">
-            <div class="writing-items city-items"></div>
+            <ul class="writing-items city-items"></ul>
             <div>
-              <i class="bx bx-x all-delete city-all-delete"></i>
-              <i class="bx bx-chevron-down show city-show"></i>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+                class="city-all-delete"
+              >
+                <path
+                  d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"
+                ></path>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="city-show" width="30" height="30" viewBox="0 0 24 24">
+                <path d="M16.293 9.293 12 13.586 7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z"></path>
+              </svg>
             </div>
           </div>
-          <ul class="writing-list city-list">
-            <li data-index="0">서울시</li>
-            <li data-index="1">부산시</li>
-            <li data-index="2">대구시</li>
-            <li data-index="3">광주시</li>
-            <li data-index="4">울산시</li>
-            <li data-index="5">대전시</li>
-            <li data-index="6">경기도</li>
-            <li data-index="7">강원도</li>
-            <li data-index="8">충청남도</li>
-            <li data-index="9">충청북도</li>
-            <li data-index="10">경상북도</li>
-            <li data-index="11">경상남도</li>
-            <li data-index="12">전라북도</li>
-            <li data-index="13">전라남도</li>
-            <li data-index="14">제주도</li>
-          </ul>
+          <ul class="writing-list city-list"></ul>
         </div>
 
         <div class="choose-container sports">
           <h3>스포츠 :</h3>
           <div class="writing-container sports-container">
-            <div class="writing-items sports-items"></div>
+            <ul class="writing-items sports-items"></ul>
             <div>
-              <i class="bx bx-x all-delete sports-all-delete"></i>
-              <i class="bx bx-chevron-down show sports-show"></i>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="30"
+                height="30"
+                viewBox="0 0 24 24"
+                class="sports-all-delete"
+              >
+                <path
+                  d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"
+                ></path>
+              </svg>
+              <svg xmlns="http://www.w3.org/2000/svg" class="sports-show" width="30" height="30" viewBox="0 0 24 24">
+                <path d="M16.293 9.293 12 13.586 7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z"></path>
+              </svg>
             </div>
           </div>
-          <ul class="writing-list sports-list">
-            <li data-index="0">배드민턴</li>
-            <li data-index="1">야구</li>
-            <li data-index="2">농구</li>
-            <li data-index="3">당구</li>
-            <li data-index="4">볼링</li>
-            <li data-index="5">축구</li>
-            <li data-index="6">런닝</li>
-          </ul>
+          <ul class="writing-list sports-list"></ul>
         </div>
       </section>
       <textarea
@@ -70,7 +69,7 @@
         placeholder="지역/종목 진행 방식 및 신청 방법(오픈카톡, 댓글 등)에 대해 구체적으로 작성 부탁드려요!"
       ></textarea>
       <section class="writing-btn-wrap">
-        <a href="javascript:void(0)"><button class="btn writing-cancel">취소</button></a>
+        <a href="../../index.html"><button class="btn writing-cancel">취소</button></a>
         <button class="btn writing-submit">글 등록</button>
       </section>
     </main>
