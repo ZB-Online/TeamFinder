@@ -41,6 +41,16 @@
   margin-bottom: 1.5rem;
 }
 
+.city.active > .writing-container,
+.sports.active > .writing-container {
+  border: 2px solid rgb(38, 132, 255);
+}
+
+.city.active > .writing-list,
+.sports.active > .writing-list {
+  display: block;
+}
+
 .writing-container {
   padding: 5px 0 5px 20px;
   align-items: center;
@@ -134,7 +144,7 @@
 }
 
 .city-list {
-  bottom: -189px;
+  bottom: -306px;
 }
 
 .sports-list {
