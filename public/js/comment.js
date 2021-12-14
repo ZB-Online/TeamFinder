@@ -108,7 +108,7 @@ $btnCommentUpload.onclick = ({ target }) => {
 // Modify and Delete Comment
 let originContent = '';
 
-$listComment.onclick = async ({ target }) => {
+$listComment.onclick = ({ target }) => {
   if (!target.matches('button')) return;
 
   // Modify
