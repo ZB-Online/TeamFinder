@@ -5,7 +5,83 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TeamFinder</title>
+    <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/style.css" />
+    <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
+    <script defer type="module" src="app.js"></script>
   </head>
-  <body></body>
+  <body>
+    <header>
+      <nav class="navbar">
+        <a href="index.html"><p class="navbar-logo">TEAM_FINDER</p></a>
+        <ul class="navbar-menus">
+          <li><button class="navbar-menus-item">새 글 쓰기</button></li>
+          <li><button class="navbar-menus-item hidden">로그인</button></li>
+          <li class="navbar-user-wrapper ">
+            <span class="navbar-user-name">우리집강아지</span>
+            <img class="navbar-user-image" src="./assets/img/user.png" alt="유저 이미지" />
+            <svg
+              stroke="currentColor"
+              fill="currentColor"
+              stroke-width="0"
+              viewBox="0 0 24 24"
+              height="1.5em"
+              width="1.5em"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path d="M7 10l5 5 5-5z"></path>
+            </svg>
+            <ul class="user-menu-list hidden">
+              <li class="user-menu-item">내 작성글</li>
+              <li class="user-menu-item">설정</li>
+              <li class="user-menu-item">로그아웃</li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <article class="banner">
+        <div class="banner-text">
+          <h1 class="banner-title">
+            <p>
+              원하는 지역과 스포츠를 <br />
+              함께할 팀원을 찾는 방법
+            </p>
+          </h1>
+          <h2 class="banner-subtitle"><strong>TEAM_FINDER</strong>에서 함께 할 팀원을 찾아보세요</h2>
+        </div>
+        <img class="banner-image" src="https://holaworld.io/images/logo/main.png" alt="people" />
+      </article>
+      <article class="recruit">
+        <div class="filter-wrapper-city">
+          <ul class="filter-list-city"></ul>
+        </div>
+        <div class="filter-wrapper-sports">
+          <ul class="filter-list-sports"></ul>
+        </div>
+        <section class="contents-container">
+          <div class="contents-wrapper">
+            <header class="contents-header">
+              <ul class="contents-filter">
+                <li class="contents-filter-recent">
+                  <box-icon class="contents-filter-icon" name="calendar-check" type="solid"></box-icon>
+                  <p>최신</p>
+                </li>
+                <li class="contents-filter-popular opacity">
+                  <box-icon class="contents-filter-icon" type="solid" name="star"></box-icon>
+                  <p>인기</p>
+                </li>
+              </ul>
+              <div class="contents-checkbox">
+                <input type="checkbox" id="filterRecruitInput" checked />
+                <label for="filterRecruitInput">모집 중인 글만 보기</label>
+              </div>
+            </header>
+            <ul class="content-list"></ul>
+          </div>
+        </section>
+      </article>
+    </main>
+  </body>
 </html>
