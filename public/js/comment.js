@@ -2,7 +2,7 @@
 const loggedIn = true;
 
 // User Auth
-const userAuth = 2;
+const userAuth = 1;
 
 // Fake Data
 const users = [
@@ -29,8 +29,9 @@ const $countComment = document.querySelector('.count-comment');
 const $btnCommentUpload = document.querySelector('.btn-comment-upload');
 const $listComment = document.querySelector('.list-comment');
 
-const getElementComment = ({ owner, date, content }) => `
-    <li class="comment">
+// Functions
+const getElementComment = ({ owner, date, content }, idx) => `
+    <li class="comment" data-index=${idx}>
       <section class="header-comment">
         <div class="user-info">
           <img
@@ -44,8 +45,8 @@ const getElementComment = ({ owner, date, content }) => `
         ${
           userAuth === owner.id
             ? `<div class="box-btns">
-              <button class="btn-modify">수정</button>
-              <button class="btn-delete">삭제</button>
+              <button class="modify">수정</button>
+              <button class="delete">삭제</button>
             </div>`
             : ''
         }        
@@ -58,8 +59,10 @@ const getElementComment = ({ owner, date, content }) => `
 
 const renderComments = () => {
   $countComment.textContent = `${comments.length}개의 댓글`;
-  $listComment.innerHTML = comments.map(comment => getElementComment(comment)).join('');
+  $listComment.innerHTML = comments.map((comment, idx) => getElementComment(comment, idx)).join('');
 };
+
+const formatContent = content => content.replace(/\n/g, '<br />');
 
 // Init
 renderComments();
@@ -78,13 +81,14 @@ $btnCommentUpload.onclick = ({ target }) => {
   }
 
   // Format Content
-  const contentComment = $contentComment.value.replace(/\n/g, '<br />');
+  const contentComment = formatContent($contentComment.value);
 
   // Format Date
   const date = (() => {
     const format = num => (num < 10 ? `0${num}` : `${num}`);
 
     const today = new Date();
+    // Todo: Time
     return `${today.getFullYear()}-${format(today.getMonth() + 1)}-${format(today.getDate())}`;
   })();
 
@@ -99,4 +103,47 @@ $btnCommentUpload.onclick = ({ target }) => {
   renderComments();
 
   $contentComment.value = '';
+};
+
+// Modify and Delete Comment
+let originContent = '';
+
+$listComment.onclick = async ({ target }) => {
+  if (!target.matches('button')) return;
+
+  // Modify
+  if (target.classList.contains('modify')) {
+    const $contentComment = target.parentNode.parentNode.nextElementSibling;
+    originContent = $contentComment.innerText;
+    $contentComment.innerHTML = `
+      <textarea class="area-comment-input" placeholder="댓글을 입력하세요.">${$contentComment.innerText}</textarea>
+      <button class="cancel">취소</button>
+      <button class="apply">적용</button>
+    `;
+  }
+
+  // Modify Cancel
+  if (target.classList.contains('cancel')) {
+    const $contentComment = target.parentNode;
+    $contentComment.innerHTML = `${originContent}`;
+  }
+
+  // Modify Apply
+  if (target.classList.contains('apply')) {
+    const contentComment = formatContent(target.parentNode.firstElementChild.value);
+    const commentNum = target.parentNode.parentNode.dataset.index;
+
+    comments = comments.map((comment, idx) =>
+      idx === +commentNum ? { ...comment, content: contentComment } : comment
+    );
+
+    renderComments();
+  }
+
+  // Delete
+  if (target.classList.contains('delete')) {
+    // Check Delete(Modal)
+    comments = comments.filter((_, idx) => userAuth !== idx);
+    renderComments();
+  }
 };
