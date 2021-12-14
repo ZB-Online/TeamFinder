@@ -13,8 +13,10 @@
 </head>
 
 <body>
-
+  <!-- 회원 확인용 btn -->
+  <button id="check">회원확인</button>
   <button class="login">로그인</button>
+  <p id="login-state"></p>
 
   <section class="login-wrap">
     <div class="login-box">
@@ -24,19 +26,24 @@
         <span class="material-icons close-icon">close</span>
       </div>
       <div class="login-body">
+        <p class="sign-state">Sign In</p>
         <form id="form">
-          <label for="" class="input-label">
+          <label class="input-label">
             <span>ID</span>
             <input type="text" class="input" placeholder="아이디를 입력하세요">
+            <!-- <p id="id-error">아이디가 올바르지 않습니다.</p> -->
           </label>
-          <label for="" class="input-label">
+          <label class="input-label">
             <span>PW</span>
              <input type="password" class="input" placeholder="비밀번호를 입력하세요">
-          </label>
-          <button type="submit" id="signin-btn">sign in</button>
-        </form>
+            </label>
+          </form>
+        <p id="error-msg">로그인 정보가 올바르지 않습니다.</p>
+        <button type="submit" id="signin-btn" form="form">sign in</button>
+        <button type="submit" id="signup-btn" form="form">sign up</button>
         <a href="javascript:void(0)" id="signup">회원가입</a>
-      </div>
+        <a href="javascript:void(0)" id="signin">로그인</a>
+      </div> 
     </div>
   </section>
 

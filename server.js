@@ -1,11 +1,11 @@
 const express = require('express');
 
 // MOCK
-const todos = [
-  {id: 1, name: "kim", pw:123},
-  {id: 2, name: "dim", pw:345},
-  {id: 3, name: "mim", pw:456},
-  {id: 4, name: "oim", pw:676},
+const users = [
+  {name: "kim", pw: "k123"},
+  {name: "lee", pw: "l123"},
+  {name: "park", pw: "p123"},
+  {name: "yoon", pw: "y123"},
 ]
 
 
@@ -19,10 +19,43 @@ app.listen(PORT, () => {
 
 app.use(express.static('./public'));
 app.get('/todos', (req, res) => {
-  res.send(todos);
+  res.send(users);
 })
-app.post('/todos', (req, res) => {
-  // const user = req.body;
-  console.log(req);
-  res.send(todos);
+app.use(express.json());
+// 로그인
+app.post('/signin', (req, res) => {
+  let state = false;
+  users.forEach(user => {
+    if(user.name === req.body.name && user.pw ===req.body.pw) {
+      state = true;
+    }
+  });
+  if(state) {
+    // 로그인 성공
+    console.log('signIn success')
+    res.send(true);
+  }else{
+    // 로그인 실패
+    // res.send('msg send')
+    console.log('signIn fail')
+    res.send(false);
+  }
 });
+
+// 회원가입
+// 아이디 중복을 검사하여 제대로 생성되었는지 확인
+app.post('/signup', (req, res) => {
+  // 중복이 있으면 false를 반환함
+  if(users.every(user => user.name !== req.body.name)) {
+    // true
+    users.push(req.body);
+    res.send(true);
+  }else{
+    // false
+    res.send(false)
+  }
+  // res.send(users);
+});
+
+// 회원 확인용 코드
+app.post('/check', (req,res) => res.send(users));
