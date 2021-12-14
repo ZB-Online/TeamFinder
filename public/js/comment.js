@@ -2,27 +2,10 @@
 const loggedIn = true;
 
 // User Auth
-const userAuth = 1;
+const authUser = { id: 1, nickname: '호랑이' };
 
 // Fake Data
-const users = [
-  { id: 0, name: '으르렁' },
-  { id: 1, name: '호랑이' },
-  { id: 2, name: '원숭이' },
-];
-
-let comments = [
-  {
-    content: '첫 번째 댓글',
-    date: '2021-12-13',
-    owner: users[0], // user id
-  },
-  {
-    content: '두 번째 댓글',
-    date: '2021-12-13',
-    owner: users[1], // user id
-  },
-];
+let comments = [];
 
 // DOM Element
 const $countComment = document.querySelector('.count-comment');
@@ -39,11 +22,11 @@ const getElementComment = ({ owner, date, content }, idx) => `
             src="https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG"
             alt="default"
           />
-          <div class="info-name">${owner.name}</div>
+          <div class="info-name">${owner.nickname}</div>
           <div class="info-date">${date}</div>
         </div>
         ${
-          userAuth === owner.id
+          authUser.id === owner.id
             ? `<div class="box-btns">
               <button class="modify">수정</button>
               <button class="delete">삭제</button>
@@ -62,10 +45,23 @@ const renderComments = () => {
   $listComment.innerHTML = comments.map((comment, idx) => getElementComment(comment, idx)).join('');
 };
 
+// Fetch Data
+const fetchPosting = async postingId => {
+  await fetch(`/api/postings/${postingId}`)
+    .then(res => res.json())
+    .then(([posting]) => {
+      comments = posting.comments;
+    });
+
+  renderComments();
+};
+
 const formatContent = content => content.replace(/\n/g, '<br />');
 
 // Init
-renderComments();
+window.addEventListener('DOMContentLoaded', () => {
+  fetchPosting(1); // posting id
+});
 
 // Event Button(Upload) Click
 $btnCommentUpload.onclick = ({ target }) => {
@@ -95,7 +91,7 @@ $btnCommentUpload.onclick = ({ target }) => {
   const newComment = {
     content: contentComment,
     date,
-    owner: users[userAuth],
+    owner: authUser,
   };
 
   comments = [...comments, newComment];
@@ -115,6 +111,7 @@ $listComment.onclick = ({ target }) => {
   if (target.classList.contains('modify')) {
     const $contentComment = target.parentNode.parentNode.nextElementSibling;
     originContent = $contentComment.innerText;
+
     $contentComment.innerHTML = `
       <textarea class="area-comment-input" placeholder="댓글을 입력하세요.">${$contentComment.innerText}</textarea>
       <button class="cancel">취소</button>
@@ -125,7 +122,7 @@ $listComment.onclick = ({ target }) => {
   // Modify Cancel
   if (target.classList.contains('cancel')) {
     const $contentComment = target.parentNode;
-    $contentComment.innerHTML = `${originContent}`;
+    $contentComment.innerHTML = formatContent(originContent);
   }
 
   // Modify Apply
@@ -142,8 +139,10 @@ $listComment.onclick = ({ target }) => {
 
   // Delete
   if (target.classList.contains('delete')) {
-    // Check Delete(Modal)
-    comments = comments.filter((_, idx) => userAuth !== idx);
+    const commentIdx = target.parentNode.parentNode.parentNode.dataset.index;
+
+    comments = comments.filter((_, idx) => +commentIdx !== idx);
+
     renderComments();
   }
 };
