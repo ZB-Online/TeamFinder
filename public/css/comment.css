@@ -1,16 +1,16 @@
 @import url('./temp.css');
 
-.comment {
+.box-comment {
   max-width: 40rem;
   padding: 0 1.5rem;
   width: 100%;
 }
 
-.comment-input {
+.box-comment-input {
   margin-bottom: 30px;
 }
 
-.comment-input__area {
+.area-comment-input {
   width: 100%;
   height: 100px;
   padding: 15px;
@@ -19,7 +19,7 @@
   outline: none;
 }
 
-.comment-input-button {
+.btn-comment-upload {
   padding: 6px 15px;
   background-color: #000;
   color: #fff;
@@ -28,17 +28,17 @@
   border-radius: 5px;
 }
 
-.comment-item {
+.comment {
   padding: 1.5rem 0;
   border-bottom: 1px solid #e9ecef;
 }
 
-.comment-item__header {
+.header-comment {
   display: flex;
   justify-content: space-between;
 }
 
-.comment-item__info {
+.user-info {
   display: grid;
   grid-template-columns: 3rem max-content;
   grid-template-rows: repeat(2, 1.5rem);
@@ -46,25 +46,22 @@
   align-items: center;
 }
 
-.info-item:first-child {
-  grid-row: 1 / -1;
-}
-
-.info__image {
+.info-image {
   width: 100%;
+  grid-row: 1 / -1;
   box-shadow: 0 0 8px rgb(0 0 0 / 9%);
   border-radius: 50%;
 }
 
-.comment-item__button {
+.box-btns {
   display: flex;
 }
 
-.comment-item__button button {
+.box-btns button {
   padding: 0 0.5rem;
 }
 
-.comment-item__content {
+.content-comment {
   font-size: 1.05rem;
   margin: 1em 0;
   font-weight: 400;

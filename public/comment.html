@@ -9,32 +9,30 @@
     <script defer src="./js/comment.js"></script>
   </head>
   <body>
-    <article class="comment">
-      <section class="comment-input">
-        <h2 class="comment-list__count">0개의 댓글</h2>
-        <textarea class="comment-input__area" placeholder="댓글을 입력하세요."></textarea>
-        <button class="comment-input-button">댓글 등록</button>
+    <article class="box-comment">
+      <section class="box-comment-input">
+        <h2 class="count-comment">0개의 댓글</h2>
+        <textarea class="area-comment-input" placeholder="댓글을 입력하세요."></textarea>
+        <button class="btn-comment-upload">댓글 등록</button>
       </section>
-      <ul class="comment-list">
-        <li class="comment-item">
-          <section class="comment-item__header">
-            <div class="comment-item__info">
-              <div class="info-item">
-                <img
-                  class="info__image"
-                  src="https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG"
-                  alt="default"
-                />
-              </div>
-              <div class="info-item">으르렁</div>
-              <div class="info-item">2021-12-13</div>
+      <ul class="list-comment">
+        <li class="comment">
+          <section class="header-comment">
+            <div class="user-info">
+              <img
+                class="info-image"
+                src="https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG"
+                alt="default"
+              />
+              <div class="info-name">으르렁</div>
+              <div class="info-date">2021-12-13</div>
             </div>
-            <div class="comment-item__button">
-              <button class="modify">수정</button>
-              <button class="delete">삭제</button>
+            <div class="box-btns">
+              <button class="btn-modify">수정</button>
+              <button class="btn-delete">삭제</button>
             </div>
           </section>
-          <section class="comment-item__content">
+          <section class="content-comment">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste illo suscipit, exercitationem dolorum facilis
             deserunt quia doloribus sed ad maiores inventore voluptate praesentium perspiciatis. Tempore aperiam
             repellat assumenda? Nobis, vero.
