@@ -47,7 +47,7 @@ const renderComments = () => {
 };
 
 // fetch
-// maybe confilct
+// GET - maybe confilct
 const getPosting = async () => {
   await fetch(`/api/postings/${POSTING_ID}`)
     .then(res => res.json())
@@ -58,6 +58,22 @@ const getPosting = async () => {
   renderComments();
 };
 
+// POST
+const uploadComment = async comment => {
+  await fetch(`/api/postings/${POSTING_ID}/comments`, {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(comment),
+  })
+    .then(res => res.json())
+    .then(([posting]) => {
+      comments = posting.comments;
+    });
+
+  renderComments();
+};
+
+// DELETE
 const deleteComment = async commentId => {
   await fetch(`/api/postings/${POSTING_ID}/comments/${commentId}`, { method: 'DELETE' })
     .then(res => res.json())
@@ -100,15 +116,11 @@ $btnCommentUpload.onclick = ({ target }) => {
     return `${today.getFullYear()}-${format(today.getMonth() + 1)}-${format(today.getDate())}`;
   })();
 
-  const newComment = {
+  uploadComment({
     content: contentComment,
     date,
     owner: authUser,
-  };
-
-  comments = [...comments, newComment];
-
-  renderComments();
+  });
 
   $contentComment.value = '';
 };

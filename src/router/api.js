@@ -126,6 +126,19 @@ apiRouter.post('/postings', (req, res) => {
   }
 });
 
+apiRouter.post('/postings/:id/comments', (req, res) => {
+  const { id } = req.params;
+  const newComment = req.body;
+
+  postings = postings.map(posting =>
+    posting.id === +id ? { ...posting, comments: [...posting.comments, newComment] } : posting
+  );
+
+  const posting = postings.filter(posting => posting.id === +id);
+
+  res.send(posting);
+});
+
 // PATCH
 apiRouter.patch('/postings/:id', (req, res) => {
   const {
