@@ -1,6 +1,3 @@
-// Posting Id
-const POSTING_ID = 1;
-
 // Login State
 const loggedIn = true;
 
@@ -8,6 +5,7 @@ const loggedIn = true;
 const authUser = { id: 1, nickname: '호랑이' };
 
 // Fake Data
+const POSTING_ID = 1;
 let comments = [];
 
 // DOM Element
@@ -48,9 +46,20 @@ const renderComments = () => {
   $listComment.innerHTML = comments.map((comment, idx) => getElementComment(comment, idx)).join('');
 };
 
-// Fetch Data
-const fetchPosting = async postingId => {
-  await fetch(`/api/postings/${postingId}`)
+// fetch
+// maybe confilct
+const getPosting = async () => {
+  await fetch(`/api/postings/${POSTING_ID}`)
+    .then(res => res.json())
+    .then(([posting]) => {
+      comments = posting.comments;
+    });
+
+  renderComments();
+};
+
+const deleteComment = async commentId => {
+  await fetch(`/api/postings/${POSTING_ID}/comments/${commentId}`, { method: 'DELETE' })
     .then(res => res.json())
     .then(([posting]) => {
       comments = posting.comments;
@@ -63,7 +72,7 @@ const formatContent = content => content.replace(/\n/g, '<br />');
 
 // Init
 window.addEventListener('DOMContentLoaded', () => {
-  fetchPosting(POSTING_ID);
+  getPosting();
 });
 
 // Event Button(Upload) Click
@@ -105,47 +114,49 @@ $btnCommentUpload.onclick = ({ target }) => {
 };
 
 // Modify and Delete Comment
-let originContent = '';
+$listComment.onclick = (() => {
+  let originContent = '';
 
-$listComment.onclick = ({ target }) => {
-  if (!target.matches('button')) return;
+  return ({ target }) => {
+    if (!target.matches('button')) return;
 
-  // Modify
-  if (target.classList.contains('modify')) {
-    const $contentComment = target.parentNode.parentNode.nextElementSibling;
-    originContent = $contentComment.innerText;
+    // Modify
+    if (target.classList.contains('modify')) {
+      const $contentComment = target.parentNode.parentNode.nextElementSibling;
+      originContent = $contentComment.innerText;
 
-    $contentComment.innerHTML = `
+      $contentComment.innerHTML = `
       <textarea class="area-comment-input" placeholder="댓글을 입력하세요.">${$contentComment.innerText}</textarea>
       <button class="cancel">취소</button>
       <button class="apply">적용</button>
     `;
-  }
+    }
 
-  // Modify Cancel
-  if (target.classList.contains('cancel')) {
-    const $contentComment = target.parentNode;
-    $contentComment.innerHTML = formatContent(originContent);
-  }
+    // Modify Cancel
+    if (target.classList.contains('cancel')) {
+      const $contentComment = target.parentNode;
+      $contentComment.innerHTML = formatContent(originContent);
+    }
 
-  // Modify Apply
-  if (target.classList.contains('apply')) {
-    const contentComment = formatContent(target.parentNode.firstElementChild.value);
-    const commentNum = target.parentNode.parentNode.dataset.index;
+    // Modify Apply
+    if (target.classList.contains('apply')) {
+      const contentComment = formatContent(target.parentNode.firstElementChild.value);
+      const commentNum = target.parentNode.parentNode.dataset.index;
 
-    comments = comments.map((comment, idx) =>
-      idx === +commentNum ? { ...comment, content: contentComment } : comment
-    );
+      comments = comments.map((comment, idx) =>
+        idx === +commentNum ? { ...comment, content: contentComment } : comment
+      );
 
-    renderComments();
-  }
+      renderComments();
+    }
 
-  // Delete
-  if (target.classList.contains('delete')) {
-    const commentIdx = target.parentNode.parentNode.parentNode.dataset.index;
+    // Delete
+    if (target.classList.contains('delete')) {
+      const commentIdx = target.parentNode.parentNode.parentNode.dataset.index;
 
-    comments = comments.filter((_, idx) => +commentIdx !== idx);
+      comments = comments.filter((_, idx) => +commentIdx !== idx);
 
-    renderComments();
-  }
-};
+      deleteComment(commentIdx);
+    }
+  };
+})();

@@ -154,4 +154,18 @@ apiRouter.delete('/postings/:id', (req, res) => {
   res.send(postings);
 });
 
+apiRouter.delete('/postings/:postingId/comments/:commentId', (req, res) => {
+  const { postingId, commentId } = req.params;
+
+  postings = postings.map(posting =>
+    posting.id === +postingId
+      ? { ...posting, comments: posting.comments.filter((_, idx) => idx !== +commentId) }
+      : posting
+  );
+
+  const posting = postings.filter(posting => posting.id === +postingId);
+
+  res.send(posting);
+});
+
 export default apiRouter;
