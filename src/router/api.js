@@ -158,6 +158,26 @@ apiRouter.patch('/postings/:id', (req, res) => {
   }
 });
 
+apiRouter.patch('/postings/:postingId/comments/:commentId', (req, res) => {
+  const {
+    params: { postingId, commentId },
+    body: { content },
+  } = req;
+
+  postings = postings.map(posting =>
+    posting.id === +postingId
+      ? {
+          ...posting,
+          comments: posting.comments.map((comment, idx) => (idx === +commentId ? { ...comment, content } : comment)),
+        }
+      : posting
+  );
+
+  const posting = postings.filter(posting => posting.id === +postingId);
+
+  res.send(posting);
+});
+
 // DELETE
 apiRouter.delete('/postings/:id', (req, res) => {
   const { id } = req.params;

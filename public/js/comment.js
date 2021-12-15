@@ -73,6 +73,21 @@ const uploadComment = async comment => {
   renderComments();
 };
 
+// PATCH
+const patchComment = async (commentId, content) => {
+  await fetch(`/api/postings/${POSTING_ID}/comments/${commentId}`, {
+    method: 'PATCH',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify({ content }),
+  })
+    .then(res => res.json())
+    .then(([posting]) => {
+      comments = posting.comments;
+    });
+
+  renderComments();
+};
+
 // DELETE
 const deleteComment = async commentId => {
   await fetch(`/api/postings/${POSTING_ID}/comments/${commentId}`, { method: 'DELETE' })
@@ -153,20 +168,14 @@ $listComment.onclick = (() => {
     // Modify Apply
     if (target.classList.contains('apply')) {
       const contentComment = formatContent(target.parentNode.firstElementChild.value);
-      const commentNum = target.parentNode.parentNode.dataset.index;
+      const commentIdx = target.parentNode.parentNode.dataset.index;
 
-      comments = comments.map((comment, idx) =>
-        idx === +commentNum ? { ...comment, content: contentComment } : comment
-      );
-
-      renderComments();
+      patchComment(commentIdx, contentComment);
     }
 
     // Delete
     if (target.classList.contains('delete')) {
       const commentIdx = target.parentNode.parentNode.parentNode.dataset.index;
-
-      comments = comments.filter((_, idx) => +commentIdx !== idx);
 
       deleteComment(commentIdx);
     }
