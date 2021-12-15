@@ -1,5 +1,5 @@
-import { todayFormat } from '../utils/date.js';
-import { FILTER_KEYWORDS } from '../Home/filter.js';
+import { initialFilter } from '../../store/filter.js';
+import { todayFormat } from '../../utils/date.js';
 
 const $title = document.querySelector('.title');
 const $city = document.querySelector('.city');
@@ -13,7 +13,7 @@ const $writeArea = document.querySelector('.writing-area');
 // post
 const postingSend = async payload => {
   try {
-    const res = await fetch('/api/postings', {
+    const res = await fetch('/api/posts', {
       method: 'POST',
       headers: { 'content-Type': 'application/json' },
       body: JSON.stringify(payload),
@@ -37,8 +37,8 @@ const listCreate = (categoriesArr, categories) => {
   categories.append($fragment);
 };
 
-listCreate(FILTER_KEYWORDS.CITY, $cityList);
-listCreate(FILTER_KEYWORDS.SPORTS, $sportsList);
+listCreate(initialFilter.cities, $cityList);
+listCreate(initialFilter.sports, $sportsList);
 
 document.querySelector('.writing-submit').addEventListener('click', () => {
   const $cityItem = document.querySelector('.city-item > span');
