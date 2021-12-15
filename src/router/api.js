@@ -1,7 +1,28 @@
 import express from 'express';
 
+const FILTER = {
+  SPORTS: ['배드민턴', '야구', '농구', '당구', '볼링', '축구', '런닝'],
+  CITIES: [
+    '서울시',
+    '부산시',
+    '대구시',
+    '광주시',
+    '울산시',
+    '대전시',
+    '경기도',
+    '강원도',
+    '충청남도',
+    '충청북도',
+    '경상북도',
+    '경상남도',
+    '전라북도',
+    '전라남도',
+    '제주도',
+  ],
+};
+
 // Mock Data
-let postings = [
+let posts = [
   {
     id: 0,
     title: `title ${0}`,
@@ -86,29 +107,41 @@ let postings = [
 ];
 
 // Functions
-const getPosting = id => postings.filter(posting => posting.id === +id);
+const getPosting = id => posts.filter(posting => posting.id === +id);
 
 // Route
 const apiRouter = express.Router();
 
 // GET
-apiRouter.get('/postings', (req, res) => res.send(postings));
+apiRouter.get('/posts', (req, res) => {
+  let sendingData = [...posts];
+  if (req.query.cities && req.query.sports) {
+    const currentCities = req.query.cities.split(',');
+    const currentSports = req.query.sports.split(',');
+    sendingData = sendingData.filter(
+      post =>
+        currentCities.includes(FILTER.CITIES[post.city]) &&
+        post.sportsType.some(sports => currentSports.includes(FILTER.SPORTS[sports]))
+    );
+  }
+  res.status(200).json(sendingData);
+});
 
-apiRouter.get('/postings/:id', (req, res) => {
+apiRouter.get('/posts/:id', (req, res) => {
   const { id } = req.params;
 
   res.send(getPosting(id));
 });
 
 // POST
-apiRouter.post('/postings', (req, res) => {
+apiRouter.post('/posts', (req, res) => {
   // body is not null
   const { title, city, sportsType, content, date } = req.body;
 
-  const maxId = (() => Math.max(...postings.map(({ id }) => id)))();
+  const maxId = (() => Math.max(...posts.map(({ id }) => id)))();
 
   try {
-    const newPosting = {
+    const newPost = {
       id: maxId + 1,
       title,
       writer: 'writer 1',
@@ -119,19 +152,19 @@ apiRouter.post('/postings', (req, res) => {
       recruit: true,
     };
 
-    postings = [...postings, newPosting];
+    posts = [...posts, newPost];
 
-    res.send(postings);
+    res.status(200).send(posts);
   } catch (error) {
     res.status(400).send(error);
   }
 });
 
-apiRouter.post('/postings/:id/comments', (req, res) => {
+apiRouter.post('/posts/:id/comments', (req, res) => {
   const { id } = req.params;
   const newComment = req.body;
 
-  postings = postings.map(posting =>
+  posts = posts.map(posting =>
     posting.id === +id ? { ...posting, comments: [...posting.comments, newComment] } : posting
   );
 
@@ -139,7 +172,7 @@ apiRouter.post('/postings/:id/comments', (req, res) => {
 });
 
 // PATCH
-apiRouter.patch('/postings/:id', (req, res) => {
+apiRouter.patch('/posts/:id', (req, res) => {
   const {
     params: { id },
     // body is not null
@@ -147,23 +180,23 @@ apiRouter.patch('/postings/:id', (req, res) => {
   } = req;
 
   try {
-    postings = postings.map(post =>
+    posts = posts.map(post =>
       post.id === +id ? Object.assign(post, { title, city, sportsType, content, recruit }) : post
     );
 
-    res.send(postings);
+    res.send(posts);
   } catch (error) {
     res.status(400).send(error);
   }
 });
 
-apiRouter.patch('/postings/:postingId/comments/:commentId', (req, res) => {
+apiRouter.patch('/posts/:postingId/comments/:commentId', (req, res) => {
   const {
     params: { postingId, commentId },
     body: { content },
   } = req;
 
-  postings = postings.map(posting =>
+  posts = posts.map(posting =>
     posting.id === +postingId
       ? {
           ...posting,
@@ -176,18 +209,18 @@ apiRouter.patch('/postings/:postingId/comments/:commentId', (req, res) => {
 });
 
 // DELETE
-apiRouter.delete('/postings/:id', (req, res) => {
+apiRouter.delete('/posts/:id', (req, res) => {
   const { id } = req.params;
 
-  postings = postings.filter(post => post.id !== +id);
+  posts = posts.filter(post => post.id !== +id);
 
-  res.send(postings);
+  res.send(posts);
 });
 
-apiRouter.delete('/postings/:postingId/comments/:commentId', (req, res) => {
+apiRouter.delete('/posts/:postingId/comments/:commentId', (req, res) => {
   const { postingId, commentId } = req.params;
 
-  postings = postings.map(posting =>
+  posts = posts.map(posting =>
     posting.id === +postingId
       ? { ...posting, comments: posting.comments.filter((_, idx) => idx !== +commentId) }
       : posting
