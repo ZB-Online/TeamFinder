@@ -1,5 +1,5 @@
 import { todayFormat } from '../utils/date.js';
-import store from './comment.mjs';
+import store from './comment.js';
 
 // Login State
 const loggedIn = true;
