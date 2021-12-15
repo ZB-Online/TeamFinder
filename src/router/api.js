@@ -85,6 +85,9 @@ let postings = [
   },
 ];
 
+// Functions
+const getPosting = id => postings.filter(posting => posting.id === +id);
+
 // Route
 const apiRouter = express.Router();
 
@@ -94,9 +97,7 @@ apiRouter.get('/postings', (req, res) => res.send(postings));
 apiRouter.get('/postings/:id', (req, res) => {
   const { id } = req.params;
 
-  const posting = postings.filter(posting => posting.id === +id);
-
-  res.send(posting);
+  res.send(getPosting(id));
 });
 
 // POST
@@ -134,9 +135,7 @@ apiRouter.post('/postings/:id/comments', (req, res) => {
     posting.id === +id ? { ...posting, comments: [...posting.comments, newComment] } : posting
   );
 
-  const posting = postings.filter(posting => posting.id === +id);
-
-  res.send(posting);
+  res.send(getPosting(id));
 });
 
 // PATCH
@@ -173,9 +172,7 @@ apiRouter.patch('/postings/:postingId/comments/:commentId', (req, res) => {
       : posting
   );
 
-  const posting = postings.filter(posting => posting.id === +postingId);
-
-  res.send(posting);
+  res.send(getPosting(postingId));
 });
 
 // DELETE
@@ -196,9 +193,7 @@ apiRouter.delete('/postings/:postingId/comments/:commentId', (req, res) => {
       : posting
   );
 
-  const posting = postings.filter(posting => posting.id === +postingId);
-
-  res.send(posting);
+  res.send(getPosting(postingId));
 });
 
 export default apiRouter;
