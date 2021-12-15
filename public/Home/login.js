@@ -139,10 +139,3 @@ $signupBtn.addEventListener('click', e => {
     .catch(err => console.log(err));
   }
 });
-
-// 회원 확인용 코드
-document.querySelector('#check').addEventListener('click', () => {
-  request.post('/check', {}).then(res => res.json()).then(list => console.log(list));
-})
-
-
