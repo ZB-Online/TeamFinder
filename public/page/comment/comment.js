@@ -1,5 +1,5 @@
-// Posting Id
-const POSTING_ID = 1;
+// Post Id
+const POST_ID = 1;
 
 // Login State
 const loggedIn = true;
@@ -49,11 +49,11 @@ const renderComments = () => {
 };
 
 // Fetch Data
-const fetchPosting = async postingId => {
-  await fetch(`/api/postings/${postingId}`)
+const fetchPost = async postId => {
+  await fetch(`/api/posts/${postId}`)
     .then(res => res.json())
-    .then(([posting]) => {
-      comments = posting.comments;
+    .then(([post]) => {
+      comments = post.comments;
     });
 
   renderComments();
@@ -63,7 +63,7 @@ const formatContent = content => content.replace(/\n/g, '<br />');
 
 // Init
 window.addEventListener('DOMContentLoaded', () => {
-  fetchPosting(POSTING_ID);
+  fetchPost(POST_ID);
 });
 
 // Event Button(Upload) Click
