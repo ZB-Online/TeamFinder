@@ -7,7 +7,7 @@ export const ADD_ALL = 'ADD_ALL';
 export const REMOVE_ALL = 'REMOVE_ALL';
 export const EDIT_FILTER = 'EDIT_FILTER';
 
-export const FilterActions = {
+export const FILTER_ACTIONS = {
   ADD_FILTER,
   REMOVE_FILTER,
   COMPLETE_FILTER,

@@ -1,66 +1,55 @@
-import { FILTER_TYPE, initialFilter } from './store/filter.js';
-import { fetchFiltered, selectFilter } from './Home/filter.js';
-import { renderPostingAll, renderPostings } from './Home/posting.js';
+import { FILTER_TYPE, filterStore, initialFilter } from './store/filter.js';
+
+import { renderFilteredPosts } from './page/main/post.js';
+import { selectFilter } from './page/main/filter.js';
 
 const $filterListCity = document.querySelector('.filter-list-city');
 const $filterListSports = document.querySelector('.filter-list-sports');
-const $contentsFilters = document.querySelector('.contents-filter');
+const $postsFilters = document.querySelector('.posts-filter');
 const $navUserWrapper = document.querySelector('.navbar-user-wrapper');
 const $navUserMenu = document.querySelector('.user-menu-list');
-const $filterRecruitInput = document.getElementById('filterRecruitInput');
+const $filterRecruitCheck = document.querySelector('.filter-recruit-input');
 
-function toggleContentsFilter (e) {
-  return $filters => {
-    // e.target.parentNode == <li class="contents-filter-recent(or popular)"></li>
+function togglePostsFilter ($filters) {
+  return e => {
+    // e.target.parentNode == <li class="posts-filter-recent(or popular)"></li>
     e.target.parentNode.classList.remove('opacity');
     [...$filters].forEach($li => {
       if ($li !== e.target.parentNode) $li.classList.add('opacity');
     });
   };
 }
+// 필터 키워드에 따른 초기 필터 아이콘 생성
+initialFilter.cities.forEach(keyword => {
+  $filterListCity.insertAdjacentHTML('beforeend',`
+  <li data-filter="${keyword}" class="filter-item active">
+    <p class="filter-city">${keyword}</p>
+  </li>
+  `);
+});
 
-function createFilterItem (keyword) {
-  const $li = document.createElement('li');
-  $li.classList.add('filter-item', 'active');
-  $li.dataset.filter = keyword;
-  return $li;
-}
+initialFilter.sports.forEach(keyword => {
+  $filterListSports.insertAdjacentHTML('beforeend',`
+  <li data-filter="${keyword}" class="filter-item active">
+    <img class="filter-icon" src="./assets/img/filter/${keyword}.png" alt="${keyword} icon" />
+    <p class="filter-sports-text">${keyword}</p>
+  </li>
+  `);
+});
 
 $navUserWrapper.addEventListener('click', () => {
   $navUserMenu.classList.toggle('hidden');
 });
 
-// 필터 키워드에 따른 초기 필터 아이콘 생성
-initialFilter.cities.forEach(keyword => {
-  const $li = createFilterItem(keyword);
-  $li.innerHTML = `<p class="filter-city">${keyword}</p>`;
-  $filterListCity.appendChild($li);
-});
+$filterListCity.addEventListener('click', selectFilter($filterListCity, FILTER_TYPE.CITIES));
 
-initialFilter.sports.forEach(keyword => {
-  const $li = createFilterItem(keyword);
-  $li.innerHTML = `
-  <img class="filter-icon" src="./assets/img/filter/${keyword}.png" alt="${keyword} icon" />
-  <p class="filter-sports-text">${keyword}</p>`;
-  $filterListSports.appendChild($li);
-});
+$filterListSports.addEventListener('click', selectFilter($filterListSports, FILTER_TYPE.SPORTS));
 
-$filterListCity.addEventListener('click', async e => {
-  selectFilter($filterListCity, FILTER_TYPE.CITIES)(e);
-  renderPostings(await fetchFiltered(), $filterRecruitInput.checked);
-});
+$postsFilters.addEventListener('click', togglePostsFilter($postsFilters.children));
 
-$filterListSports.addEventListener('click', async e => {
-  selectFilter($filterListSports, FILTER_TYPE.SPORTS)(e);
-  renderPostings(await fetchFiltered(), $filterRecruitInput.checked);
-});
+$filterRecruitCheck.addEventListener('click', renderFilteredPosts);
 
-$contentsFilters.addEventListener('click', e => {
-  toggleContentsFilter(e)($contentsFilters.children);
-});
+renderFilteredPosts();
 
-$filterRecruitInput.addEventListener('click', async () => {
-  $filterRecruitInput.checked ? renderPostings(await fetchFiltered(), true) : renderPostingAll(false);
-});
-
-renderPostingAll($filterRecruitInput.checked);
+filterStore.cities.subscribe(renderFilteredPosts);
+filterStore.sports.subscribe(renderFilteredPosts);
