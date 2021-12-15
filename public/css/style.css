@@ -4,7 +4,7 @@ a{
 }
 
 .login-wrap{
-  display: none;
+  /* display: none; */
   position: fixed;
   left: 0;
   top: 0;
@@ -80,12 +80,11 @@ a{
   background-color:rgb(168, 212, 245);
 }
 
-#form{
+#form, .btns{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
-  width: 100%;
 }
 
 .login-body #error-msg{
@@ -94,7 +93,8 @@ a{
   font-size: .8em;
   text-align: center;
 }
-.login-body > button{
+
+.login-body > .btns > button{
   align-content: center;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -109,10 +109,6 @@ a{
   margin:0 0 10px 0;
 }
 
-#signup-btn{
-  display: none;
-}
-
-#signin{
+.display-toggle{
   display: none;
 }
