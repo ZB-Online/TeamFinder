@@ -15,9 +15,7 @@ const $listComment = document.querySelector('.list-comment');
 const formatContent = content => content.replace(/\n/g, '<br />');
 
 // Init
-window.addEventListener('DOMContentLoaded', () => {
-  store.getPosting();
-});
+store.getPost();
 
 // Event Button(Upload) Click
 $btnCommentUpload.onclick = ({ target }) => {
@@ -54,6 +52,7 @@ $listComment.onclick = (() => {
 
     // Modify
     if (target.classList.contains('modify')) {
+      // target.parentNode.parentNode : <section class="header-comment">...</section>
       const $contentComment = target.parentNode.parentNode.nextElementSibling;
       originContent = $contentComment.innerText;
 
@@ -66,23 +65,27 @@ $listComment.onclick = (() => {
 
     // Modify Cancel
     if (target.classList.contains('cancel')) {
+      // target.parentNode : <section class="content-comment">...</section>
       const $contentComment = target.parentNode;
       $contentComment.innerHTML = formatContent(originContent);
     }
 
     // Modify Apply
     if (target.classList.contains('apply')) {
+      // target.parentNode.firstElementChild : <textarea class="area-comment-input">...</textarea>
       const contentComment = formatContent(target.parentNode.firstElementChild.value);
-      const commentIdx = target.parentNode.parentNode.dataset.index;
+      // target.parentNode.parentNode : <li class="comment" data-id="">...</li>
+      const commentId = target.parentNode.parentNode.dataset.id;
 
-      store.patchComment(commentIdx, contentComment);
+      store.patchComment(commentId, contentComment);
     }
 
     // Delete
     if (target.classList.contains('delete')) {
-      const commentIdx = target.parentNode.parentNode.parentNode.dataset.index;
+      // target.parentNode.parentNode.parentNode : <li class="comment" data-id="">...</li>
+      const commentId = target.parentNode.parentNode.parentNode.dataset.id;
 
-      store.deleteComment(commentIdx);
+      store.deleteComment(commentId);
     }
   };
 })();

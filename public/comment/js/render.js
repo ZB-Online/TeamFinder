@@ -2,7 +2,7 @@ const $countComment = document.querySelector('.count-comment');
 const $listComment = document.querySelector('.list-comment');
 
 const getElementComment = ({ owner, date, content }, authUser, idx) => `
-    <li class="comment" data-index=${idx}>
+    <li class="comment" data-id=${idx}>
       <section class="header-comment">
         <div class="user-info">
           <img
@@ -10,8 +10,8 @@ const getElementComment = ({ owner, date, content }, authUser, idx) => `
             src="https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG"
             alt="default"
           />
-          <div class="info-name">${owner.nickname}</div>
-          <div class="info-date">${date}</div>
+          <p class="info-name">${owner.nickname}</p>
+          <p class="info-date">${date}</p>
         </div>
         ${
           authUser.id === owner.id
@@ -23,7 +23,7 @@ const getElementComment = ({ owner, date, content }, authUser, idx) => `
         }
       </section>
       <section class="content-comment">
-        ${content}
+        <p>${content}</p>
       </section>
     </li>
   `;

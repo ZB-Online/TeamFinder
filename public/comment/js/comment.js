@@ -8,7 +8,7 @@ const store = {
 };
 
 // GET - maybe confilct
-const getpost = async () => {
+const getPost = async () => {
   await fetch(`/api/posts/${POST_ID}`)
     .then(res => res.json())
     .then(([post]) => {
@@ -60,7 +60,7 @@ const deleteComment = async commentId => {
 };
 
 export default {
-  getpost,
+  getPost,
   uploadComment,
   patchComment,
   deleteComment,
