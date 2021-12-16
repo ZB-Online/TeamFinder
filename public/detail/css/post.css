@@ -1,4 +1,6 @@
 @import url('../../css/reset.css');
+@import url('./temp.css');
+@import url('./comment.css');
 
 main {
   display: flex;
@@ -49,7 +51,6 @@ main {
   height: 3rem;
   display: flex;
   justify-content: flex-end;
-  /* padding: 1rem 0; */
 }
 
 .box-btns button {
