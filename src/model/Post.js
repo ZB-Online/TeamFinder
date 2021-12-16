@@ -1,10 +1,10 @@
-const posting = {
+const post = {
   id: 1,
   title: '',
   writer: '',
   date: '',
-  city: [],
-  sportsType: [],
+  city: 2,
+  sportsTypes: [],
   content: '',
   recruit: true,
   // cycle
@@ -12,4 +12,4 @@ const posting = {
   comments: [], // some comment
 };
 
-export default posting;
+export default post;
