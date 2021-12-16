@@ -12,7 +12,9 @@ const $btnCommentUpload = document.querySelector('.btn-comment-upload');
 const $listComment = document.querySelector('.list-comment');
 
 // Functions
-const formatContent = content => content.replace(/\n/g, '<br />');
+const textToHtml = text => text.replace(/\n/g, '<br />');
+
+const HtmlToText = html => html.replace(/<br>/g, '\n');
 
 // Init
 store.getPost();
@@ -31,7 +33,7 @@ $btnCommentUpload.onclick = ({ target }) => {
   }
 
   // Format Content
-  const contentComment = formatContent($contentComment.value);
+  const contentComment = textToHtml($contentComment.value);
 
   // Format Date
   store.uploadComment({
@@ -49,31 +51,39 @@ $listComment.onclick = (() => {
 
   return ({ target }) => {
     if (!target.matches('button')) return;
+    const $btnModify = document.querySelector('.modify');
 
     // Modify
     if (target.classList.contains('modify')) {
-      // target.parentNode.parentNode : <section class="header-comment">...</section>
+      if (target.classList.contains('active')) return;
+      target.classList.add('active');
+
+      // target.parentNode.parentNode.nextElementSibling : <section class="content-comment">...</section>
       const $contentComment = target.parentNode.parentNode.nextElementSibling;
-      originContent = $contentComment.innerText;
+      // $contentComment.firstElementChild : <p>...</p>
+      originContent = $contentComment.firstElementChild.innerHTML;
 
       $contentComment.innerHTML = `
-      <textarea class="area-comment-input" placeholder="댓글을 입력하세요.">${$contentComment.innerText}</textarea>
-      <button class="cancel">취소</button>
-      <button class="apply">적용</button>
-    `;
+        <textarea class="area-comment-input" placeholder="댓글을 입력하세요.">${HtmlToText(originContent)}</textarea>
+        <button class="cancel">취소</button>
+        <button class="apply">적용</button>
+      `;
     }
 
     // Modify Cancel
     if (target.classList.contains('cancel')) {
+      $btnModify.classList.remove('active');
       // target.parentNode : <section class="content-comment">...</section>
       const $contentComment = target.parentNode;
-      $contentComment.innerHTML = formatContent(originContent);
+
+      $contentComment.innerHTML = `<p>${textToHtml(originContent)}</p>`;
     }
 
     // Modify Apply
     if (target.classList.contains('apply')) {
+      $btnModify.classList.remove('active');
       // target.parentNode.firstElementChild : <textarea class="area-comment-input">...</textarea>
-      const contentComment = formatContent(target.parentNode.firstElementChild.value);
+      const contentComment = textToHtml(target.parentNode.firstElementChild.value);
       // target.parentNode.parentNode : <li class="comment" data-id="">...</li>
       const commentId = target.parentNode.parentNode.dataset.id;
 
