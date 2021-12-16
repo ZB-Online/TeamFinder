@@ -60,15 +60,14 @@ document.querySelector('.writing-submit').addEventListener('click', () => {
     return;
   }
   // const cityArr = [...$cityItems.querySelectorAll('span')].map(city => city.getAttribute('data-index'));
-  const sportsArr = [...$sportsItems.querySelectorAll('span')].map(sports => sports.getAttribute('data-index'));
+  const sportsArr = [...$sportsItems.querySelectorAll('span')].map(sports => +sports.getAttribute('data-index'));
   const writeVaules = {
     title: $title.value,
-    city: $cityItem.textContent,
+    city: +$cityItem.getAttribute('data-index'),
     sportsType: sportsArr,
     content: $writeArea.value,
     date: todayFormat(),
   };
-  console.log(writeVaules);
   postingSend(writeVaules);
 });
 
