@@ -75,6 +75,7 @@
   margin: 1em 0;
   font-weight: 400;
   line-height: 1.5;
+  word-break: break-word;
 }
 
 .content-comment button {
