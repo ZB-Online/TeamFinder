@@ -106,6 +106,9 @@ let posts = [
   },
 ];
 
+// Functions
+const getPosting = id => posts.filter(posting => posting.id === +id);
+
 // Route
 const apiRouter = express.Router();
 
@@ -118,7 +121,7 @@ apiRouter.get('/posts', (req, res) => {
     sendingData = sendingData.filter(
       post =>
         currentCities.includes(FILTER.CITIES[post.city]) &&
-        post.sportsType.some(sports => currentSports.includes(FILTER.SPORTS[sports])),
+        post.sportsType.some(sports => currentSports.includes(FILTER.SPORTS[sports]))
     );
   }
   res.status(200).json(sendingData);
@@ -127,9 +130,7 @@ apiRouter.get('/posts', (req, res) => {
 apiRouter.get('/posts/:id', (req, res) => {
   const { id } = req.params;
 
-  const post = posts.filter(post => post.id === +id);
-
-  res.send(post);
+  res.send(getPosting(id));
 });
 
 // POST
@@ -159,6 +160,17 @@ apiRouter.post('/posts', (req, res) => {
   }
 });
 
+apiRouter.post('/posts/:id/comments', (req, res) => {
+  const { id } = req.params;
+  const newComment = req.body;
+
+  posts = posts.map(posting =>
+    posting.id === +id ? { ...posting, comments: [...posting.comments, newComment] } : posting
+  );
+
+  res.send(getPosting(id));
+});
+
 // PATCH
 apiRouter.patch('/posts/:id', (req, res) => {
   const {
@@ -169,13 +181,31 @@ apiRouter.patch('/posts/:id', (req, res) => {
 
   try {
     posts = posts.map(post =>
-      post.id === +id ? Object.assign(post, { title, city, sportsType, content, recruit }) : post,
+      post.id === +id ? Object.assign(post, { title, city, sportsType, content, recruit }) : post
     );
 
     res.send(posts);
   } catch (error) {
     res.status(400).send(error);
   }
+});
+
+apiRouter.patch('/posts/:postingId/comments/:commentId', (req, res) => {
+  const {
+    params: { postingId, commentId },
+    body: { content },
+  } = req;
+
+  posts = posts.map(posting =>
+    posting.id === +postingId
+      ? {
+          ...posting,
+          comments: posting.comments.map((comment, idx) => (idx === +commentId ? { ...comment, content } : comment)),
+        }
+      : posting
+  );
+
+  res.send(getPosting(postingId));
 });
 
 // DELETE
@@ -185,6 +215,18 @@ apiRouter.delete('/posts/:id', (req, res) => {
   posts = posts.filter(post => post.id !== +id);
 
   res.send(posts);
+});
+
+apiRouter.delete('/posts/:postingId/comments/:commentId', (req, res) => {
+  const { postingId, commentId } = req.params;
+
+  posts = posts.map(posting =>
+    posting.id === +postingId
+      ? { ...posting, comments: posting.comments.filter((_, idx) => idx !== +commentId) }
+      : posting
+  );
+
+  res.send(getPosting(postingId));
 });
 
 export default apiRouter;
