@@ -67,7 +67,7 @@ let posts = [
       },
       {
         id: 2,
-        content: '두 번째 댓글',
+        content: '두 번째 댓글\nasdg\n\nasdf',
         date: '2021-12-14',
         owner: { id: 1, nickname: '호랑이' },
       },
@@ -200,19 +200,15 @@ apiRouter.post('/posts/:id/comments', (req, res) => {
 apiRouter.patch('/posts/:id', (req, res) => {
   const {
     params: { id },
-    body: { recruit },
   } = req;
 
   try {
-    const isNull = value => value === null;
-    if (!isNull(recruit ?? null)) {
-      const [post] = getPost(id);
-      const newPost = { ...post, recruit };
+    const [post] = getPost(id);
+    const newPost = { ...post, recruit: !post.recruit };
 
-      changePost(newPost);
+    changePost(newPost);
 
-      res.send(newPost);
-    }
+    res.send(newPost);
   } catch (e) {
     console.error(e);
   }

@@ -3,12 +3,15 @@ import { todayFormat } from '../../utils/date.js';
 const store = {
   _post: {},
   loggedIn: true,
-  authUser: { id: 2, nickname: '호랑이' },
+  _authUser: { id: 1, nickname: '호랑이' },
   // // observer
-  // listeners: [],
+  postListeners: [],
   notify() {
     console.log('[Post]', this._post);
-    // this.listeners.forEach(listener => listener(this.state));
+    this.postListeners.forEach(listener => listener(this._post, this._authUser));
+  },
+  get authUser() {
+    return this._authUser;
   },
   get post() {
     return this._post;
@@ -17,6 +20,10 @@ const store = {
     this._post = newPost;
     this.notify();
   },
+};
+
+const subscribe = listener => {
+  store.postListeners.push(listener);
 };
 
 const getPost = async postId => {
@@ -28,9 +35,9 @@ const getPost = async postId => {
   }
 };
 
-const endedPost = async (postId, recruit) => {
+const endedPost = async postId => {
   try {
-    const { data: post } = await axios.patch(`/api/posts/${postId}`, { recruit });
+    const { data: post } = await axios.patch(`/api/posts/${postId}`);
     store.post = post;
   } catch (e) {
     console.error(e);
@@ -78,4 +85,4 @@ const deleteComment = async (postId, commentId) => {
   }
 };
 
-export default { getPost, endedPost, deletePost, uploadComment, modifyComment, deleteComment };
+export default { subscribe, getPost, endedPost, deletePost, uploadComment, modifyComment, deleteComment };

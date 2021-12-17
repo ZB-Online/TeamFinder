@@ -67,6 +67,11 @@ main {
   padding: 5rem 2.5rem;
 }
 
+.rewind {
+  max-width: 720px;
+  width: 100%;
+}
+
 .box {
   max-width: 720px;
   width: 100%;
