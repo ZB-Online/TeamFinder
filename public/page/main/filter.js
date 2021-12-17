@@ -7,13 +7,13 @@ import {
   initialFilter,
 } from '../../store/filter.js';
 
-function removeActiveClass ($ul) {
+const removeActiveClass = $ul => {
   [...$ul.children].forEach($li => {
     $li.classList.remove('active');
   });
-}
+};
 
-function renderCurrentFilter ($ul, filterType) {
+const renderCurrentFilter = ($ul, filterType) => {
   [...$ul.children].forEach($li => {
     if (filterStore[filterType].getState().includes($li.dataset.filter)) {
       $li.classList.add('active');
@@ -21,10 +21,17 @@ function renderCurrentFilter ($ul, filterType) {
       $li.classList.remove('active');
     }
   });
-}
+};
 
-export function selectFilter ($filterList, filterType) {
-  return e => {
+const togglePostsFilter = $filters => e => {
+    // e.target.parentNode == <li class="posts-filter-recent(or popular)"></li>
+    e.target.parentNode.classList.remove('opacity');
+    [...$filters].forEach($li => {
+      if ($li !== e.target.parentNode) $li.classList.add('opacity');
+    });
+  };
+
+const selectFilter = ($filterList, filterType) => e => {
     // e.target.parentNode == <li class="filter-item">..</li>
     const $li = e.target.parentNode;
     if (!$li.classList.contains('filter-item')) return;
@@ -45,4 +52,8 @@ export function selectFilter ($filterList, filterType) {
     }
     renderCurrentFilter($filterList, filterType);
   };
-}
+
+export {
+  togglePostsFilter,
+  selectFilter,
+};
