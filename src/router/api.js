@@ -181,12 +181,12 @@ const changePost = newPost => {
 apiRouter.post('/posts/:id/comments', (req, res) => {
   const {
     params: { id },
-    body: { comment },
+    body: { content, date, owner },
   } = req;
 
   try {
     const [post] = getPost(id);
-    const newComment = { id: getMaxId(post.comments) + 1, ...comment };
+    const newComment = { id: getMaxId(post.comments) + 1, content, date, owner };
     const newPost = { ...post, comments: [...post.comments, newComment] };
 
     changePost(newPost);
@@ -224,8 +224,6 @@ apiRouter.patch('/posts/:postId/comments/:commentId', (req, res) => {
     body: { content },
   } = req;
 
-  console.log(content);
-
   try {
     const [post] = getPost(postId);
     const newPost = {
@@ -246,6 +244,8 @@ apiRouter.delete('/posts/:id', (req, res) => {
     const { id } = req.params;
 
     posts = posts.filter(post => post.id !== +id);
+
+    res.send();
   } catch (e) {
     console.error(e);
   }

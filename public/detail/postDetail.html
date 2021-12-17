@@ -6,12 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="./css/post.css" />
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script defer type="module" src="./js/post.js"></script>
+    <script defer type="module" src="./js/app.js"></script>
     <title>Document</title>
   </head>
   <body>
+    <div class="modal-wrap hidden">
+      <div class="modal">
+        <div class="message">
+          <p>삭제하면 작성하신 글을 되돌릴 수 없습니다.</p>
+          <p>삭제하시겠습니까?</p>
+        </div>
+        <div class="btn-box-2">
+          <button class="btn cancel">아니오</button>
+          <button class="btn apply">네 삭제합니다</button>
+        </div>
+      </div>
+    </div>
     <main>
-      <article class="post-box box">
+      <article class="post-box box" data-id="1">
         <svg
           stroke="currentColor"
           fill="currentColor"
@@ -41,7 +53,7 @@
             </div>
             <span class="date">2021-12-16</span>
           </div>
-          <section class="box-btns">
+          <section class="btn-box post-btns">
             <button class="ended">마감</button>
             <button class="modify">수정</button>
             <button class="delete">삭제</button>
@@ -61,15 +73,19 @@
           </ul>
         </section>
         <section class="post-content">
-          <p>hello<br />daf<br /><br />sagd</p>
+          <p>
+            hello<br />daf<br /><br />Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique est odio quam
+            repudiandae sapiente recusandae facilis odit eligendi ipsam, saepe omnis quisquam exercitationem
+            necessitatibus perferendis. Optio impedit sed dolores eius.
+          </p>
         </section>
       </article>
 
       <article class="comment-box box">
         <section class="comment-input">
           <h2 class="comment-count">2개의 댓글</h2>
-          <textarea class="comment-input-area" placeholder="댓글을 입력하세요."></textarea>
-          <button class="comment-upload-btn">댓글 등록</button>
+          <textarea class="textarea" placeholder="댓글을 입력하세요."></textarea>
+          <button class="btn comment-upload">댓글 등록</button>
         </section>
         <ul class="comment-list">
           <li class="comment" data-id="1">
@@ -83,13 +99,22 @@
                 <span class="info-name">으르렁</span>
                 <span class="info-date">2021-12-16</span>
               </div>
-              <div class="box-btns">
+              <div class="btn-box">
                 <button class="modify">수정</button>
                 <button class="delete">삭제</button>
               </div>
             </section>
             <section class="comment-content">
-              <p>반갑습니다</p>
+              <div class="modify-box">
+                <textarea class="textarea"></textarea>
+                <button class="btn cancel">취소</button>
+                <button class="btn apply">적용</button>
+              </div>
+              <!-- <p>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Odit eum, ipsum quis maiores exercitationem
+                in. Debitis quidem asperiores molestiae sequi quisquam similique suscipit fugit quasi, quam aspernatur
+                necessitatibus aliquam! Fuga?
+              </p> -->
             </section>
           </li>
           <li class="comment" data-id="2">

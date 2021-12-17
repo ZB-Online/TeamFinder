@@ -1,101 +1,74 @@
-import { todayFormat } from '../../utils/date.js';
-import store from './comment.js';
+import store from './post.js';
 
-// Login State
-const loggedIn = true;
+const $modal = document.querySelector('.modal');
+const $postBox = document.querySelector('.post-box');
+const $postBtns = document.querySelector('.post-btns');
+const $commentUploadBtn = document.querySelector('.btn.comment-upload');
+const $commentList = document.querySelector('.comment-list');
 
-// User Auth
-const authUser = { id: 1, nickname: '호랑이' };
+store.getPost($postBox.dataset.id);
 
-// DOM Element
-const $btnCommentUpload = document.querySelector('.btn-comment-upload');
-const $listComment = document.querySelector('.list-comment');
+$postBtns.addEventListener('click', ({ target }) => {
+  if (!target.matches('.post-btns > button')) return;
 
-// Functions
-const textToHtml = text => text.replace(/\n/g, '<br />');
+  if (target.classList.contains('ended')) {
+    store.endedPost($postBox.dataset.id, target.classList.contains('active'));
 
-const HtmlToText = html => html.replace(/<br>/g, '\n');
-
-// Init
-store.getPost();
-
-// Event Button(Upload) Click
-$btnCommentUpload.onclick = ({ target }) => {
-  if (!loggedIn) {
-    console.log('로그인이 필요합니다.');
-    return;
+    target.classList.toggle('active');
   }
 
-  const $contentComment = target.previousElementSibling;
-  if (!$contentComment.value) {
-    console.log('댓글을 입력해주세요.');
-    return;
+  if (target.classList.contains('modify')) {
+    // goto modify page
+    console.log('modify');
   }
 
-  // Format Content
-  const contentComment = textToHtml($contentComment.value);
+  if (target.classList.contains('delete')) {
+    $modal.closest('.modal-wrap').classList.remove('hidden');
+  }
+});
 
-  // Format Date
-  store.uploadComment({
-    content: contentComment,
-    date: todayFormat(),
-    owner: authUser,
-  });
+$modal.addEventListener('click', ({ target }) => {
+  if (!target.matches('.modal button')) return;
 
-  $contentComment.value = '';
-};
+  if (target.classList.contains('cancel')) {
+    $modal.closest('.modal-wrap').classList.add('hidden');
+  }
 
-// Modify and Delete Comment
-$listComment.onclick = (() => {
-  let originContent = '';
+  if (target.classList.contains('apply')) {
+    store.deletePost($postBox.dataset.id);
+    // redirect main page
+  }
+});
 
-  return ({ target }) => {
-    if (!target.matches('button')) return;
-    const $btnModify = document.querySelector('.modify');
+$commentUploadBtn.addEventListener('click', ({ target }) => {
+  const content = target.previousElementSibling.value.trim();
+  if (!content) return;
 
-    // Modify
-    if (target.classList.contains('modify')) {
-      if (target.classList.contains('active')) return;
-      target.classList.add('active');
+  store.uploadComment($postBox.dataset.id, content);
+});
 
-      // target.parentNode.parentNode.nextElementSibling : <section class="content-comment">...</section>
-      const $contentComment = target.parentNode.parentNode.nextElementSibling;
-      // $contentComment.firstElementChild : <p>...</p>
-      originContent = $contentComment.firstElementChild.innerHTML;
+$commentList.addEventListener('click', ({ target }) => {
+  if (!target.matches('.comment button')) return;
 
-      $contentComment.innerHTML = `
-        <textarea class="area-comment-input" placeholder="댓글을 입력하세요.">${HtmlToText(originContent)}</textarea>
-        <button class="cancel">취소</button>
-        <button class="apply">적용</button>
-      `;
-    }
+  if (target.classList.contains('modify')) {
+    if (target.classList.contains('active')) return;
 
-    // Modify Cancel
-    if (target.classList.contains('cancel')) {
-      $btnModify.classList.remove('active');
-      // target.parentNode : <section class="content-comment">...</section>
-      const $contentComment = target.parentNode;
+    target.classList.add('active');
+  }
 
-      $contentComment.innerHTML = `<p>${textToHtml(originContent)}</p>`;
-    }
+  if (target.classList.contains('cancel')) {
+    const $modifyBtn = target.closest('.comment-content').previousElementSibling.querySelector('.modify');
 
-    // Modify Apply
-    if (target.classList.contains('apply')) {
-      $btnModify.classList.remove('active');
-      // target.parentNode.firstElementChild : <textarea class="area-comment-input">...</textarea>
-      const contentComment = textToHtml(target.parentNode.firstElementChild.value);
-      // target.parentNode.parentNode : <li class="comment" data-id="">...</li>
-      const commentId = target.parentNode.parentNode.dataset.id;
+    $modifyBtn.classList.remove('active');
+  }
 
-      store.patchComment(commentId, contentComment);
-    }
+  if (target.classList.contains('apply')) {
+    const content = target.parentNode.firstElementChild.value;
 
-    // Delete
-    if (target.classList.contains('delete')) {
-      // target.parentNode.parentNode.parentNode : <li class="comment" data-id="">...</li>
-      const commentId = target.parentNode.parentNode.parentNode.dataset.id;
+    store.modifyComment($postBox.dataset.id, target.closest('.comment').dataset.id, content);
+  }
 
-      store.deleteComment(commentId);
-    }
-  };
-})();
+  if (target.classList.contains('delete')) {
+    store.deleteComment($postBox.dataset.id, target.closest('.comment').dataset.id);
+  }
+});

@@ -1,20 +1,20 @@
+import { todayFormat } from '../../utils/date.js';
+
 const store = {
-  state: {
-    post: {},
-  },
+  _post: {},
   loggedIn: true,
   authUser: { id: 2, nickname: '호랑이' },
   // // observer
   // listeners: [],
   notify() {
-    console.log('[STATE]', this.state);
+    console.log('[Post]', this._post);
     // this.listeners.forEach(listener => listener(this.state));
   },
-  // get posts() {
-  //   return this.state.posts;
-  // },
+  get post() {
+    return this._post;
+  },
   set post(newPost) {
-    this.state.post = newPost;
+    this._post = newPost;
     this.notify();
   },
 };
@@ -47,9 +47,13 @@ const deletePost = async postId => {
   }
 };
 
-const uploadComment = async (postId, comment) => {
+const uploadComment = async (postId, content) => {
   try {
-    const { data: post } = await axios.post(`/api/posts/${postId}/comments`, { comment });
+    const { data: post } = await axios.post(`/api/posts/${postId}/comments`, {
+      content,
+      date: todayFormat(),
+      owner: store.authUser,
+    });
     store.post = post;
   } catch (e) {
     console.error(e);
@@ -74,20 +78,4 @@ const deleteComment = async (postId, commentId) => {
   }
 };
 
-export { getPost, endedPost, deletePost, uploadComment, modifyComment, deleteComment };
-
-// getPost(POST_ID);
-
-// endedPost(POST_ID, false);
-
-// deletePost(POST_ID);
-
-// uploadComment(POST_ID, {
-//   content: 'heelo',
-//   date: todayFormat(),
-//   owner: store.authUser,
-// });
-
-// modifyComment(POST_ID, 2, 'change content');
-
-// deleteComment(POST_ID, 2);
+export default { getPost, endedPost, deletePost, uploadComment, modifyComment, deleteComment };
