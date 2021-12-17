@@ -10,6 +10,7 @@
   width: 1024px;
   margin: 0 auto;
   padding: 5rem 1rem;
+  position: relative;
 }
 
 @media screen and (max-width: 1048px) {
@@ -177,4 +178,28 @@
   font-weight: 700;
   background-color: #262626;
   color: #fff;
+}
+
+.toast {
+  width: 230px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px 15px;
+  margin: 10px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  animation: move 0.5s both;
+  background: #e74c3c;
+  color: white;
+}
+
+@keyframes move {
+  from {
+    transform: translate3d(100%, 0, 0);
+  }
+
+  to {
+    transform: translate3d(0, 0, 0);
+  }
 }

@@ -43,9 +43,18 @@ const duplication = (listItems, selectItem) =>
 
 const activeToggle = $target => $target.classList.toggle('active');
 
+// 토스트 메세지
+const toastCreate = () => {
+  const $toast = document.createElement('div');
+  $toast.classList.add('toast');
+  $toast.textContent = '내용을 전부 입력해 주세요';
+  document.querySelector('.write-wrap').append($toast);
+  setTimeout(() => document.querySelector('.toast').remove(), 2000);
+};
+
 const necessaryContent = ($title, $city, $sports, $mainText) => {
   if ($title.value.trim() === '' || !$city || $sports.children.length === 0 || $mainText.value.trim() === '') {
-    alert('내용을 전부 작성해주세요');
+    toastCreate();
     return true;
   }
 };
