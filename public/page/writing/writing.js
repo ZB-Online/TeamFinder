@@ -1,5 +1,6 @@
 import { initialFilter } from '../../store/filter.js';
 import { todayFormat } from '../../utils/date.js';
+import { TOAST_TYPE, toaster, createToastAction } from '../../utils/toaster.js';
 
 const $citySportsWrap = document.querySelector('.city-sports-wrap');
 const $writingTitle = document.querySelector('.writing-title');
@@ -18,6 +19,7 @@ const postingSend = async payload => {
       body: JSON.stringify(payload),
     });
     if (!res.ok) throw new Error(res.status);
+    toaster.add(createToastAction(TOAST_TYPE.SUCCESS, 'Well done!', '글 작성이 완료되었어요!'));
   } catch (error) {
     console.log(error);
   }
@@ -43,18 +45,9 @@ const duplication = (listItems, selectItem) =>
 
 const activeToggle = $target => $target.classList.toggle('active');
 
-// 토스트 메세지
-const toastCreate = () => {
-  const $toast = document.createElement('div');
-  $toast.classList.add('toast');
-  $toast.textContent = '내용을 전부 입력해 주세요';
-  document.querySelector('.write-wrap').append($toast);
-  setTimeout(() => document.querySelector('.toast').remove(), 2000);
-};
-
 const necessaryContent = ($title, $city, $sports, $mainText) => {
   if ($title.value.trim() === '' || !$city || $sports.children.length === 0 || $mainText.value.trim() === '') {
-    toastCreate();
+    toaster.add(createToastAction(TOAST_TYPE.ERROR, 'Check it out!', '내용을 전부 입력해 주세요'));
     return true;
   }
 };
