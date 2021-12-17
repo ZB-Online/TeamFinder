@@ -54,7 +54,7 @@ let posts = [
     writer: `writer ${2}`,
     city: 5,
     sportsTypes: [5],
-    content: 'hello\nasdf\n\n\nasdf',
+    content: 'hello\nasdf\n\n\nasdasdg',
     date: '2021-12-13',
     recruit: true,
     owner: { id: 3, nickname: '토끼' },

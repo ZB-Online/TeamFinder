@@ -144,6 +144,7 @@ main {
 .post-content {
   margin: 5rem 0;
   font-size: 1.125rem;
+  word-break: break-all;
   line-height: 1.7;
   letter-spacing: -0.004em;
 }
@@ -151,6 +152,5 @@ main {
 .post-content > div > p {
   margin-top: 1rem;
   font-size: 1.125rem;
-  word-break: break-all;
   line-height: 1.7;
 }

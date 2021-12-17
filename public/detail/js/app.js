@@ -74,7 +74,7 @@ $commentBox.addEventListener('click', ({ target }) => {
   }
 
   if (target.classList.contains('apply')) {
-    const content = target.parentNode.firstElementChild.value;
+    const content = target.parentNode.firstElementChild.value.trim();
 
     store.modifyComment(id, target.closest('.comment').dataset.id, content);
   }
