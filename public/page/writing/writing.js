@@ -116,5 +116,5 @@ $citySportsWrap.addEventListener('click', e => {
 // city & sprots item 개별 삭제
 $citySportsWrap.addEventListener('click', e => {
   if (!(e.target.matches('.writing-one-delete') || e.target.matches('.writing-one-delete path'))) return;
-  e.target.parentNode.remove();
+  e.target.closest('li').remove();
 });
