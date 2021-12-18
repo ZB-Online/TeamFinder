@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../css/reset.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+    <link rel="stylesheet" href="./setting.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <main class="setting-wrap">
+      <h1>내 정보 수정</h1>
+      <section class="setting-img-area">
+        <img
+          class="setting-userImg"
+          src="https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG"
+          alt="user image"
+        />
+        <div class="settign-img-control">
+          <label for="img-input" class="setting-btn img-add">
+            이미지 선택
+            <input type="file" id="img-input" />
+          </label>
+          <button class="setting-btn img-remove">이미지 제거</button>
+        </div>
+      </section>
+      <section class="setting-nickName-wrap">
+        <h3>닉네임</h3>
+        <input type="text" class="nickName-input" />
+      </section>
+      <p class="nickName-divison">TeamFinder에서 사용되는 이름입니다.</p>
+      <hr />
+      <section>
+        <h3>내 작성글</h3>
+        <ul class="post-list">
+          <li class="post">
+            <h3 class="post-title">title 0</h3>
+            <ul class="post-filter-list">
+              <li class="post-filter">
+                <img class="post-filter-icon" src="../../assets/img/filter/당구.png">
+                <p class="post-filter-name">당구</p>
+              </li>
+            </ul>
+            <div class="infos">
+              <span class="info-city">부산시</span>
+              <div class="info-item">
+            </div>
+          </li>
+        </ul>
+      </section>
+      <p class="nickName-divison">TeamFinder에서 내가 작성한 게시글 입니다.</p>
+      <hr />
+      <section>
+        <button class="setting-btn setting-submit">완료</button>
+        <button class="setting-btn member-out">회원탈퇴</button>
+      </section>
+    </main>
+  </body>
+</html>
