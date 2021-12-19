@@ -51,15 +51,14 @@ $commentBox.addEventListener('click', ({ target }) => {
     if (target.classList.contains('active')) return;
 
     const $commentContent = target.closest('.comment-header').nextElementSibling;
-
     const originContent = $commentContent.firstElementChild.innerText;
 
     $commentContent.innerHTML = `
-    <div class="modify-box">
-    <textarea class="textarea">${originContent}</textarea>
-    <button class="btn cancel">취소</button>
-    <button class="btn apply">적용</button>
-    </div>
+      <div class="modify-box">
+        <textarea class="textarea">${originContent}</textarea>
+        <button class="btn cancel">취소</button>
+        <button class="btn apply">적용</button>
+      </div>
     `;
 
     target.classList.add('active');
