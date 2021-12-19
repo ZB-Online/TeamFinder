@@ -2,9 +2,8 @@ import { todayFormat } from '../../utils/date.js';
 
 const store = {
   _post: {},
-  loggedIn: true,
-  _authUser: { id: 1, nickname: '호랑이' },
-  // // observer
+  // localStorage user
+  _authUser: { id: 2, nickname: '원숭이' },
   postListeners: [],
   notify() {
     console.log('[Post]', this._post);

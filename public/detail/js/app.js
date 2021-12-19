@@ -55,11 +55,11 @@ $commentBox.addEventListener('click', ({ target }) => {
     const originContent = $commentContent.firstElementChild.innerText;
 
     $commentContent.innerHTML = `
-      <div class="modify-box">
-        <textarea class="textarea">${originContent}</textarea>
-        <button class="btn cancel">취소</button>
-        <button class="btn apply">적용</button>
-      </div>
+    <div class="modify-box">
+    <textarea class="textarea">${originContent}</textarea>
+    <button class="btn cancel">취소</button>
+    <button class="btn apply">적용</button>
+    </div>
     `;
 
     target.classList.add('active');
@@ -75,6 +75,7 @@ $commentBox.addEventListener('click', ({ target }) => {
 
   if (target.classList.contains('apply')) {
     const content = target.parentNode.firstElementChild.value.trim();
+    if (!content) return;
 
     store.modifyComment(id, target.closest('.comment').dataset.id, content);
   }
