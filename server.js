@@ -1,6 +1,10 @@
-import express from 'express';
-import rootRouter from './src/router/root';
-import apiRouter from './src/router/api';
+// import express from 'express';
+const express = require('express');
+// import rootRouter from './src/router/root';
+const rootRouter = require('./src/router/root');
+// import apiRouter from './src/router/api';
+const apiRouter = require('./src/router/api');
+
 
 const app = express();
 const PORT = 5500;

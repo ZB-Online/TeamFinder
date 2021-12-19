@@ -1,5 +1,5 @@
-import express from 'express';
-
+// import express from 'express';
+const express = require('express');
 const FILTER = {
   SPORTS: ['배드민턴', '야구', '농구', '당구', '볼링', '축구', '런닝'],
   CITIES: [
@@ -229,4 +229,5 @@ apiRouter.delete('/posts/:postingId/comments/:commentId', (req, res) => {
   res.send(getPosting(postingId));
 });
 
-export default apiRouter;
+module.exports = apiRouter;
+// export default apiRouter;

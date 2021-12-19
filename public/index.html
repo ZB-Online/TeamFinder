@@ -1,87 +1,123 @@
 <!DOCTYPE html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TeamFinder</title>
-    <link rel="stylesheet" href="./css/reset.css" />
-    <link rel="stylesheet" href="./css/style.css" />
-    <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
-    <script defer type="module" src="app.js"></script>
-  </head>
-  <body>
-    <header>
-      <nav class="navbar">
-        <a href="index.html"><p class="navbar-logo">TEAM_FINDER</p></a>
-        <ul class="navbar-menus">
-          <li><button class="navbar-menus-item">새 글 쓰기</button></li>
-          <li><button class="navbar-menus-item hidden">로그인</button></li>
-          <li class="navbar-user-wrapper ">
-            <span class="navbar-user-name">우리집강아지</span>
-            <img class="navbar-user-image" src="./assets/img/user.png" alt="유저 이미지" />
-            <svg
-              stroke="currentColor"
-              fill="currentColor"
-              stroke-width="0"
-              viewBox="0 0 24 24"
-              height="1.5em"
-              width="1.5em"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M7 10l5 5 5-5z"></path>
-            </svg>
-            <ul class="user-menu-list hidden">
-              <li class="user-menu-item">내 작성글</li>
-              <li class="user-menu-item">설정</li>
-              <li class="user-menu-item">로그아웃</li>
-            </ul>
-          </li>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TeamFinder</title>
+  <link rel="stylesheet" href="./css/reset.css" />
+  <link rel="stylesheet" href="./css/style.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
+  <script defer type="module" src="page/main/sessionTransfer.js"></script>
+  <script defer type="module" src="app.js"></script>
+  <script defer type="module" src="page/main/login.js"></script>
+</head>
+
+<body>
+  <!-- 헤더 -->
+  <nav class="navbar">
+    <a href="index.html">
+      <p class="navbar-logo">TEAM_FINDER</p>
+    </a>
+    <ul class="navbar-menus">
+      <li class="hidden"><button class="navbar-menus-item">새 글 쓰기</button></li>
+      <li><button class="navbar-menus-item login">로그인</button></li>
+      <li class="navbar-user-wrapper hidden">
+        <span class="navbar-user-name">우리집강아지</span>
+        <img class="navbar-user-image" src="./assets/img/user.png" alt="유저 이미지" />
+        <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 24 24" height="1.5em" width="1.5em"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M7 10l5 5 5-5z"></path>
+        </svg>
+        <ul class="user-menu-list hidden">
+          <li class="user-menu-item">내 작성글</li>
+          <li class="user-menu-item">설정</li>
+          <li class="user-menu-item">로그아웃</li>
         </ul>
-      </nav>
-    </header>
-    <main>
-      <article class="banner">
-        <div class="banner-text">
-          <h1 class="banner-title">
-            <p>
-              원하는 지역과 스포츠를 <br />
-              함께할 팀원을 찾는 방법
-            </p>
-          </h1>
-          <h2 class="banner-subtitle"><strong>TEAM_FINDER</strong>에서 함께 할 팀원을 찾아보세요</h2>
+      </li>
+    </ul>
+  </nav>
+  </header>
+  <!-- 로그인 팝업 -->
+  <section class="login-wrap">
+    <div class="login-box">
+      <div class="login-banner">
+        <span class="navbar-logo">TEAM_FINDER</span>
+        <span class="material-icons close-icon">close</span>
+      </div>
+      <div class="login-body">
+        <p class="sign-state">Sign In</p>
+        <form id="form" onsubmit="false">
+          <label class="input-label">
+            <span>ID</span>
+            <input type="text" class="input" placeholder="아이디를 입력하세요">
+          </label>
+          <label class="input-label">
+            <span>PW</span>
+            <input type="password" class="input" placeholder="비밀번호를 입력하세요">
+          </label>
+          <label class="input-label hidden">
+            <span>별명</span>
+            <input type="text" class="input" placeholder="별명을 입력하세요">
+          </label>
+        </form>
+        <p id="error-msg">로그인 정보가 올바르지 않습니다.</p>
+        <button id="checkaaa">check</button>
+        <div class="btns">
+          <button type="submit" id="signin-btn" form="form">sign in</button>
+          <button type="submit" id="signup-btn" class="display-toggle" form="form">sign up</button>
+          <a href="javascript:void(0)" id="signup" class="delDeco">회원가입</a>
+          <a href="javascript:void(0)" id="signin" class="delDeco display-toggle">로그인</a>
         </div>
-        <img class="banner-image" src="https://holaworld.io/images/logo/main.png" alt="people" />
-      </article>
-      <article class="recruit">
-        <div class="filter-wrapper-city">
-          <ul class="filter-list-city"></ul>
+      </div>
+    </div>
+  </section>
+  <!-- 메인 페이지 -->
+  <main>
+    <article class="banner">
+      <div class="banner-text">
+        <h1 class="banner-title">
+          <p>
+            원하는 지역과 스포츠를 <br />
+            함께할 팀원을 찾는 방법
+          </p>
+        </h1>
+        <h2 class="banner-subtitle"><strong>TEAM_FINDER</strong>에서 함께 할 팀원을 찾아보세요</h2>
+      </div>
+      <img class="banner-image" src="https://holaworld.io/images/logo/main.png" alt="people" />
+    </article>
+    <article class="recruit">
+      <div class="filter-wrapper-city">
+        <ul class="filter-list-city"></ul>
+      </div>
+      <div class="filter-wrapper-sports">
+        <ul class="filter-list-sports"></ul>
+      </div>
+      <section class="posts-container">
+        <div class="posts-wrapper">
+          <header class="posts-header">
+            <ul class="posts-filter">
+              <li class="posts-filter-recent">
+                <box-icon class="posts-filter-icon" name="calendar-check" type="solid"></box-icon>
+                <p>최신</p>
+              </li>
+              <li class="posts-filter-popular opacity">
+                <box-icon class="posts-filter-icon" type="solid" name="star"></box-icon>
+                <p>인기</p>
+              </li>
+            </ul>
+            <div class="posts-checkbox">
+              <input type="checkbox" id="filterRecruitInput" class="filter-recruit-input" checked />
+              <label for="filterRecruitInput">모집 중인 글만 보기</label>
+            </div>
+          </header>
+          <ul class="post-list"></ul>
         </div>
-        <div class="filter-wrapper-sports">
-          <ul class="filter-list-sports"></ul>
-        </div>
-        <section class="posts-container">
-          <div class="posts-wrapper">
-            <header class="posts-header">
-              <ul class="posts-filter">
-                <li class="posts-filter-recent">
-                  <box-icon class="posts-filter-icon" name="calendar-check" type="solid"></box-icon>
-                  <p>최신</p>
-                </li>
-                <li class="posts-filter-popular opacity">
-                  <box-icon class="posts-filter-icon" type="solid" name="star"></box-icon>
-                  <p>인기</p>
-                </li>
-              </ul>
-              <div class="posts-checkbox">
-                <input type="checkbox" id="filterRecruitInput" class="filter-recruit-input" checked />
-                <label for="filterRecruitInput">모집 중인 글만 보기</label>
-              </div>
-            </header>
-            <ul class="post-list"></ul>
-          </div>
-        </section>
-      </article>
-    </main>
-  </body>
+      </section>
+    </article>
+  </main>
+</body>
+
 </html>

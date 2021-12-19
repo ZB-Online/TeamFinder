@@ -7,4 +7,5 @@ const user = {
   comments: [], // some comment
 };
 
-export default user;
+module.exports = user;
+// export default user;
