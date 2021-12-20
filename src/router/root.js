@@ -1,4 +1,3 @@
-// import express from 'express';
 const express = require('express');
 // MOCK
 const users = [
@@ -49,4 +48,3 @@ rootRouter.post('/check', (req, res) => {
 });
 
 module.exports = rootRouter;
-// export default rootRouter;

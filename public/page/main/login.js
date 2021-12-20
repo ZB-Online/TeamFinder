@@ -106,8 +106,6 @@ $signinBtn.addEventListener('click', e => {
         formInit();
         errHidden();
         navbarToggle();
-        // 세션 스토리지는 탭이 바뀌면 유지가 안됨 기각
-        // localStorage.setItem('teamFinderUserLoginData', userData.id);
         localStorage.setItem('teamfinderId', userData[0]);
         localStorage.setItem('teamfinderNickname', userData[1]);
         document.querySelector('.navbar-user-name').textContent = localStorage.teamfinderNickname;
@@ -172,11 +170,6 @@ window.addEventListener('DOMContentLoaded', ()=>{
     document.querySelector('.navbar-menus').style.visibility = 'visible';
   }, .1);
 });
-
-// window.addEventListener('unload', () => {
-//   localStorage.removeItem('teamfinderId');
-//   localStorage.removeItem('teamfinderNickname');
-// });
 
 // 유저 정보 체크용
 document.querySelector('#checkaaa').addEventListener('click', () => {
