@@ -1,22 +1,25 @@
 import { todayFormat } from '../../utils/date.js';
 
 const store = {
-  _post: {},
+  state: {
+    post: {},
+    likeActive: false,
+  },
   // localStorage user
   _authUser: { id: 2, nickname: '원숭이' },
   postListeners: [],
   notify() {
-    console.log('[Post]', this._post);
-    this.postListeners.forEach(listener => listener(this._post, this._authUser));
+    console.log('[Post]', this.state.post);
+    this.postListeners.forEach(listener => listener(this.state, this._authUser));
   },
   get authUser() {
     return this._authUser;
   },
   get post() {
-    return this._post;
+    return this.state.post;
   },
   set post(newPost) {
-    this._post = newPost;
+    this.state.post = newPost;
     this.notify();
   },
 };
@@ -53,6 +56,17 @@ const deletePost = async postId => {
   }
 };
 
+const changeLikeCount = async (postId, likeActive) => {
+  try {
+    const { data: post } = await axios.patch(`/api/posts/${postId}/like`, { likeActive });
+
+    store.state.likeActive = !likeActive;
+    store.post = post;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 const uploadComment = async (postId, content) => {
   try {
     const { data: post } = await axios.post(`/api/posts/${postId}/comments`, {
@@ -84,4 +98,13 @@ const deleteComment = async (postId, commentId) => {
   }
 };
 
-export default { subscribe, getPost, endedPost, deletePost, uploadComment, modifyComment, deleteComment };
+export default {
+  subscribe,
+  getPost,
+  endedPost,
+  deletePost,
+  changeLikeCount,
+  uploadComment,
+  modifyComment,
+  deleteComment,
+};

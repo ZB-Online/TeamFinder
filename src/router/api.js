@@ -202,13 +202,29 @@ apiRouter.post('/posts/:id/comments', (req, res) => {
 });
 
 apiRouter.patch('/posts/:id', (req, res) => {
-  const {
-    params: { id },
-  } = req;
+  const { id } = req.params;
 
   try {
     const [post] = getPost(id);
     const newPost = { ...post, recruit: !post.recruit };
+
+    changePost(newPost);
+
+    res.send(newPost);
+  } catch (e) {
+    console.error(e);
+  }
+});
+
+apiRouter.patch('/posts/:id/like', (req, res) => {
+  const {
+    params: { id },
+    body: { likeActive },
+  } = req;
+
+  try {
+    const [post] = getPost(id);
+    const newPost = { ...post, likeCount: likeActive ? post.likeCount - 1 : post.likeCount + 1 };
 
     changePost(newPost);
 

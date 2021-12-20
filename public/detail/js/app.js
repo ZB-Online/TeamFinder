@@ -25,9 +25,7 @@ $postBox.addEventListener('click', ({ target }) => {
   }
 
   if (target.classList.contains('like')) {
-    target.classList.toggle('active');
-
-    // axios
+    store.changeLikeCount(id, target.classList.contains('active'));
   }
 });
 

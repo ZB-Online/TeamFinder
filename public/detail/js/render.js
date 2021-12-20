@@ -57,9 +57,9 @@ const getPostContent = content => `
     <p>${formatContent(content)}</p>
   </section>`;
 
-const getPostLikeCount = likeCount => `
+const getPostLikeCount = (likeCount, likeActive) => `
   <section class="post-like-count">
-    <button class="like">❤</button>
+    <button class="like ${likeActive ? 'active' : ''}">❤</button>
     <span>${likeCount}</span>
   </section>`;
 
@@ -94,8 +94,8 @@ const getCommentList = (comments, id, getBtnBox) =>
     )
     .join('');
 
-const render = (post, authUser) => {
-  const { title, writer, date, city, sportsTypes, owner, content, recruit, comments } = post;
+const render = ({ post, likeActive }, authUser) => {
+  const { title, writer, date, city, sportsTypes, likeCount, owner, content, recruit, comments } = post;
   const { id } = authUser;
 
   const postBtnBox = getBtnBox('post', isOwner(id, owner.id), recruit);
@@ -104,7 +104,7 @@ const render = (post, authUser) => {
     ${getPostHeader(title, writer, date, postBtnBox)}
     ${getPostFilters(city, sportsTypes)}
     ${getPostContent(content)}
-    ${getPostLikeCount(1)}`;
+    ${getPostLikeCount(likeCount, likeActive)}`;
 
   $commentBox.innerHTML = `
     ${getCommentInput(comments.length)}
