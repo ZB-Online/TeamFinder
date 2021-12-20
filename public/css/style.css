@@ -244,7 +244,7 @@ body {
 .post:hover {
   transform: scale(1.03);
 }
-.post-link{
+.post-link {
   width: 18rem;
   height: 18rem;
   padding: 1.5rem;
@@ -333,29 +333,4 @@ body {
   color: #fff;
   background-color: #000;
   border-radius: 4px;
-}
-
-
-/* comment */
-.box-comment {
-  display: flex;
-  justify-content: center;
-  font-weight: 600;
-}
-.count-comment {
-  font-size: 1.5rem;
-  margin: 20px 0;
-}
-
-.area-comment-input {
-  box-sizing: border-box;
-  font-family: sans-serif;
-}
-
-.btn-comment-upload {
-  border: none;
-  outline: none;
-  background-color: rgba(0, 0, 0, 0);
-  cursor: pointer;
-  padding: 0;
 }
