@@ -1,4 +1,5 @@
-import render from './render.js';
+import client from '../api/axios.js';
+import renderComments from './comment.js';
 
 // Fake Data
 const POST_ID = 1;
@@ -9,54 +10,46 @@ const store = {
 
 // GET - maybe confilct
 const getPost = async () => {
-  await fetch(`/api/posts/${POST_ID}`)
-    .then(res => res.json())
+  await client.get(`/api/posts/${POST_ID}`)
+    .then(res => res.data)
     .then(([post]) => {
       store.comments = post.comments;
     });
 
-  render(store);
+  renderComments(store);
 };
 
 // POST
 const uploadComment = async comment => {
-  await fetch(`/api/posts/${POST_ID}/comments`, {
-    method: 'POST',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify(comment),
-  })
-    .then(res => res.json())
+  await client.post(`/api/posts/${POST_ID}/comments`, comment)
+    .then(res => res.data)
     .then(([post]) => {
       store.comments = post.comments;
     });
 
-  render(store);
+  renderComments(store);
 };
 
 // PATCH
 const patchComment = async (commentId, content) => {
-  await fetch(`/api/posts/${POST_ID}/comments/${commentId}`, {
-    method: 'PATCH',
-    headers: { 'content-type': 'application/json' },
-    body: JSON.stringify({ content }),
-  })
-    .then(res => res.json())
+  await client.patch(`/api/posts/${POST_ID}/comments/${commentId}`, content)
+    .then(res => res.data)
     .then(([post]) => {
       store.comments = post.comments;
     });
 
-  render(store);
+  renderComments(store);
 };
 
 // DELETE
 const deleteComment = async commentId => {
-  await fetch(`/api/posts/${POST_ID}/comments/${commentId}`, { method: 'DELETE' })
-    .then(res => res.json())
+  await client.delete(`/api/posts/${POST_ID}/comments/${commentId}`)
+    .then(res => res.data)
     .then(([post]) => {
       store.comments = post.comments;
     });
 
-  render(store);
+  renderComments(store);
 };
 
 export default {

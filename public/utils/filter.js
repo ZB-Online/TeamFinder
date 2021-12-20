@@ -5,7 +5,7 @@ import {
   REMOVE_FILTER,
   filterStore,
   initialFilter,
-} from '../../store/filter.js';
+} from '../store/filter.js';
 
 const removeActiveClass = $ul => {
   [...$ul.children].forEach($li => {

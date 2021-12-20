@@ -1,6 +1,6 @@
-import { FILTER_TYPE, filterStore, initialFilter } from '../../store/filter.js';
+import { FILTER_TYPE, filterStore, initialFilter } from '../store/filter.js';
 
-const $filterRecruitCheck = document.querySelector('.filter-recruit-input');
+import client from '../api/axios.js';
 
 const getPostElements = data => data.map(postData => {
     const $post = document.createElement('li');
@@ -8,6 +8,7 @@ const getPostElements = data => data.map(postData => {
     $post.classList.add('post');
     if (!postData.recruit) $post.classList.add('opacity');
     $post.innerHTML = `
+    <a class="post-link">
       <h3 class="post-title">${postData.title}</h3>
       <ul class="post-filter-list">
         ${postData.sportsType.map(positionId => `
@@ -36,13 +37,15 @@ const getPostElements = data => data.map(postData => {
           <span class="likes">11</span>
         </div>
       </div>
-      ${postData.recruit ? '' : `<p class="recruited">모집완료</p>`}`;
+      ${postData.recruit ? '' : `<p class="recruited">모집완료</p>`}
+    </a>`;
     return $post;
 });
 
 const getRecruitingPostData= data => data.filter(postData => postData.recruit);
 
 const renderPostElements= data => {
+  const $filterRecruitCheck = document.querySelector('.filter-recruit-input');
   const $contentList = document.querySelector('.post-list');
   $contentList.innerHTML = ``;
   getPostElements($filterRecruitCheck.checked ? getRecruitingPostData(data) : data).forEach($post => {
@@ -53,9 +56,8 @@ const renderPostElements= data => {
 const fetchFilteredData= async () => {
   const cities = filterStore[FILTER_TYPE.CITIES].getState();
   const sports = filterStore[FILTER_TYPE.SPORTS].getState();
-  const res = await fetch(`/api/posts?` + new URLSearchParams({ cities, sports }));
-  const data = await res.json();
-  return data;
+  const res = await client.get(`/api/posts?` + new URLSearchParams({ cities, sports }));
+  return res.data;
 };
 
 const renderFilteredPosts= async () => {
