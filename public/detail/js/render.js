@@ -7,7 +7,7 @@ const formatContent = content => content.replace(/\n/g, '<br>');
 
 const isOwner = (userId, ownerId) => userId === ownerId;
 
-const btnBox = (type, isOwner, recruit) =>
+const getBtnBox = (type, isOwner, recruit) =>
   isOwner
     ? `<section class="btn-box">
           ${type === 'post' ? `<button class="ended">${recruit ? '마감' : '마감 취소'}</button>` : ''}
@@ -16,7 +16,7 @@ const btnBox = (type, isOwner, recruit) =>
         </section>`
     : '';
 
-const postHeader = (title, writer, date, btnBox) => `
+const getPostHeader = (title, writer, date, getBtnBox) => `
   <section class="post-header">
     <h1 class="post-title">${title}</h1>
     <div class="post-info">
@@ -30,10 +30,10 @@ const postHeader = (title, writer, date, btnBox) => `
       </div>
       <span class="date">${date}</span>
     </div>
-    ${btnBox}
+    ${getBtnBox}
   </section>`;
 
-const postFilters = (city, sportsTypes) => {
+const getPostFilters = (city, sportsTypes) => {
   const postFilter = {
     city: `<li>${initialFilter.cities[city]}</li>`,
     sportsTypes: sportsTypes.map(sportsType => `<li>${initialFilter.sports[sportsType]}</li>`).join(''),
@@ -52,19 +52,19 @@ const postFilters = (city, sportsTypes) => {
     .join('');
 };
 
-const postContent = content => `
+const getPostContent = content => `
     <section class="post-content">
       <p>${formatContent(content)}</p>
     </section>`;
 
-const commentInput = commentCount => `
+const getCommentInput = commentCount => `
   <section class="comment-input">
     <h2 class="comment-count">${commentCount}개의 댓글</h2>
     <textarea class="textarea" placeholder="댓글을 입력하세요."></textarea>
     <button class="btn upload">댓글 등록</button>
   </section>`;
 
-const commentList = (comments, id, btnBox) =>
+const getCommentList = (comments, id, getBtnBox) =>
   comments
     .map(
       comment => `
@@ -79,7 +79,7 @@ const commentList = (comments, id, btnBox) =>
           <span class="info-name">${comment.owner.nickname}</span>
           <span class="info-date">${comment.date}</span>
         </div>
-        ${btnBox('comment', isOwner(id, comment.owner.id))}
+        ${getBtnBox('comment', isOwner(id, comment.owner.id))}
       </section>
       <section class="comment-content">
         <p>${formatContent(comment.content)}</p>
@@ -92,17 +92,17 @@ const render = (post, authUser) => {
   const { title, writer, date, city, sportsTypes, owner, content, recruit, comments } = post;
   const { id } = authUser;
 
-  const postBtnBox = btnBox('post', isOwner(id, owner.id), recruit);
+  const postBtnBox = getBtnBox('post', isOwner(id, owner.id), recruit);
 
   $postBox.innerHTML = `
-    ${postHeader(title, writer, date, postBtnBox)}
-    ${postFilters(city, sportsTypes)}
-    ${postContent(content)}`;
+    ${getPostHeader(title, writer, date, postBtnBox)}
+    ${getPostFilters(city, sportsTypes)}
+    ${getPostContent(content)}`;
 
   $commentBox.innerHTML = `
-    ${commentInput(comments.length)}
+    ${getCommentInput(comments.length)}
     <ul class="comment-list">
-      ${commentList(comments, id, btnBox)}
+      ${getCommentList(comments, id, getBtnBox)}
     </ul>`;
 };
 
