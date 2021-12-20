@@ -1,9 +1,9 @@
 const $loginBtn = document.querySelector('.login');
 const $loginWrap = document.querySelector('.login-wrap');
-const $form = document.querySelector('#form');
-const $signinBtn = document.querySelector('#signin-btn');
-const $signupBtn = document.querySelector('#signup-btn');
-const $errorMsg = document.querySelector('#error-msg');
+const $form = document.querySelector('.form');
+const $signinBtn = document.querySelector('.signin-btn');
+const $signupBtn = document.querySelector('.signup-btn');
+const $errorMsg = document.querySelector('.error-msg');
 const $navbarMenus = document.querySelector('.navbar-menus');
 const $userMenuItem = document.querySelector('.user-menu-item:last-Child');
 
@@ -40,7 +40,7 @@ const errHidden = () => {
 
 const loginHidden = () => {
   $loginWrap.style.display = "none";
-  if(!document.querySelector('#signin').classList.contains('display-toggle')){
+  if(!document.querySelector('.signin').classList.contains('display-toggle')){
     displayToggle();
     document.querySelector('.sign-state').textContent = 'Sign In';
     $errorMsg.textContent = '로그인 정보가 올바르지 않습니다.';
@@ -54,6 +54,16 @@ const navbarToggle = () => {
   });
 }
 
+const loadNewPage = () => {
+  if(localStorage.getItem('teamfinderId')){
+    document.querySelector('.navbar-user-name').textContent = localStorage.getItem('teamfinderNickname');
+    navbarToggle();
+  }
+  setTimeout(() => {
+    document.querySelector('.navbar-menus').style.visibility = 'visible';
+  }, .1);
+}
+
 
 // 로그인 창 띄우기
 $loginBtn.addEventListener('click', () => {
@@ -63,7 +73,7 @@ $loginBtn.addEventListener('click', () => {
 // 회원가입/로그인 토글 및 아이콘 닫기
 $loginWrap.addEventListener('click', e => {
 
-  if(e.target === document.querySelector('#signup')) {
+  if(e.target === document.querySelector('.signup')) {
     displayToggle();
     formInit();
     errHidden();
@@ -73,7 +83,7 @@ $loginWrap.addEventListener('click', e => {
     $errorMsg.textContent = '아이디가 중복되었거나 올바르지 않습니다.';
   }
 
-  if(e.target === document.querySelector('#signin')) {
+  if(e.target === document.querySelector('.signin')) {
     displayToggle();
     formInit();
     errHidden();
@@ -149,7 +159,7 @@ $signupBtn.addEventListener('click', e => {
         formInit();
       }
     })
-    .catch(err => console.log(err));
+    .catch(err => console.error(err));
   }
 });
 
@@ -160,16 +170,6 @@ $userMenuItem.addEventListener('click', () => {
   localStorage.removeItem('teamfinderNickname');
 });
 
-window.addEventListener('DOMContentLoaded', ()=>{
-  // document.querySelector('.navbar-menus').style.visibility = 'hidden';
-  if(localStorage.getItem('teamfinderId')){
-    document.querySelector('.navbar-user-name').textContent = localStorage.getItem('teamfinderNickname');
-    navbarToggle();
-  }
-  setTimeout(() => {
-    document.querySelector('.navbar-menus').style.visibility = 'visible';
-  }, .1);
-});
 
 // 유저 정보 체크용
 document.querySelector('#checkaaa').addEventListener('click', () => {
@@ -179,6 +179,8 @@ document.querySelector('#checkaaa').addEventListener('click', () => {
   })
   .then(userData => {
     console.log(userData);
-    })
+  })
   .catch(err => console.error(err));
 });
+// 초기 로드
+loadNewPage();

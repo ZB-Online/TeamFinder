@@ -20,11 +20,9 @@ rootRouter.post('/signin', (req, res) => {
   });
   if(state) {
     // 로그인 성공
-    console.log('signIn success');
     res.send([userData.id, userData.nickname]);
   }else{
     // 로그인 실패
-    console.log('signIn fail');
     res.send(false);
   }
 });
@@ -32,10 +30,8 @@ rootRouter.post('/signin', (req, res) => {
 // 회원가입
 rootRouter.post('/signup', (req, res) => {
   if(users.some(user => user.id === req.body.id)){
-    console.log('signup fail :: same id');
     res.send('0'); // id 중복: 0
   }else if(users.some(user => user.nickname === req.body.nickname)){
-    console.log('signup fail :: same nickname');
     res.send('1'); // 닉네임 중복: 1
   }else{
     users.push(req.body);

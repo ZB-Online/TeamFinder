@@ -427,18 +427,14 @@ body {
   background-color:rgb(168, 212, 245);
 }
 
-#form, .btns{
+.form, .btns{
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
 }
 
-/* #form > label:last-child{
-  display: none;
-} */
-
-.login-body #error-msg{
+.login-body .error-msg{
   visibility: hidden;
   color: red;
   font-size: .8em;

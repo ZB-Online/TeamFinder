@@ -48,7 +48,7 @@
       </div>
       <div class="login-body">
         <p class="sign-state">Sign In</p>
-        <form id="form" onsubmit="false">
+        <form class="form" onsubmit="false">
           <label class="input-label">
             <span>ID</span>
             <input type="text" class="input" placeholder="아이디를 입력하세요">
@@ -62,13 +62,13 @@
             <input type="text" class="input" placeholder="별명을 입력하세요">
           </label>
         </form>
-        <p id="error-msg">로그인 정보가 올바르지 않습니다.</p>
+        <p class="error-msg">로그인 정보가 올바르지 않습니다.</p>
         <button id="checkaaa">check</button>
         <div class="btns">
-          <button type="submit" id="signin-btn" form="form">sign in</button>
-          <button type="submit" id="signup-btn" class="display-toggle" form="form">sign up</button>
-          <a href="javascript:void(0)" id="signup" class="delDeco">회원가입</a>
-          <a href="javascript:void(0)" id="signin" class="delDeco display-toggle">로그인</a>
+          <button type="submit" class="signin-btn" form="form">sign in</button>
+          <button type="submit" class="signup-btn display-toggle" form="form">sign up</button>
+          <a href="javascript:void(0)" class="delDeco signup">회원가입</a>
+          <a href="javascript:void(0)" class="delDeco signin display-toggle">로그인</a>
         </div>
       </div>
     </div>
