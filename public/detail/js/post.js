@@ -24,6 +24,8 @@ const store = {
   },
 };
 
+const checkLogin = () => Object.keys(store.authUser).length === 0;
+
 const subscribe = listener => {
   store.postListeners.push(listener);
 };
@@ -58,6 +60,8 @@ const deletePost = async postId => {
 
 const changeLikeCount = async (postId, likeActive) => {
   try {
+    if (checkLogin()) throw new Error('로그인이 필요함.');
+
     const { data: post } = await axios.patch(`/api/posts/${postId}/like`, { likeActive });
 
     store.state.likeActive = !likeActive;
@@ -69,6 +73,8 @@ const changeLikeCount = async (postId, likeActive) => {
 
 const uploadComment = async (postId, content) => {
   try {
+    if (checkLogin()) throw new Error('로그인이 필요함.');
+
     const { data: post } = await axios.post(`/api/posts/${postId}/comments`, {
       content,
       date: todayFormat(),
