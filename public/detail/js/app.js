@@ -23,6 +23,12 @@ $postBox.addEventListener('click', ({ target }) => {
   if (target.classList.contains('delete')) {
     $modal.closest('.modal-wrap').classList.remove('hidden');
   }
+
+  if (target.classList.contains('like')) {
+    target.classList.toggle('active');
+
+    // axios
+  }
 });
 
 $modal.addEventListener('click', ({ target }) => {

@@ -32,6 +32,7 @@ let posts = [
     content: 'hello',
     date: '2021-12-13',
     recruit: true,
+    likeCount: 2,
     owner: { id: 0, nickname: '으르렁' },
     comments: [
       {
@@ -57,6 +58,7 @@ let posts = [
     content: 'hello\nasdf\n\n\nasdasdg',
     date: '2021-12-13',
     recruit: true,
+    likeCount: 3,
     owner: { id: 3, nickname: '토끼' },
     comments: [
       {
@@ -88,6 +90,7 @@ let posts = [
     content: 'hello',
     date: '2021-12-14',
     recruit: true,
+    likeCount: 1,
     owner: { id: 2, nickname: '원숭이' },
     comments: [
       {
@@ -107,6 +110,7 @@ let posts = [
     content: 'hello',
     date: '2021-12-14',
     recruit: false,
+    likeCount: 0,
     owner: { id: 0, nickname: '으르렁' }, // user id
     comments: [],
   },

@@ -7,6 +7,7 @@ const post = {
   sportsTypes: [],
   content: '',
   recruit: true,
+  likeCount: 0,
   // cycle
   owner: '', // user id
   comments: [], // some comment

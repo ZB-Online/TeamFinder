@@ -53,9 +53,15 @@ const getPostFilters = (city, sportsTypes) => {
 };
 
 const getPostContent = content => `
-    <section class="post-content">
-      <p>${formatContent(content)}</p>
-    </section>`;
+  <section class="post-content">
+    <p>${formatContent(content)}</p>
+  </section>`;
+
+const getPostLikeCount = likeCount => `
+  <section class="post-like-count">
+    <button class="like">❤</button>
+    <span>${likeCount}</span>
+  </section>`;
 
 const getCommentInput = commentCount => `
   <section class="comment-input">
@@ -97,7 +103,8 @@ const render = (post, authUser) => {
   $postBox.innerHTML = `
     ${getPostHeader(title, writer, date, postBtnBox)}
     ${getPostFilters(city, sportsTypes)}
-    ${getPostContent(content)}`;
+    ${getPostContent(content)}
+    ${getPostLikeCount(1)}`;
 
   $commentBox.innerHTML = `
     ${getCommentInput(comments.length)}
