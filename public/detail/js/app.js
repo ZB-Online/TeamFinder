@@ -1,4 +1,4 @@
-import store from './post.js';
+import store from '../../component/Post/postUtils/post.js';
 import render from './render.js';
 
 const $modal = document.querySelector('.modal');

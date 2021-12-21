@@ -31,7 +31,7 @@ let posts = [
     sportsTypes: [3],
     content: 'hello',
     date: '2021-12-13',
-    recruit: true,
+    recruit: false,
     likeCount: 2,
     owner: { id: 0, nickname: '으르렁' },
     comments: [
@@ -261,7 +261,7 @@ apiRouter.delete('/posts/:id', (req, res) => {
 
     posts = posts.filter(post => post.id !== +id);
 
-    res.send();
+    res.status(200).send();
   } catch (e) {
     console.error(e);
   }

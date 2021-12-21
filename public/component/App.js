@@ -1,4 +1,4 @@
-import Comment from './Post/Comment.js';
+import Post from './Post/Post.js';
 import Header from './Common/Header.js';
 import PostList from './Home/PostList.js';
 import Writing from './Writing/Writing.js';
@@ -11,7 +11,7 @@ const MainComponent = $parent => {
 };
 
 const CommentComponent = $parent => {
-  new Comment({
+  new Post({
     $parent,
     initialState: {},
   });
@@ -31,7 +31,7 @@ const routes = {
   '/writing': WritingComponent,
 };
 
-export default function App ($app) {
+export default function App($app) {
   this.state = {
     isRoot: false,
   };
