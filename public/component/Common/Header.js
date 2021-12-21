@@ -1,4 +1,4 @@
-import addEventHeader from './event/addEventHeader.js';
+import addHeaderEvent from './event/addHeaderEvent.js';
 
 export default function Header ({ $parent, initialState }) {
   this.state = initialState;
@@ -45,7 +45,7 @@ export default function Header ({ $parent, initialState }) {
   };
 
   this.addEvent = () => {
-    addEventHeader($parent);
+    addHeaderEvent($parent);
   };
 
   this.render();

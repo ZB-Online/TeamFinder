@@ -1,4 +1,4 @@
-import addEventComment from './event/addEventComment.js';
+import addCommentEvent from './event/addCommentEvent.js';
 
 export default function Comment ({ $parent, initialState }) {
   this.state = initialState;
@@ -25,7 +25,7 @@ export default function Comment ({ $parent, initialState }) {
   };
 
   this.addEvent = () => {
-    addEventComment();
+    addCommentEvent();
   };
 
   this.render();

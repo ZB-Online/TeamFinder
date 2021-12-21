@@ -1,4 +1,4 @@
-import addEventWriting from './event/addEventWriting.js';
+import addWritingEvent from './event/addWritingEvent.js';
 
 export default function Writing ({ $parent, initialState }) {
   this.state = initialState;
@@ -76,7 +76,7 @@ export default function Writing ({ $parent, initialState }) {
   };
 
   this.addEvent = () => {
-    addEventWriting(this.$target);
+    addWritingEvent(this.$target);
   };
 
   this.render();

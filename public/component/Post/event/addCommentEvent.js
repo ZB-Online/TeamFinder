@@ -1,7 +1,7 @@
 import fetchComment from '../postUtils/fetchComment.js';
 import { todayFormat } from '../../../utils/date.js';
 
-export default function addEventComment () {
+export default function addCommentEvent () {
   // Login State
   const loggedIn = true;
 
