@@ -28,18 +28,21 @@ let posts = [
     title: `title ${0}`,
     writer: `writer ${0}`,
     city: 1,
-    sportsType: [3],
+    sportsTypes: [3],
     content: 'hello',
     date: '2021-12-13',
     recruit: true,
+    likeCount: 2,
     owner: { id: 0, nickname: '으르렁' },
     comments: [
       {
+        id: 1,
         content: '첫 번째 댓글',
         date: '2021-12-13',
         owner: { id: 1, nickname: '호랑이' },
       },
       {
+        id: 2,
         content: '두 번째 댓글',
         date: '2021-12-14',
         owner: { id: 2, nickname: '원숭이' },
@@ -51,23 +54,27 @@ let posts = [
     title: `title ${2}`,
     writer: `writer ${2}`,
     city: 5,
-    sportsType: [5],
-    content: 'hello',
+    sportsTypes: [5],
+    content: 'hello\nasdf\n\n\nasdasdg',
     date: '2021-12-13',
     recruit: true,
+    likeCount: 3,
     owner: { id: 3, nickname: '토끼' },
     comments: [
       {
+        id: 1,
         content: '첫 번째 댓글',
         date: '2021-12-13',
         owner: { id: 0, nickname: '으르렁' },
       },
       {
-        content: '두 번째 댓글',
+        id: 2,
+        content: '두 번째 댓글\nasdg\n\nasdf',
         date: '2021-12-14',
         owner: { id: 1, nickname: '호랑이' },
       },
       {
+        id: 3,
         content: '세 번째 댓글',
         date: '2021-12-14',
         owner: { id: 2, nickname: '원숭이' },
@@ -79,13 +86,15 @@ let posts = [
     title: `title ${3}`,
     writer: `writer ${3}`,
     city: 2,
-    sportsType: [4],
+    sportsTypes: [4],
     content: 'hello',
     date: '2021-12-14',
     recruit: true,
+    likeCount: 1,
     owner: { id: 2, nickname: '원숭이' },
     comments: [
       {
+        id: 1,
         content: '첫 번째 댓글',
         date: '2021-12-14',
         owner: { id: 2, nickname: '원숭이' },
@@ -97,17 +106,18 @@ let posts = [
     title: `title ${1}`,
     writer: `writer ${1}`,
     city: 2,
-    sportsType: [1],
+    sportsTypes: [1],
     content: 'hello',
     date: '2021-12-14',
     recruit: false,
+    likeCount: 0,
     owner: { id: 0, nickname: '으르렁' }, // user id
     comments: [],
   },
 ];
 
 // Functions
-const getPosting = id => posts.filter(posting => posting.id === +id);
+const getPost = id => posts.filter(posting => posting.id === +id);
 
 // Route
 const apiRouter = express.Router();
@@ -121,7 +131,7 @@ apiRouter.get('/posts', (req, res) => {
     sendingData = sendingData.filter(
       post =>
         currentCities.includes(FILTER.CITIES[post.city]) &&
-        post.sportsType.some(sports => currentSports.includes(FILTER.SPORTS[sports]))
+        post.sportsTypes.some(sports => currentSports.includes(FILTER.SPORTS[sports]))
     );
   }
   res.status(200).json(sendingData);
@@ -130,13 +140,19 @@ apiRouter.get('/posts', (req, res) => {
 apiRouter.get('/posts/:id', (req, res) => {
   const { id } = req.params;
 
-  res.send(getPosting(id));
+  try {
+    const [post] = getPost(id);
+
+    res.send(post);
+  } catch (e) {
+    console.error(e);
+  }
 });
 
 // POST
 apiRouter.post('/posts', (req, res) => {
   // body is not null
-  const { title, city, sportsType, content, date } = req.body;
+  const { title, city, sportsTypes, content, date } = req.body;
 
   const maxId = (() => Math.max(...posts.map(({ id }) => id)))();
 
@@ -146,7 +162,7 @@ apiRouter.post('/posts', (req, res) => {
       title,
       writer: 'writer 1',
       city,
-      sportsType,
+      sportsTypes,
       content,
       date,
       recruit: true,
@@ -160,73 +176,110 @@ apiRouter.post('/posts', (req, res) => {
   }
 });
 
+const getMaxId = comments => Math.max(...comments.map(({ id }) => id));
+
+const changePost = newPost => {
+  posts = posts.map(post => (post.id === newPost.id ? newPost : post));
+};
+
 apiRouter.post('/posts/:id/comments', (req, res) => {
-  const { id } = req.params;
-  const newComment = req.body;
-
-  posts = posts.map(posting =>
-    posting.id === +id ? { ...posting, comments: [...posting.comments, newComment] } : posting
-  );
-
-  res.send(getPosting(id));
-});
-
-// PATCH
-apiRouter.patch('/posts/:id', (req, res) => {
   const {
     params: { id },
-    // body is not null
-    body: { title, city, sportsType, content, recruit },
+    body: { content, date, owner },
   } = req;
 
   try {
-    posts = posts.map(post =>
-      post.id === +id ? Object.assign(post, { title, city, sportsType, content, recruit }) : post
-    );
+    const [post] = getPost(id);
+    const newComment = { id: getMaxId(post.comments) + 1, content, date, owner };
+    const newPost = { ...post, comments: [...post.comments, newComment] };
 
-    res.send(posts);
-  } catch (error) {
-    res.status(400).send(error);
+    changePost(newPost);
+
+    res.send(newPost);
+  } catch (e) {
+    console.error(e);
   }
 });
 
-apiRouter.patch('/posts/:postingId/comments/:commentId', (req, res) => {
+apiRouter.patch('/posts/:id', (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const [post] = getPost(id);
+    const newPost = { ...post, recruit: !post.recruit };
+
+    changePost(newPost);
+
+    res.send(newPost);
+  } catch (e) {
+    console.error(e);
+  }
+});
+
+apiRouter.patch('/posts/:id/like', (req, res) => {
   const {
-    params: { postingId, commentId },
+    params: { id },
+    body: { likeActive },
+  } = req;
+
+  try {
+    const [post] = getPost(id);
+    const newPost = { ...post, likeCount: likeActive ? post.likeCount - 1 : post.likeCount + 1 };
+
+    changePost(newPost);
+
+    res.send(newPost);
+  } catch (e) {
+    console.error(e);
+  }
+});
+
+apiRouter.patch('/posts/:postId/comments/:commentId', (req, res) => {
+  const {
+    params: { postId, commentId },
     body: { content },
   } = req;
 
-  posts = posts.map(posting =>
-    posting.id === +postingId
-      ? {
-          ...posting,
-          comments: posting.comments.map((comment, idx) => (idx === +commentId ? { ...comment, content } : comment)),
-        }
-      : posting
-  );
+  try {
+    const [post] = getPost(postId);
+    const newPost = {
+      ...post,
+      comments: post.comments.map(comment => (comment.id === +commentId ? { ...comment, content } : comment)),
+    };
 
-  res.send(getPosting(postingId));
+    changePost(newPost);
+
+    res.send(newPost);
+  } catch (e) {
+    console.error(e);
+  }
 });
 
-// DELETE
 apiRouter.delete('/posts/:id', (req, res) => {
-  const { id } = req.params;
+  try {
+    const { id } = req.params;
 
-  posts = posts.filter(post => post.id !== +id);
+    posts = posts.filter(post => post.id !== +id);
 
-  res.send(posts);
+    res.send();
+  } catch (e) {
+    console.error(e);
+  }
 });
 
-apiRouter.delete('/posts/:postingId/comments/:commentId', (req, res) => {
-  const { postingId, commentId } = req.params;
+apiRouter.delete('/posts/:postId/comments/:commentId', (req, res) => {
+  const { postId, commentId } = req.params;
 
-  posts = posts.map(posting =>
-    posting.id === +postingId
-      ? { ...posting, comments: posting.comments.filter((_, idx) => idx !== +commentId) }
-      : posting
-  );
+  try {
+    const [post] = getPost(postId);
+    const newPost = { ...post, comments: post.comments.filter(comment => comment.id !== +commentId) };
 
-  res.send(getPosting(postingId));
+    changePost(newPost);
+
+    res.send(newPost);
+  } catch (e) {
+    console.error(e);
+  }
 });
 
 export default apiRouter;

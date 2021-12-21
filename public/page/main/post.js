@@ -2,7 +2,7 @@ import { FILTER_TYPE, filterStore, initialFilter } from '../../store/filter.js';
 
 const $filterRecruitCheck = document.querySelector('.filter-recruit-input');
 
-function getPostElements (data) {
+function getPostElements(data) {
   return data.map(postData => {
     const $post = document.createElement('li');
     $post.setAttribute('data-id', postData.id);
@@ -11,7 +11,7 @@ function getPostElements (data) {
     $post.innerHTML = `
   <h3 class="post-title">${postData.title}</h3>
   <ul class="post-filter-list">
-    ${postData.sportsType
+    ${postData.sportsTypes
       .map(
         positionId => `
       <li class="post-filter">
@@ -22,7 +22,7 @@ function getPostElements (data) {
       />
       <p class="post-filter-name">${initialFilter.sports[positionId]}</p>
       </li>
-    `,
+    `
       )
       .join('')}
   </ul>
@@ -47,11 +47,11 @@ function getPostElements (data) {
   });
 }
 
-function getRecruitingPostData (data) {
+function getRecruitingPostData(data) {
   return data.filter(postData => postData.recruit);
 }
 
-export function renderPostElements (data) {
+export function renderPostElements(data) {
   const $contentList = document.querySelector('.post-list');
   $contentList.innerHTML = ``;
   getPostElements($filterRecruitCheck.checked ? getRecruitingPostData(data) : data).forEach($post => {
@@ -59,14 +59,14 @@ export function renderPostElements (data) {
   });
 }
 
-async function fetchFilteredData(){
+async function fetchFilteredData() {
   const cities = filterStore[FILTER_TYPE.CITIES].getState();
   const sports = filterStore[FILTER_TYPE.SPORTS].getState();
   const res = await fetch(`/api/posts?` + new URLSearchParams({ cities, sports }));
-  const data = await res.json()
+  const data = await res.json();
   return data;
 }
 
-export async function renderFilteredPosts(){
+export async function renderFilteredPosts() {
   renderPostElements(await fetchFilteredData());
 }
