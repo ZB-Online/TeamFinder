@@ -113,12 +113,7 @@ const renderPost = (post, likeActive, authUser) => {
     </ul>`;
 };
 
-// const renderEdit = () => {};
-
 const render = ({ post, likeActive, editActive }, authUser) => {
-  // const { title, writer, date, city, sportsTypes, likeCount, owner, content, recruit, comments } = post;
-  // const { id } = authUser;
-
   renderPost(post, likeActive, authUser);
 };
 

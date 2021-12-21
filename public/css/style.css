@@ -259,7 +259,7 @@ body {
   justify-content: space-between;
   background-color: white;
 }
-.post-title {
+h3.post-title {
   text-align: center;
   font-weight: bold;
   min-height: 30px;
