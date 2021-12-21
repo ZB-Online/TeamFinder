@@ -1,4 +1,4 @@
-import express from 'express';
+const express = require('express');
 
 const FILTER = {
   SPORTS: ['배드민턴', '야구', '농구', '당구', '볼링', '축구', '런닝'],
@@ -121,7 +121,7 @@ apiRouter.get('/posts', (req, res) => {
     sendingData = sendingData.filter(
       post =>
         currentCities.includes(FILTER.CITIES[post.city]) &&
-        post.sportsType.some(sports => currentSports.includes(FILTER.SPORTS[sports]))
+        post.sportsType.some(sports => currentSports.includes(FILTER.SPORTS[sports])),
     );
   }
   res.status(200).json(sendingData);
@@ -165,7 +165,7 @@ apiRouter.post('/posts/:id/comments', (req, res) => {
   const newComment = req.body;
 
   posts = posts.map(posting =>
-    posting.id === +id ? { ...posting, comments: [...posting.comments, newComment] } : posting
+    posting.id === +id ? { ...posting, comments: [...posting.comments, newComment] } : posting,
   );
 
   res.send(getPosting(id));
@@ -181,7 +181,7 @@ apiRouter.patch('/posts/:id', (req, res) => {
 
   try {
     posts = posts.map(post =>
-      post.id === +id ? Object.assign(post, { title, city, sportsType, content, recruit }) : post
+      post.id === +id ? Object.assign(post, { title, city, sportsType, content, recruit }) : post,
     );
 
     res.send(posts);
@@ -202,7 +202,7 @@ apiRouter.patch('/posts/:postingId/comments/:commentId', (req, res) => {
           ...posting,
           comments: posting.comments.map((comment, idx) => (idx === +commentId ? { ...comment, content } : comment)),
         }
-      : posting
+      : posting,
   );
 
   res.send(getPosting(postingId));
@@ -223,10 +223,10 @@ apiRouter.delete('/posts/:postingId/comments/:commentId', (req, res) => {
   posts = posts.map(posting =>
     posting.id === +postingId
       ? { ...posting, comments: posting.comments.filter((_, idx) => idx !== +commentId) }
-      : posting
+      : posting,
   );
 
   res.send(getPosting(postingId));
 });
 
-export default apiRouter;
+module.exports = apiRouter;

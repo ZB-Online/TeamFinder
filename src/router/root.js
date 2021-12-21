@@ -1,4 +1,4 @@
-import express from 'express';
+const express = require('express');
 
 const rootRouter = express.Router();
 
@@ -14,4 +14,4 @@ rootRouter.post('/signup', (req, res) => {
   res.send();
 });
 
-export default rootRouter;
+module.exports = rootRouter;
