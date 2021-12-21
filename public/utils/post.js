@@ -2,7 +2,8 @@ import { FILTER_TYPE, filterStore, initialFilter } from '../store/filter.js';
 
 import client from '../api/axios.js';
 
-const getPostElements = data => data.map(postData => {
+const getPostElements = data =>
+  data.map(postData => {
     const $post = document.createElement('li');
     $post.setAttribute('data-id', postData.id);
     $post.classList.add('post');
@@ -11,7 +12,9 @@ const getPostElements = data => data.map(postData => {
     <a class="post-link">
       <h3 class="post-title">${postData.title}</h3>
       <ul class="post-filter-list">
-        ${postData.sportsType.map(positionId => `
+        ${postData.sportsType
+          .map(
+            positionId => `
           <li class="post-filter">
             <img 
               class="post-filter-icon"
@@ -20,7 +23,9 @@ const getPostElements = data => data.map(postData => {
             />
             <p class="post-filter-name">${initialFilter.sports[positionId]}</p>
           </li>
-        `).join('')}
+        `,
+          )
+          .join('')}
       </ul>
       <div class="infos">
         <span class="info-city">${initialFilter.cities[postData.city]}</span>
@@ -40,11 +45,11 @@ const getPostElements = data => data.map(postData => {
       ${postData.recruit ? '' : `<p class="recruited">모집완료</p>`}
     </a>`;
     return $post;
-});
+  });
 
-const getRecruitingPostData= data => data.filter(postData => postData.recruit);
+const getRecruitingPostData = data => data.filter(postData => postData.recruit);
 
-const renderPostElements= data => {
+const renderPostElements = data => {
   const $filterRecruitCheck = document.querySelector('.filter-recruit-input');
   const $contentList = document.querySelector('.post-list');
   $contentList.innerHTML = ``;
@@ -53,18 +58,15 @@ const renderPostElements= data => {
   });
 };
 
-const fetchFilteredData= async () => {
+const fetchFilteredData = async () => {
   const cities = filterStore[FILTER_TYPE.CITIES].getState();
   const sports = filterStore[FILTER_TYPE.SPORTS].getState();
   const res = await client.get(`/api/posts?` + new URLSearchParams({ cities, sports }));
   return res.data;
 };
 
-const renderFilteredPosts= async () => {
+const renderFilteredPosts = async () => {
   renderPostElements(await fetchFilteredData());
 };
 
-export {
-  renderPostElements,
-  renderFilteredPosts,
-};
+export { renderPostElements, renderFilteredPosts };
