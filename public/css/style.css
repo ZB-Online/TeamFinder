@@ -9,16 +9,17 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 1.5rem;
-  width: 1280px;
+  width: 100%;
+  max-width: 1280px;
   margin: 0 auto;
 }
 .navbar > a {
   text-decoration: none;
+  height: 30px;
+  line-height: 30px;
 }
 .navbar-logo {
   padding: 10px;
-  height: 30px;
-  line-height: 30px;
   border-radius: 10px;
   background-color: black;
   color: white;
@@ -44,6 +45,7 @@ body {
   background-color: inherit;
   font-size: 16px;
   font-weight: bold;
+  height: 40px;
 }
 .navbar-menus-item:hover {
   cursor: pointer;
@@ -93,6 +95,7 @@ body {
   min-height: 400px;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -237,9 +240,15 @@ body {
 
 .post {
   position: relative;
-  width: 15rem;
-  height: 15rem;
-  margin: 0.625rem;
+  margin: 0 auto;
+}
+
+.post:hover {
+  transform: scale(1.03);
+}
+.post-link {
+  width: 18rem;
+  height: 18rem;
   padding: 1.5rem;
   box-shadow: 0 5px 25px rgb(0 0 0 / 15%);
   border-radius: 1.5rem;
@@ -249,9 +258,6 @@ body {
   flex-direction: column;
   justify-content: space-between;
   background-color: white;
-}
-.post:hover {
-  transform: scale(1.03);
 }
 .post-title {
   text-align: center;

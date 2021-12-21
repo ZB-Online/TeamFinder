@@ -12,4 +12,4 @@ const posting = {
   comments: [], // some comment
 };
 
-export default posting;
+module.exports = posting;

@@ -17,7 +17,7 @@
     "no-shadow": "off",
     "vars-on-top": "off",
     "no-underscore-dangle": "off", // var _foo;
-    "comma-dangle": "off",
+    "comma-dangle": "error",
     "func-names": "off", // setTimeout(function () {}, 0);
     "prefer-template": "off",
     "no-nested-ternary": "off",
@@ -28,6 +28,8 @@
     "require-await": "error",
     "arrow-parens": ["error", "as-needed"], // a => {}
     "no-param-reassign": ["error", { "props": false }],
+    "semi": "error",
+    "no-new": "off",
     "no-unused-expressions": [
       "error",
       {
@@ -36,6 +38,7 @@
         "allowTaggedTemplates": true
       }
     ],
+    "import/order": "off",
     "import/extensions": "off",
     "import/prefer-default-export": "off",
     "import/no-extraneous-dependencies": ["error", { "devDependencies": true }]

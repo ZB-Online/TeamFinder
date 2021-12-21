@@ -5,4 +5,4 @@ const comment = {
   owner: '', // user id
 };
 
-export default comment;
+module.exports = comment;
