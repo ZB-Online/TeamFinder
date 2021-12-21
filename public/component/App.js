@@ -1,43 +1,51 @@
 import Comment from './Post/Comment.js';
 import Header from './Common/Header.js';
-import PostList from './Post/PostList.js';
+import PostList from './Home/PostList.js';
 import Writing from './Writing/Writing.js';
 
-export default function App($app){
+const MainComponent = $parent => {
+  new PostList({
+    $parent,
+    initialState: {},
+  });
+};
+
+const CommentComponent = $parent => {
+  new Comment({
+    $parent,
+    initialState: {},
+  });
+};
+
+const WritingComponent = $parent => {
+  new Writing({
+    $parent,
+    initialState: {},
+  });
+};
+
+const routes = {
+  '/': MainComponent,
+  '/index.html': MainComponent,
+  '/posts': CommentComponent,
+  '/writing': WritingComponent,
+};
+
+export default function App ($app) {
   this.state = {
-    isRoot : false,
+    isRoot: false,
   };
 
-  const header = new Header({
-    $app,
-    initialState : {},
-    onClick : () => {
-      new Writing({
-        $app,
-        initialState:{},
-      });
-    },
+  new Header({
+    $parent: $app,
+    initialState: {},
   });
 
-  const postView = new PostList({
-    $app,
-    initialState : {
-      isRoot :this.state.isRoot,
-    },
-    onClick : target => {
-      if(!target.classList.contains('post')) return;
-      new Comment({
-        $app,
-        initialState:{
-          postId : target.dataset.id,
-        },
-      });
-    },
-  });
-
-  this.setState = nextState => {
-    this.state = nextState;
-    header.setState(this.state);
-    postView.setState(this.state);
+  window.onpopstate = function () {
+    const url = document.location.pathname.split(':')[0];
+    $app.lastElementChild.innerHTML = '';
+    routes[url]($app);
   };
+
+  routes['/']($app);
 }

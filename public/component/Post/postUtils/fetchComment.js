@@ -1,4 +1,4 @@
-import client from '../api/axios.js';
+import client from '../../../api/axios.js';
 import renderComments from './comment.js';
 
 // Fake Data
@@ -10,7 +10,8 @@ const store = {
 
 // GET - maybe confilct
 const getPost = async () => {
-  await client.get(`/api/posts/${POST_ID}`)
+  await client
+    .get(`/api/posts/${POST_ID}`)
     .then(res => res.data)
     .then(([post]) => {
       store.comments = post.comments;
@@ -21,7 +22,8 @@ const getPost = async () => {
 
 // POST
 const uploadComment = async comment => {
-  await client.post(`/api/posts/${POST_ID}/comments`, comment)
+  await client
+    .post(`/api/posts/${POST_ID}/comments`, comment)
     .then(res => res.data)
     .then(([post]) => {
       store.comments = post.comments;
@@ -32,7 +34,8 @@ const uploadComment = async comment => {
 
 // PATCH
 const patchComment = async (commentId, content) => {
-  await client.patch(`/api/posts/${POST_ID}/comments/${commentId}`, content)
+  await client
+    .patch(`/api/posts/${POST_ID}/comments/${commentId}`, content)
     .then(res => res.data)
     .then(([post]) => {
       store.comments = post.comments;
@@ -43,7 +46,8 @@ const patchComment = async (commentId, content) => {
 
 // DELETE
 const deleteComment = async commentId => {
-  await client.delete(`/api/posts/${POST_ID}/comments/${commentId}`)
+  await client
+    .delete(`/api/posts/${POST_ID}/comments/${commentId}`)
     .then(res => res.data)
     .then(([post]) => {
       store.comments = post.comments;

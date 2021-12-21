@@ -1,16 +1,15 @@
-import addEventHeader from "./addEventHeader.js";
+import addEventHeader from './event/addEventHeader.js';
 
-export default function Header({$app, initialState, onClick}){
+export default function Header ({ $parent, initialState }) {
   this.state = initialState;
-  this.onClick = onClick;
   this.$target = document.createElement('div');
-  $app.appendChild(this.$target);
+  $parent.appendChild(this.$target);
 
   this.setState = nextState => {
     this.state = nextState;
     this.render();
   };
-  
+
   this.render = () => {
     this.$target.innerHTML = `
     <header>
@@ -46,7 +45,7 @@ export default function Header({$app, initialState, onClick}){
   };
 
   this.addEvent = () => {
-    addEventHeader(this.onClick);
+    addEventHeader($parent);
   };
 
   this.render();

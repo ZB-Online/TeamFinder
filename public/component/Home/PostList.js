@@ -1,19 +1,17 @@
-import { FILTER_TYPE, filterStore, initialFilter } from '../../store/filter.js';
-import { selectFilter, togglePostsFilter } from '../../utils/filter.js';
+import addFilter from './event/addFilter.js';
+import addPostListEvent from './event/addPostListEvent.js';
 
-import { renderFilteredPosts } from '../../utils/post.js';
-
-export default function PostList({$app, initialState, onClick}){
+export default function PostList ({ $parent, initialState, onClick }) {
   this.state = initialState;
   this.onClick = onClick;
   this.$target = document.createElement('div');
-  $app.appendChild(this.$target);
+  $parent.appendChild(this.$target);
 
   this.setState = nextState => {
     this.state = nextState;
     this.render();
   };
-  
+
   this.render = () => {
     this.$target.innerHTML = `
       <main>
@@ -63,49 +61,10 @@ export default function PostList({$app, initialState, onClick}){
   };
 
   this.addEvent = () => {
-    const $filterListCity = document.querySelector('.filter-list-city');
-    const $filterListSports = document.querySelector('.filter-list-sports');
-    const $postsFilters = document.querySelector('.posts-filter');
-    const $filterRecruitCheck = document.querySelector('.filter-recruit-input');  
-    
-    // 필터 키워드에 따른 초기 필터 아이콘 생성
-    initialFilter.cities.forEach(keyword => {
-      $filterListCity.insertAdjacentHTML('beforeend',`
-      <li data-filter="${keyword}" class="filter-item active">
-        <p class="filter-city">${keyword}</p>
-      </li>
-      `);
-    });
-    
-    initialFilter.sports.forEach(keyword => {
-      $filterListSports.insertAdjacentHTML('beforeend',`
-      <li data-filter="${keyword}" class="filter-item active">
-        <img class="filter-icon" src="./assets/img/filter/${keyword}.png" alt="${keyword} icon" />
-        <p class="filter-sports-text">${keyword}</p>
-      </li>
-      `);
-    });
-        
-    $filterListCity.addEventListener('click', selectFilter($filterListCity, FILTER_TYPE.CITIES));
-    
-    $filterListSports.addEventListener('click', selectFilter($filterListSports, FILTER_TYPE.SPORTS));
-    
-    $postsFilters.addEventListener('click', togglePostsFilter($postsFilters.children));
-    
-    $filterRecruitCheck.addEventListener('click', renderFilteredPosts);
-    
-    renderFilteredPosts();
-   
-    filterStore.cities.subscribe(renderFilteredPosts);
-    filterStore.sports.subscribe(renderFilteredPosts);
-
-    const $postList = document.querySelector('.post-list');
-    $postList.addEventListener('click', e => {
-      if(!e.target.closest('.post') || e.target.closest('.post').classList.contains('opacity')) return;
-      this.onClick(e.target.closest('.post'));
-    });
+    addFilter(this.$target);
+    addPostListEvent($parent, this.$target);
   };
-  
+
   this.render();
   this.addEvent();
 }

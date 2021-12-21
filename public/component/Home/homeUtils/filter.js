@@ -1,4 +1,4 @@
-import { ADD_ALL, ADD_FILTER, REMOVE_ALL, REMOVE_FILTER, filterStore, initialFilter } from '../store/filter.js';
+import { ADD_ALL, ADD_FILTER, REMOVE_ALL, REMOVE_FILTER, filterStore, initialFilter } from '../../../store/filter.js';
 
 const removeActiveClass = $ul => {
   [...$ul.children].forEach($li => {
