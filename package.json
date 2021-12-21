@@ -4,11 +4,10 @@
   "description": "TeamFinder",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node server"
+    "start": "nodemon ./server.js"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
-    "@babel/node": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^15.0.0",
