@@ -99,7 +99,7 @@ export default function addEventSetting($target, $parent) {
   // 닉네임 변경 클릭
   $settingSubmit.addEventListener('click', () => {
     if (localStorage.getItem('teamfinderNickname') === $nickNameInput.value || $nickNameInput.value.trim() === '') {
-      console.log(localStorage.getItem('teamfinderNickname'));
+      localStorage.getItem('teamfinderNickname');
       toasterAlert(TOAST_TYPE.SUCCESS, 'Well done!', '회원 정보가 수정되었습니다.');
       mainMove(false);
     } else getNicknames($nickNameInput.value);
