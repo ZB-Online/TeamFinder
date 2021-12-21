@@ -1,4 +1,4 @@
-import client from '../../../api/axios.js';
+import { client } from '../../../api/axios.js';
 import renderComments from './comment.js';
 
 // Fake Data

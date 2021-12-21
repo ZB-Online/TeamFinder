@@ -1,8 +1,8 @@
-import client from '../../../api/axios.js';
+import { client } from '../../../api/axios.js';
 import { initialFilter } from '../../../store/filter.js';
 import { todayFormat } from '../../../utils/date.js';
 
-export default function addEventWriting ($target) {
+export default function addEventWriting($target) {
   const $title = $target.querySelector('.title');
   const $city = $target.querySelector('.city');
   const $sports = $target.querySelector('.sports');
