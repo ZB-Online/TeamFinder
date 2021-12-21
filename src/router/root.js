@@ -5,7 +5,7 @@ const users = [
   {id: "lee", pw: "l123", nickname:"고양이"},
   {id: "park", pw: "p123", nickname:"두더지"},
   {id: "yoon", pw: "y123", nickname:"호랑이"},
-]
+];
 
 const rootRouter = express.Router();
 
@@ -38,6 +38,5 @@ rootRouter.post('/signup', (req, res) => {
     res.send('2');
   }
 });
-
 
 module.exports = rootRouter;

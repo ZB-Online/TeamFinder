@@ -6,4 +6,3 @@ const comment = {
 };
 
 module.exports = comment;
-// export default comment;

@@ -13,4 +13,3 @@ const posting = {
 };
 
 module.exports = posting;
-// export default posting;

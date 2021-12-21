@@ -4,7 +4,7 @@
   "description": "TeamFinder",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node server"
+    "start": "nodemon ./server.js"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
@@ -30,6 +30,7 @@
   "homepage": "https://github.com/ZB-Online/TeamFinder#readme",
   "dependencies": {
     "axios": "^0.24.0",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "path": "^0.12.7"
   }
 }

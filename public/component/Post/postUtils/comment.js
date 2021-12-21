@@ -1,6 +1,3 @@
-const $countComment = document.querySelector('.count-comment');
-const $listComment = document.querySelector('.list-comment');
-
 const getElementComment = ({ owner, date, content }, authUser, idx) => `
     <li class="comment" data-id=${idx}>
       <section class="header-comment">
@@ -29,6 +26,8 @@ const getElementComment = ({ owner, date, content }, authUser, idx) => `
   `;
 
 const renderComments = store => {
+  const $countComment = document.querySelector('.count-comment');
+  const $listComment = document.querySelector('.list-comment');
   const comments = [...store.comments];
   const { authUser } = store;
   $countComment.textContent = `${comments.length}개의 댓글`;
