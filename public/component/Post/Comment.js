@@ -1,6 +1,6 @@
 import addCommentEvent from './event/addCommentEvent.js';
 
-export default function Comment ({ $parent, initialState }) {
+export default function Comment({ $parent, initialState }) {
   this.state = initialState;
   this.$target = document.createElement('div');
   this.$target.classList.add('post-container');

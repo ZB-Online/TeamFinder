@@ -12,7 +12,7 @@ const getPostElements = data =>
     <a class="post-link">
       <h3 class="post-title">${postData.title}</h3>
       <ul class="post-filter-list">
-        ${postData.sportsType
+        ${postData.sportsTypes
           .map(
             positionId => `
           <li class="post-filter">

@@ -47,7 +47,7 @@ const getPostFilters = ({ city, sportsTypes }) => {
           <ul class="filter-list">
             ${postFilter[filter]}
           </ul>
-        </section>`
+        </section>`,
     )
     .join('');
 };
@@ -90,7 +90,7 @@ const getCommentList = ({ comments }, id, getBtnBox) =>
       <section class="comment-content">
         <p>${formatContent(comment.content)}</p>
       </section>
-    </li>`
+    </li>`,
     )
     .join('');
 

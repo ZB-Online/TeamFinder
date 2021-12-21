@@ -13,4 +13,4 @@ const post = {
   comments: [], // some comment
 };
 
-export default post;
+module.exports = post;
