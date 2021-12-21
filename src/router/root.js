@@ -39,8 +39,5 @@ rootRouter.post('/signup', (req, res) => {
   }
 });
 
-rootRouter.post('/check', (req, res) => {
-  res.send(users)
-});
 
 module.exports = rootRouter;

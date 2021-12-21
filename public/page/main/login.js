@@ -170,17 +170,5 @@ $userMenuItem.addEventListener('click', () => {
   localStorage.removeItem('teamfinderNickname');
 });
 
-
-// 유저 정보 체크용
-document.querySelector('#checkaaa').addEventListener('click', () => {
-  request.post('/check', {}).then(res => {
-    if(!res.ok) throw new Error(res.statusText);
-    return res.json();
-  })
-  .then(userData => {
-    console.log(userData);
-  })
-  .catch(err => console.error(err));
-});
 // 초기 로드
 loadNewPage();

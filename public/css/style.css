@@ -402,12 +402,11 @@ body {
 .sign-state{
   font-size: 2em;
   font-weight: 700;
-  color: #ffcd00;
-  text-shadow:1px 1px 1px #836900;
+  color: black;
+  /* text-shadow:1px 1px 1px black; */
 }
 
 .input-label{
-  /* display:block; */
   width: 350px;
 }
 .input-label > span{
@@ -448,7 +447,8 @@ body {
   appearance: none;
   width: 335px;
   height: 30px;
-  background-color: #ffcd00;
+  background-color: black;
+  color: white;
   font-weight: 700;
   border: none;
   border-radius: 10px;
