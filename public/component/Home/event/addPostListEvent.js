@@ -7,7 +7,7 @@ export default function addPostListEvent ($parent, $target) {
     if (!$li || $li.classList.contains('opacity')) return;
     const { id } = $li.dataset;
     window.history.pushState({}, `/posts:${id}`, window.location.origin + `/posts:${id}`);
-    $parent.lastElementChild.innerHTML = '';
+    $parent.removeChild($parent.lastChild);
     new Comment({ $parent, initialState: {} });
   });
 }

@@ -43,7 +43,7 @@ export default function App ($app) {
 
   window.onpopstate = function () {
     const url = document.location.pathname.split(':')[0];
-    $app.lastElementChild.innerHTML = '';
+    $app.removeChild($app.lastChild);
     routes[url]($app);
   };
 
