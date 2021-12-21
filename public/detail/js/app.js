@@ -16,8 +16,8 @@ $postBox.addEventListener('click', ({ target }) => {
     store.endedPost(id);
   }
 
-  if (target.classList.contains('modify')) {
-    // goto modify page
+  if (target.classList.contains('edit')) {
+    // goto edit page
   }
 
   if (target.classList.contains('delete')) {
@@ -51,14 +51,14 @@ $commentBox.addEventListener('click', ({ target }) => {
     store.uploadComment(id, content);
   }
 
-  if (target.classList.contains('modify')) {
+  if (target.classList.contains('edit')) {
     if (target.classList.contains('active')) return;
 
     const $commentContent = target.closest('.comment-header').nextElementSibling;
     const originContent = $commentContent.firstElementChild.innerText;
 
     $commentContent.innerHTML = `
-      <div class="modify-box">
+      <div class="edit-box">
         <textarea class="textarea">${originContent}</textarea>
         <button class="btn cancel">취소</button>
         <button class="btn apply">적용</button>
@@ -69,18 +69,18 @@ $commentBox.addEventListener('click', ({ target }) => {
   }
 
   if (target.classList.contains('cancel')) {
-    const $modifyBtn = target.closest('.comment-content').previousElementSibling.querySelector('.modify');
+    const $editBtn = target.closest('.comment-content').previousElementSibling.querySelector('.edit');
 
     store.getPost(id);
 
-    $modifyBtn.classList.remove('active');
+    $editBtn.classList.remove('active');
   }
 
   if (target.classList.contains('apply')) {
     const content = target.parentNode.firstElementChild.value.trim();
     if (!content) return;
 
-    store.modifyComment(id, target.closest('.comment').dataset.id, content);
+    store.editComment(id, target.closest('.comment').dataset.id, content);
   }
 
   if (target.classList.contains('delete')) {

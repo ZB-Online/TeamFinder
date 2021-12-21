@@ -55,7 +55,7 @@
 
 /* all */
 .hidden {
-  display: none;
+  display: none !important;
 }
 
 /* post */
@@ -75,7 +75,6 @@
 .box {
   max-width: 720px;
   width: 100%;
-  padding: 0 1.5rem;
 }
 
 .post-title {

@@ -11,12 +11,12 @@ const getBtnBox = (type, isOwner, recruit) =>
   isOwner
     ? `<section class="btn-box">
           ${type === 'post' ? `<button class="ended">${recruit ? '마감' : '마감 취소'}</button>` : ''}
-          <button class="modify">수정</button>
+          <button class="edit">수정</button>
           <button class="delete">삭제</button>
         </section>`
     : '';
 
-const getPostHeader = (title, writer, date, getBtnBox) => `
+const getPostHeader = ({ title, writer, date }, postBoxBtns) => `
   <section class="post-header">
     <h1 class="post-title">${title}</h1>
     <div class="post-info">
@@ -30,10 +30,10 @@ const getPostHeader = (title, writer, date, getBtnBox) => `
       </div>
       <span class="date">${date}</span>
     </div>
-    ${getBtnBox}
+    ${postBoxBtns}
   </section>`;
 
-const getPostFilters = (city, sportsTypes) => {
+const getPostFilters = ({ city, sportsTypes }) => {
   const postFilter = {
     city: `<li>${initialFilter.cities[city]}</li>`,
     sportsTypes: sportsTypes.map(sportsType => `<li>${initialFilter.sports[sportsType]}</li>`).join(''),
@@ -52,12 +52,12 @@ const getPostFilters = (city, sportsTypes) => {
     .join('');
 };
 
-const getPostContent = content => `
+const getPostContent = ({ content }) => `
   <section class="post-content">
     <p>${formatContent(content)}</p>
   </section>`;
 
-const getPostLikeCount = (likeCount, likeActive) => `
+const getPostLikeCount = ({ likeCount }, likeActive) => `
   <section class="post-like-count">
     <button class="like ${likeActive ? 'active' : ''}">❤</button>
     <span>${likeCount}</span>
@@ -70,7 +70,7 @@ const getCommentInput = commentCount => `
     <button class="btn upload">댓글 등록</button>
   </section>`;
 
-const getCommentList = (comments, id, getBtnBox) =>
+const getCommentList = ({ comments }, id, getBtnBox) =>
   comments
     .map(
       comment => `
@@ -94,23 +94,32 @@ const getCommentList = (comments, id, getBtnBox) =>
     )
     .join('');
 
-const render = ({ post, likeActive }, authUser) => {
+const renderPost = (post, likeActive, authUser) => {
   const { title, writer, date, city, sportsTypes, likeCount, owner, content, recruit, comments } = post;
   const { id } = authUser;
 
-  const postBtnBox = getBtnBox('post', isOwner(id, owner.id), recruit);
+  const postBoxBtns = getBtnBox('post', isOwner(id, owner.id), recruit);
 
   $postBox.innerHTML = `
-    ${getPostHeader(title, writer, date, postBtnBox)}
-    ${getPostFilters(city, sportsTypes)}
-    ${getPostContent(content)}
-    ${getPostLikeCount(likeCount, likeActive)}`;
+    ${getPostHeader({ title, writer, date }, postBoxBtns)}
+    ${getPostFilters({ city, sportsTypes })}
+    ${getPostContent({ content })}
+    ${getPostLikeCount({ likeCount }, likeActive)}`;
 
   $commentBox.innerHTML = `
     ${getCommentInput(comments.length)}
     <ul class="comment-list">
-      ${getCommentList(comments, id, getBtnBox)}
+      ${getCommentList({ comments }, id, getBtnBox)}
     </ul>`;
+};
+
+const renderEdit = () => {};
+
+const render = ({ post, likeActive, editActive }, authUser) => {
+  const { title, writer, date, city, sportsTypes, likeCount, owner, content, recruit, comments } = post;
+  const { id } = authUser;
+
+  if (!editActive) renderPost(post, likeActive, authUser);
 };
 
 export default render;

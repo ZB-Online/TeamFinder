@@ -4,16 +4,14 @@ const store = {
   state: {
     post: {},
     likeActive: false,
+    editActive: false,
   },
   // localStorage user
-  _authUser: { id: 2, nickname: '원숭이' },
+  _authUser: { id: 1, nickname: '토끼' },
   postListeners: [],
   notify() {
-    console.log('[Post]', this.state.post);
+    console.log('[STATE]', this.state);
     this.postListeners.forEach(listener => listener(this.state, this._authUser));
-  },
-  get authUser() {
-    return this._authUser;
   },
   get post() {
     return this.state.post;
@@ -21,6 +19,15 @@ const store = {
   set post(newPost) {
     this.state.post = newPost;
     this.notify();
+  },
+  set likeActive(activeState) {
+    this.state.likeActive = activeState;
+  },
+  get editActive() {
+    return this.state.editActive;
+  },
+  get authUser() {
+    return this._authUser;
   },
 };
 
@@ -64,7 +71,7 @@ const changeLikeCount = async (postId, likeActive) => {
 
     const { data: post } = await axios.patch(`/api/posts/${postId}/like`, { likeActive });
 
-    store.state.likeActive = !likeActive;
+    store.likeActive = !likeActive;
     store.post = post;
   } catch (e) {
     console.error(e);
@@ -86,7 +93,7 @@ const uploadComment = async (postId, content) => {
   }
 };
 
-const modifyComment = async (postId, commentId, content) => {
+const editComment = async (postId, commentId, content) => {
   try {
     const { data: post } = await axios.patch(`/api/posts/${postId}/comments/${commentId}`, { content });
     store.post = post;
@@ -111,6 +118,6 @@ export default {
   deletePost,
   changeLikeCount,
   uploadComment,
-  modifyComment,
+  editComment,
   deleteComment,
 };
