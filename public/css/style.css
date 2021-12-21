@@ -9,16 +9,17 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 1.5rem;
-  width: 1280px;
+  width: 100%;
+  max-width: 1280px;
   margin: 0 auto;
 }
 .navbar > a {
   text-decoration: none;
+  height: 30px;
+  line-height: 30px;
 }
 .navbar-logo {
   padding: 10px;
-  height: 30px;
-  line-height: 30px;
   border-radius: 10px;
   background-color: black;
   color: white;
@@ -94,6 +95,7 @@ body {
   min-height: 400px;
   margin: 0 auto;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
