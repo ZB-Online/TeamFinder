@@ -1,20 +1,18 @@
-<!DOCTYPE html>
-<html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../../css/reset.css" />
-    <link rel="stylesheet" href="../../css/style.css" />
-    <link rel="stylesheet" href="./setting.css" />
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://unpkg.com/boxicons@2.1.1/dist/boxicons.js"></script>
-    <script defer type="module" src="./axios.js"></script>
-    <script defer type="module" src="./setting.js"></script>
-    <title>Document</title>
-  </head>
-  <body>
-    <main class="setting-wrap">
+import addSettingEvent from './event/addSettingEvent.js';
+
+export default function Setting({ $parent, initialState }) {
+  this.state = initialState;
+  this.$target = document.createElement('div');
+  $parent.appendChild(this.$target);
+
+  this.setState = nextState => {
+    this.state = nextState;
+    this.render();
+  };
+
+  this.render = () => {
+    this.$target.innerHTML = `
+      <main class="setting-wrap">
       <h1>내 정보 수정</h1>
       <section class="setting-img-area">
         <img
@@ -70,5 +68,13 @@
         </div>
       </div>
     </section>
-  </body>
-</html>
+    `;
+  };
+
+  this.addEvent = () => {
+    addSettingEvent(this.$target, $parent);
+  };
+
+  this.render();
+  this.addEvent();
+}

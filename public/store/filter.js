@@ -1,13 +1,13 @@
 import createStore from './createStore.js';
 
-export const ADD_FILTER = 'ADD_FILTER';
-export const REMOVE_FILTER = 'REMOVE_FILTER';
-export const COMPLETE_FILTER = 'COMPLETE_FILTER';
-export const ADD_ALL = 'ADD_ALL';
-export const REMOVE_ALL = 'REMOVE_ALL';
-export const EDIT_FILTER = 'EDIT_FILTER';
+const ADD_FILTER = 'ADD_FILTER';
+const REMOVE_FILTER = 'REMOVE_FILTER';
+const COMPLETE_FILTER = 'COMPLETE_FILTER';
+const ADD_ALL = 'ADD_ALL';
+const REMOVE_ALL = 'REMOVE_ALL';
+const EDIT_FILTER = 'EDIT_FILTER';
 
-export const FILTER_ACTIONS = {
+const FILTER_ACTIONS = {
   ADD_FILTER,
   REMOVE_FILTER,
   COMPLETE_FILTER,
@@ -16,12 +16,12 @@ export const FILTER_ACTIONS = {
   EDIT_FILTER,
 };
 
-export const FILTER_TYPE = {
+const FILTER_TYPE = {
   SPORTS: 'sports',
   CITIES: 'cities',
 };
 
-export const initialFilter = {
+const initialFilter = {
   sports: ['배드민턴', '야구', '농구', '당구', '볼링', '축구', '런닝'],
   cities: [
     '서울시',
@@ -61,7 +61,20 @@ const reducer = (filters, { payload, type }, initialFilters) => {
   }
 };
 
-export const filterStore = {
+const filterStore = {
   sports: createStore(initialFilter.sports, reducer),
   cities: createStore(initialFilter.cities, reducer),
+};
+
+export {
+  ADD_FILTER,
+  REMOVE_FILTER,
+  COMPLETE_FILTER,
+  ADD_ALL,
+  REMOVE_ALL,
+  EDIT_FILTER,
+  FILTER_ACTIONS,
+  FILTER_TYPE,
+  initialFilter,
+  filterStore,
 };
