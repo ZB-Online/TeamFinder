@@ -2,13 +2,8 @@ import { initialFilter } from '../../store/filter.js';
 import { todayFormat } from '../../utils/date.js';
 import { TOAST_TYPE, toaster, createToastAction } from '../../utils/toaster.js';
 
-const $citySportsWrap = document.querySelector('.city-sports-wrap');
-const $writingTitle = document.querySelector('.writing-title');
 const $cityList = document.querySelector('.city-list');
 const $sportsList = document.querySelector('.sports-list');
-const $sportsItems = document.querySelector('.sports-items');
-const $writingMainText = document.querySelector('.writing-main-text');
-const $writingSubmit = document.querySelector('.writing-submit');
 
 // post
 const postingSend = async payload => {
@@ -39,6 +34,12 @@ const listCreate = (categoriesArr, categories) => {
 listCreate(initialFilter.cities, $cityList);
 listCreate(initialFilter.sports, $sportsList);
 
+const $citySportsWrap = document.querySelector('.city-sports-wrap');
+const $writingTitle = document.querySelector('.writing-title');
+const $sportsItems = document.querySelector('.sports-items');
+const $writingMainText = document.querySelector('.writing-main-text');
+const $writingSubmit = document.querySelector('.writing-submit');
+
 // 중복 방지
 const duplication = (listItems, selectItem) =>
   [...listItems.querySelectorAll('span')].some(listItem => listItem.textContent === selectItem);
@@ -63,6 +64,7 @@ $writingSubmit.addEventListener('click', () => {
     sportsType: sportsArr,
     content: $writingMainText.value,
     date: todayFormat(),
+    owner: { id: localStorage.getItem('teamfinderId'), nickname: localStorage.getItem('teamfinderNickname') },
   };
   postingSend(writeVaules);
 });
