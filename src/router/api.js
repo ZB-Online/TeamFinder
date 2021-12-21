@@ -1,4 +1,4 @@
-import express from 'express';
+const express = require('express');
 
 const FILTER = {
   SPORTS: ['배드민턴', '야구', '농구', '당구', '볼링', '축구', '런닝'],
@@ -131,7 +131,7 @@ apiRouter.get('/posts', (req, res) => {
     sendingData = sendingData.filter(
       post =>
         currentCities.includes(FILTER.CITIES[post.city]) &&
-        post.sportsTypes.some(sports => currentSports.includes(FILTER.SPORTS[sports]))
+        post.sportsTypes.some(sports => currentSports.includes(FILTER.SPORTS[sports])),
     );
   }
   res.status(200).json(sendingData);
@@ -282,4 +282,4 @@ apiRouter.delete('/posts/:postId/comments/:commentId', (req, res) => {
   }
 });
 
-export default apiRouter;
+module.exports = apiRouter;

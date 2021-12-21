@@ -127,10 +127,13 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+<<<<<<< HEAD
 textarea {
   box-sizing: border-box;
   font-family: sans-serif;
 }
+=======
+>>>>>>> 117c78c343483cc9962df04cff8d007156ccc232
 button {
   border: none;
   outline: none;
