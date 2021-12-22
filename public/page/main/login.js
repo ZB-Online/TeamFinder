@@ -26,17 +26,12 @@ const addLoginEvent = () =>{
   };
 
   const formInit = () => {
-    $form[0].value = '';
-    $form[1].value = '';
-    $form[2].value = '';
-    $form[0].nextSibling.nextSibling.style.display = "none";
-    $form[1].nextSibling.nextSibling.style.display = "none";
-    $form[2].nextSibling.nextSibling.style.display = "none";
-    // signin, signup btn의 disable화
-    $signinBtn.disabled = 'true';
-    $signupBtn.disabled = 'true';
-    $signinBtn.classList.add('disable-button');
-    $signupBtn.classList.add('disable-button');
+    // value 및 아이콘
+    for (let i = 0; i < 3; i++) {
+      $form[i].value = '';
+      $form[i].nextSibling.nextSibling.style.display = "none";
+      $form[i].nextSibling.nextSibling.nextSibling.nextSibling.classList.add('hidden');
+    }
   };
 
   const errVisible = () => {
@@ -72,6 +67,17 @@ const addLoginEvent = () =>{
       document.querySelector('.navbar-menus').style.visibility = 'visible';
     }, .1);
   };
+
+  const envisibleWarning = inputNumber => {
+    $form[inputNumber].nextSibling.nextSibling.style.display = "none";
+    $form[inputNumber].nextSibling.nextSibling.nextSibling.nextSibling.classList.add('hidden');
+  };
+
+  const visibleWarning = inputNumber => {
+    $form[inputNumber].nextSibling.nextSibling.style.display = "inline-block";
+    $form[inputNumber].nextSibling.nextSibling.nextSibling.nextSibling.classList.remove('hidden');
+  };
+
 
 
   // 로그인 창 띄우기
@@ -110,62 +116,20 @@ const addLoginEvent = () =>{
   // 아이디 글자수 만들기
   // 키 다운 따로 걸기
   $form[0].addEventListener('input', () => {
-
-    if(/^\S{8,16}$/.test($form[0].value)){
-      $form[0].nextSibling.nextSibling.style.display = "none";
-    }else{
-      $form[0].nextSibling.nextSibling.style.display = "inline";
-      $signinBtn.disabled = 'true';
-      $signinBtn.classList.add('disable-button');
-    }
-
-    if($form[0].nextSibling.nextSibling.style.display === 'none' 
-    && $form[1].nextSibling.nextSibling.style.display === 'none'
-    && $form[0].value !== ''
-    && $form[1].value !== ''){
-      $signinBtn.removeAttribute('disabled');
-      $signinBtn.classList.remove('disable-button');
-    }
+    if(/^\S{8,16}$/.test($form[0].value)) envisibleWarning(0);
+    else visibleWarning(0);
   });
   // 비밀번호 글자수 만들기
   $form[1].addEventListener('input', () => {
-    if(/^\S{8,16}$/.test($form[1].value)){
-      $form[1].nextSibling.nextSibling.style.display = "none";
-    }else{
-      $form[1].nextSibling.nextSibling.style.display = "inline";
-      $signinBtn.disabled = 'true';
-      $signinBtn.classList.add('disable-button');
-    }
+    if(/^\S{8,16}$/.test($form[1].value)) envisibleWarning(1);
+    else visibleWarning(1);
 
-    if($form[0].nextSibling.nextSibling.style.display === 'none' 
-    && $form[1].nextSibling.nextSibling.style.display === 'none'
-    && $form[0].value !== ''
-    && $form[1].value !== ''){
-      $signinBtn.removeAttribute('disabled');
-      $signinBtn.classList.remove('disable-button');
-    }
   });
 
   // 별명 글자수 만들기
   $form[2].addEventListener('input', () => {
-
-    if(/^\S{2,5}$/.test($form[2].value)){
-      $form[2].nextSibling.nextSibling.style.display = "none";
-    }else{
-      $form[2].nextSibling.nextSibling.style.display = "inline";
-      $signupBtn.disabled = 'true';
-      $signupBtn.classList.add('disable-button');
-    }
-
-    if($form[0].nextSibling.nextSibling.style.display === 'none' 
-      && $form[1].nextSibling.nextSibling.style.display === 'none'
-      && $form[2].nextSibling.nextSibling.style.display === 'none'
-      && $form[0].value !== ''
-      && $form[1].value !== ''
-      && $form[2].value !== ''){
-      $signupBtn.removeAttribute('disabled');
-      $signupBtn.classList.remove('disable-button');
-    }
+    if(/^\S{2,5}$/.test($form[2].value)) envisibleWarning(2);
+    else visibleWarning(2);
   });
 
 
@@ -193,11 +157,10 @@ const addLoginEvent = () =>{
           localStorage.setItem('teamfinderId', userData[0]);
           localStorage.setItem('teamfinderNickname', userData[1]);
           document.querySelector('.navbar-user-name').textContent = localStorage.teamfinderNickname;
-
         }
-        else {
+        else { // 실패
           errVisible();
-          formInit();
+          // formInit();
         }
       })
       .catch(err => console.error(err));
@@ -208,7 +171,10 @@ const addLoginEvent = () =>{
   $signupBtn.addEventListener('click', e => {
     e.preventDefault();
     
-    if($form[0].value === '' || $form[1].value === '' ||  $form[2].value === '')
+    if($form[0].value === '' || $form[1].value === '' ||  $form[2].value === '' 
+      || $form[0].value.length > 16 || $form[0].value.length < 8
+      || $form[1].value.length > 16 || $form[1].value.length < 8
+      || $form[2].value.length > 5 || $form[2].value.length < 2)
     $errorMsg.style.visibility = "visible";
     else{
       request.post('/signup', {
@@ -220,17 +186,21 @@ const addLoginEvent = () =>{
         return res.json();
       })
       .then(msg => {
-        if(msg === 2){ // 가입 성공
+        if(msg === 1){ // 가입 실패
+          $errorMsg.textContent = '별명이 중복되었습니다.';
+          errVisible();
+          // formInit();
+        }else if(msg === 0){ 
+          errVisible();
+          // formInit();
+        }else{ // 가입 성공
           loginHidden();
           errHidden();
           formInit();
-        }
-        else { // 1이나 0일때
-          if(msg === 1){
-            $errorMsg.textContent = '별명이 중복되었습니다.';
-          }
-          errVisible();
-          formInit();
+          navbarToggle();
+          localStorage.setItem('teamfinderId', msg[0]);
+          localStorage.setItem('teamfinderNickname', msg[1]);
+          document.querySelector('.navbar-user-name').textContent = localStorage.teamfinderNickname;
         }
       })
       .catch(err => console.error(err));

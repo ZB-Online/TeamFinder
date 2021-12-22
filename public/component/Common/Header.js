@@ -1,7 +1,7 @@
 import addHeaderEvent from './event/addHeaderEvent.js';
 import addLoginEvent from '../../page/main/login.js';
 
-export default function Header({ $parent, initialState }) {
+export default function Header ({ $parent, initialState }) {
   this.state = initialState;
   this.$target = document.createElement('div');
   $parent.appendChild(this.$target);
@@ -27,27 +27,36 @@ export default function Header({ $parent, initialState }) {
         <form class="form" onsubmit="false">
           <label class="input-label">
             <span>ID</span>
-            <input type="text" class="input-box" placeholder="8~16글자로 입력해주세요">
-            <i class="icon icon-error bx bxs-x-circle"></i>
-          </label>
-
-          <label class="input-label">
-            <span>PW</span>
-            <input type="password" class="input-box" placeholder="8~16글자로 입력해주세요">
-            <i class="icon icon-error bx bxs-x-circle"></i>
+            <input type="text" class="input-box" placeholder="8~16글자로 입력해주세요.">
+            <div class="icon-error">
+              <box-icon name='x-circle' type='solid' color='#e20606' ></box-icon>
+            </div>
+            <p class="warning-msg hidden">8~16글자로 입력해주세요.</p>
             </label>
             
-          <label class="input-label hidden">
+            <label class="input-label">
+            <span>PW</span>
+            <input type="password" class="input-box" placeholder="8~16글자로 입력해주세요.">
+            <div class="icon-error">
+            <box-icon name='x-circle' type='solid' color='#e20606' ></box-icon>
+            </div>
+            <p class="warning-msg hidden">8~16글자로 입력해주세요.</p>
+            </label>
+            
+            <label class="input-label hidden">
             <span>별명</span>
-            <input type="text" class="input-box" placeholder="2~5글자로 입력해주세요">
-            <i class="icon icon-error bx bxs-x-circle"></i>
+            <input type="text" class="input-box" placeholder="2~5글자로 입력해주세요.">
+            <div class="icon-error">
+            <box-icon name='x-circle' type='solid' color='#e20606' ></box-icon>
+            </div>
+            <p class="warning-msg hidden">2~5글자로 입력해주세요.</p>
           </label>
         </form>
 
         <p class="error-msg">로그인 정보가 올바르지 않습니다.</p>
         <div class="btns">
-          <button type="submit" class="signin-btn disable-button" form="form" disabled>sign in</button>
-          <button type="submit" class="signup-btn display-toggle disable-button" form="form" disabled>sign up</button>
+          <button type="submit" class="signin-btn" form="form">sign in</button>
+          <button type="submit" class="signup-btn display-toggle" form="form">sign up</button>
           <a href="javascript:void(0)" class="delDeco signup">회원가입</a>
           <a href="javascript:void(0)" class="delDeco signin display-toggle">로그인</a>
         </div>
@@ -57,7 +66,7 @@ export default function Header({ $parent, initialState }) {
 
     <header>
       <nav class="navbar">
-        <a href="index.html"><p class="navbar-logo">TEAM_FINDER</p></a>
+        <a href="/" class="main-logo"><p class="navbar-logo">TEAM_FINDER</p></a>
         <ul class="navbar-menus">
           <li class="hidden"><a><button class="navbar-menus-item writing-btn">새 글 쓰기</button></a></li>
           <li><button class="navbar-menus-item login">로그인</button></li>

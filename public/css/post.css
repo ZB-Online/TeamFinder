@@ -55,6 +55,11 @@
   line-height: 1.7;
 }
 
+/* all */
+.hidden {
+  display: none;
+}
+
 /* post */
 .post-container {
   display: flex;

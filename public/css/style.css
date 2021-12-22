@@ -4,6 +4,10 @@
 
 body {
   margin: 0;
+  overflow-x: hidden;
+}
+#root{
+  width:100vw;
 }
 .navbar {
   display: flex;
@@ -197,6 +201,7 @@ body {
 .posts-container {
   width: 100%;
   background-color: var(--bg-gray);
+  padding-bottom: 300px;
 }
 .posts-wrapper {
   max-width: 1280px;
@@ -391,8 +396,6 @@ h3.post-title {
 
 .login-banner > .close-icon {
   display: inline;
-  /* width: 30px;
-  height: 30px; */
   position: absolute;
   right: 2px;
   line-height: 30px;
@@ -413,11 +416,10 @@ h3.post-title {
   font-size: 2em;
   font-weight: 700;
   color: black;
-  /* text-shadow:1px 1px 1px black; */
 }
 
-.input-label {
-  width: 360px;
+.input-label{
+  width: 380px;
 }
 .input-label > span {
   display: inline-block;
@@ -444,11 +446,16 @@ h3.post-title {
   justify-content: space-evenly;
 }
 
-.form i {
-  /* width: 10px;
-  height: 10px;
-  line-height: 10px; */
+.form .icon-error{
+  position: relative;
+  bottom: -6px;
   display: none;
+}
+
+.form .warning-msg{
+  padding: 4px;
+  font-size: .7em;
+  text-align: center;
   color: red;
 }
 
@@ -475,12 +482,7 @@ h3.post-title {
   margin: 0 0 10px 0;
 }
 
-.disable-button {
-  cursor: default !important;
-  opacity: 50%;
-}
-
-.display-toggle {
+.display-toggle{
   display: none;
 }
 /* 로그인 팝업 CSS 끝 */
