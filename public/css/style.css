@@ -338,7 +338,6 @@ body {
   border-radius: 4px;
 }
 
-<<<<<<< HEAD
 /* 로그인 팝업 CSS */
 .delDeco{
   text-decoration: none;
@@ -419,7 +418,7 @@ body {
 }
 
 .input-label{
-  width: 360px;
+  width: 380px;
 }
 .input-label > span{
   display: inline-block;
@@ -445,11 +444,16 @@ body {
   justify-content: space-evenly;
 }
 
-.form i{
-  /* width: 10px;
-  height: 10px;
-  line-height: 10px; */
+.form .icon-error{
+  position: relative;
+  bottom: -6px;
   display: none;
+}
+
+.form .warning-msg{
+  padding: 4px;
+  font-size: .9em;
+  text-align: center;
   color: red;
 }
 
@@ -476,16 +480,10 @@ body {
   margin:0 0 10px 0;
 }
 
-.disable-button{
-  cursor: default !important;
-  opacity: 50%;
-}
-
 .display-toggle{
   display: none;
 }
 /* 로그인 팝업 CSS 끝 */
-=======
 .toast {
   --toast-width: 350px;
   --toast-height: 100px;
@@ -550,4 +548,3 @@ body {
     transform: translate3d(0, 0, 0);
   }
 }
->>>>>>> 31be13e94be241f8468a1e06a10af3cd64b2441f

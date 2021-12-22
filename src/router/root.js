@@ -9,13 +9,6 @@ const users = [
 
 const rootRouter = express.Router();
 
-let users = [
-  { id: 'kim', pw: 'k123', nickname: '강아지' },
-  { id: 'lee', pw: 'l123', nickname: '고양이' },
-  { id: 'park', pw: 'p123', nickname: '두더지' },
-  { id: 'yoon', pw: 'y123', nickname: '호랑이' },
-];
-
 const getUser = id => users.filter(user => user.id === id);
 
 rootRouter.get('/users', (req, res) => {
@@ -84,7 +77,7 @@ rootRouter.post('/signup', (req, res) => {
     res.send('1'); // 닉네임 중복: 1
   }else{
     users.push(req.body);
-    res.send('2');
+    res.send([req.body.id, req.body.nickname]);
   }
 });
 
