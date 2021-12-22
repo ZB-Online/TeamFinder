@@ -88,7 +88,7 @@ export default function Writing({ $parent, initialState }) {
   };
 
   this.addEvent = () => {
-    addWritingEvent(this.$target, $parent);
+    addWritingEvent($parent);
   };
 
   this.render();
