@@ -29,6 +29,14 @@ const addLoginEvent = () =>{
     $form[0].value = '';
     $form[1].value = '';
     $form[2].value = '';
+    $form[0].nextSibling.nextSibling.style.display = "none";
+    $form[1].nextSibling.nextSibling.style.display = "none";
+    $form[2].nextSibling.nextSibling.style.display = "none";
+    // signin, signup btn의 disable화
+    $signinBtn.disabled = 'true';
+    $signupBtn.disabled = 'true';
+    $signinBtn.classList.add('disable-button');
+    $signupBtn.classList.add('disable-button');
   };
 
   const errVisible = () => {
@@ -97,6 +105,72 @@ const addLoginEvent = () =>{
       loginHidden();
     }
   });
+
+
+  // 아이디 글자수 만들기
+  // 키 다운 따로 걸기
+  $form[0].addEventListener('input', () => {
+
+    if(/^\S{8,16}$/.test($form[0].value)){
+      $form[0].nextSibling.nextSibling.style.display = "none";
+    }else{
+      $form[0].nextSibling.nextSibling.style.display = "inline";
+      $signinBtn.disabled = 'true';
+      $signinBtn.classList.add('disable-button');
+    }
+
+    if($form[0].nextSibling.nextSibling.style.display === 'none' 
+    && $form[1].nextSibling.nextSibling.style.display === 'none'
+    && $form[0].value !== ''
+    && $form[1].value !== ''){
+      $signinBtn.removeAttribute('disabled');
+      $signinBtn.classList.remove('disable-button');
+    }
+  });
+  // 비밀번호 글자수 만들기
+  $form[1].addEventListener('input', () => {
+    if(/^\S{8,16}$/.test($form[1].value)){
+      $form[1].nextSibling.nextSibling.style.display = "none";
+    }else{
+      $form[1].nextSibling.nextSibling.style.display = "inline";
+      $signinBtn.disabled = 'true';
+      $signinBtn.classList.add('disable-button');
+    }
+
+    if($form[0].nextSibling.nextSibling.style.display === 'none' 
+    && $form[1].nextSibling.nextSibling.style.display === 'none'
+    && $form[0].value !== ''
+    && $form[1].value !== ''){
+      $signinBtn.removeAttribute('disabled');
+      $signinBtn.classList.remove('disable-button');
+    }
+    console.log($form[1].value.length);
+  });
+
+  // 별명 글자수 만들기
+  $form[2].addEventListener('input', () => {
+
+    if(/^\S{2,5}$/.test($form[2].value)){
+      $form[2].nextSibling.nextSibling.style.display = "none";
+    }else{
+      $form[2].nextSibling.nextSibling.style.display = "inline";
+      $signupBtn.disabled = 'true';
+      $signupBtn.classList.add('disable-button');
+    }
+
+    if($form[0].nextSibling.nextSibling.style.display === 'none' 
+      && $form[1].nextSibling.nextSibling.style.display === 'none'
+      && $form[2].nextSibling.nextSibling.style.display === 'none'
+      && $form[0].value !== ''
+      && $form[1].value !== ''
+      && $form[2].value !== ''){
+      $signupBtn.removeAttribute('disabled');
+      $signupBtn.classList.remove('disable-button');
+    }
+  });
+
+
+
 
   // 로그인 버튼
   $signinBtn.addEventListener('click', e => {
@@ -170,6 +244,7 @@ const addLoginEvent = () =>{
     localStorage.removeItem('teamfinderId');
     localStorage.removeItem('teamfinderNickname');
     
+    // 메인화면에서라면 새로고침 하지않게 -> 안티패턴
     location.href='index.html'; // 뒤로가기시 글쓰기 모드로 감
   });
 
