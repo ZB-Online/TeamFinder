@@ -1,7 +1,7 @@
 import addFilter from './event/addFilter.js';
 import addPostListEvent from './event/addPostListEvent.js';
 
-export default function Main ({ $parent, initialState, onClick }) {
+export default function Main({ $parent, initialState, onClick }) {
   this.state = initialState;
   this.onClick = onClick;
   this.$target = document.createElement('div');

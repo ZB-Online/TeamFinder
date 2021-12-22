@@ -18,7 +18,7 @@ const getPostElements = data =>
           <li class="post-filter">
             <img 
               class="post-filter-icon"
-              src="./assets/img/filter/${initialFilter.sports[positionId]}.png"
+              src="/assets/img/filter/${initialFilter.sports[positionId]}.png"
               alt="${initialFilter.sports[positionId]} icon"
             />
             <p class="post-filter-name">${initialFilter.sports[positionId]}</p>
@@ -69,4 +69,4 @@ const renderFilteredPosts = async () => {
   renderPostElements(await fetchFilteredData());
 };
 
-export { renderPostElements, renderFilteredPosts };
+export { renderPostElements, renderFilteredPosts, getPostElements };

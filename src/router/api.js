@@ -1,4 +1,5 @@
 const express = require('express');
+// import posting from '../model/Posting';
 
 const FILTER = {
   SPORTS: ['배드민턴', '야구', '농구', '당구', '볼링', '축구', '런닝'],
@@ -121,6 +122,8 @@ const changePost = newPost => {
   posts = posts.map(post => (post.id === newPost.id ? newPost : post));
 };
 
+const getPostOwner = id => posts.filter(post => post.owner.id === id);
+
 // Route
 const apiRouter = express.Router();
 
@@ -154,7 +157,7 @@ apiRouter.get('/posts/:id', (req, res) => {
 // POST
 apiRouter.post('/posts', (req, res) => {
   // body is not null
-  const { title, city, sportsTypes, content, date } = req.body;
+  const { title, city, sportsTypes, content, date, owner } = req.body;
 
   const maxId = (() => Math.max(...posts.map(({ id }) => id)))();
 
@@ -169,6 +172,7 @@ apiRouter.post('/posts', (req, res) => {
       date,
       recruit: true,
       comments: [],
+      owner,
     };
 
     posts = [...posts, newPost];
@@ -222,7 +226,25 @@ apiRouter.patch('/posts/:id', (req, res) => {
   }
 });
 
-apiRouter.patch('/posts/:id/like', (req, res) => {
+apiRouter.patch('/posts/setting/:ownerId', (req, res) => {
+  const {
+    params: { ownerId },
+    body: { nickname },
+  } = req;
+
+  posts = posts.map(post =>
+    post.owner.id === ownerId
+      ? {
+          ...post,
+          owner: { ...post.owner, nickname },
+        }
+      : post,
+  );
+
+  res.send(getPostOwner(posts));
+});
+
+apiRouter.patch('/posts/:postingId/comments/:commentId', (req, res) => {
   const {
     params: { id },
     body: { likeActive },
@@ -289,3 +311,7 @@ apiRouter.delete('/posts/:postId/comments/:commentId', (req, res) => {
 });
 
 module.exports = apiRouter;
+// <<<<<<< HEAD
+// // export default apiRouter;
+// =======
+// >>>>>>> 117c78c343483cc9962df04cff8d007156ccc232
