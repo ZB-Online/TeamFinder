@@ -22,7 +22,7 @@ function getPostElements(data) {
       />
       <p class="post-filter-name">${initialFilter.sports[positionId]}</p>
       </li>
-    `
+    `,
       )
       .join('')}
   </ul>

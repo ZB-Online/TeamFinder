@@ -1,3 +1,5 @@
+import { ROUTE_TYPE, routes } from '../../App.js';
+
 import { initialFilter } from '../../../store/filter.js';
 
 const formatContent = content => content.replace(/\n/g, '<br>');
@@ -114,7 +116,13 @@ const renderPost = (post, likeActive, authUser) => {
 };
 
 const render = ({ post, likeActive }, authUser) => {
-  renderPost(post, likeActive, authUser);
+  try {
+    if (!post) throw new Error('Data Not Found');
+    renderPost(post, likeActive, authUser);
+  } catch (e) {
+    window.history.replaceState({}, ROUTE_TYPE.HOME, window.location.origin + ROUTE_TYPE.HOME);
+    routes[ROUTE_TYPE.HOME](document.querySelector('#root'));
+  }
 };
 
 export default render;

@@ -1,8 +1,9 @@
-import addEvent from './event/app.js';
+import addPostDetailEvent from './event/addPostDetailEvent.js';
 
-export default function Comment({ $parent, initialState }) {
+export default function PostDetail ({ $parent, initialState }) {
   this.state = initialState;
   this.$target = document.createElement('main');
+  if ($parent.children.length > 1) $parent.removeChild($parent.lastChild);
   $parent.appendChild(this.$target);
 
   this.setState = nextState => {
@@ -49,7 +50,7 @@ export default function Comment({ $parent, initialState }) {
   };
 
   this.addEvent = () => {
-    addEvent();
+    addPostDetailEvent($parent);
   };
 
   this.render();

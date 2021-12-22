@@ -2,15 +2,15 @@ import client from '../../../api/axios.js';
 import { initialFilter } from '../../../store/filter.js';
 import { todayFormat } from '../../../utils/date.js';
 
-export default function addEventWriting ($target) {
-  const $title = $target.querySelector('.title');
-  const $city = $target.querySelector('.city');
-  const $sports = $target.querySelector('.sports');
-  const $cityList = $target.querySelector('.city-list');
-  const $cityItems = $target.querySelector('.city-items');
-  const $sportsList = $target.querySelector('.sports-list');
-  const $sportsItems = $target.querySelector('.sports-items');
-  const $writeArea = $target.querySelector('.writing-area');
+export default function addEventWriting ($parent) {
+  const $title = $parent.querySelector('.title');
+  const $city = $parent.querySelector('.city');
+  const $sports = $parent.querySelector('.sports');
+  const $cityList = $parent.querySelector('.city-list');
+  const $cityItems = $parent.querySelector('.city-items');
+  const $sportsList = $parent.querySelector('.sports-list');
+  const $sportsItems = $parent.querySelector('.sports-items');
+  const $writeArea = $parent.querySelector('.writing-area');
 
   // post
   const postingSend = async payload => {
@@ -38,7 +38,7 @@ export default function addEventWriting ($target) {
   listCreate(initialFilter.sports, $sportsList);
 
   document.querySelector('.writing-submit').addEventListener('click', () => {
-    const $cityItem = $target.querySelector('.city-item > span');
+    const $cityItem = $parent.querySelector('.city-item > span');
     // 임시 처리
     if ($title.value.trim() === '') {
       alert('제목을 입력해주세요');
@@ -124,21 +124,21 @@ export default function addEventWriting ($target) {
   });
 
   // 선택창 띄우기 - city
-  $target.querySelector('.city-show').addEventListener('click', () => {
+  $parent.querySelector('.city-show').addEventListener('click', () => {
     $city.classList.toggle('active');
   });
   // 선택창 띄우기 - sports
-  $target.querySelector('.sports-show').addEventListener('click', () => {
+  $parent.querySelector('.sports-show').addEventListener('click', () => {
     $sports.classList.toggle('active');
   });
 
   // 전체 삭제 - city
-  $target.querySelector('.city-all-delete').addEventListener('click', () => {
+  $parent.querySelector('.city-all-delete').addEventListener('click', () => {
     $cityItems.innerHTML = '';
   });
 
   // 전체 삭제 - sports
-  $target.querySelector('.sports-all-delete').addEventListener('click', () => {
+  $parent.querySelector('.sports-all-delete').addEventListener('click', () => {
     $sportsItems.innerHTML = '';
   });
 
@@ -147,6 +147,6 @@ export default function addEventWriting ($target) {
     if (!e.target.matches('.one-delete')) return false;
     e.target.parentNode.remove();
   };
-  $target.querySelector('.city-container').addEventListener('click', e => oneDelete(e));
-  $target.querySelector('.sports-container').addEventListener('click', e => oneDelete(e));
+  $parent.querySelector('.city-container').addEventListener('click', e => oneDelete(e));
+  $parent.querySelector('.sports-container').addEventListener('click', e => oneDelete(e));
 }

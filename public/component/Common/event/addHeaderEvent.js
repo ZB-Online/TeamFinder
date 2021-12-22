@@ -1,4 +1,4 @@
-import { WritingComponent } from '../../Writing/Writing.js';
+import { ROUTE_TYPE, routes } from '../../App.js';
 
 const addHeaderEvent = $parent => {
   const $navUserWrapper = document.querySelector('.navbar-user-wrapper');
@@ -10,8 +10,8 @@ const addHeaderEvent = $parent => {
   });
 
   $navWritingBtn.addEventListener('click', () => {
-    window.history.pushState({}, '/writing', window.location.origin + '/writing');
-    WritingComponent($parent);
+    window.history.pushState({}, ROUTE_TYPE.WRITING, window.location.origin + ROUTE_TYPE.WRITING);
+    routes[ROUTE_TYPE.WRITING]($parent);
   });
 };
 
