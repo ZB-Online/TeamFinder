@@ -34,6 +34,7 @@ export default function addFilter ($target) {
   $filterListSports.addEventListener('click', selectFilter($filterListSports, FILTER_TYPE.SPORTS));
 
   $postsFilters.addEventListener('click', togglePostsFilter($postsFilters.children));
+  $postsFilters.addEventListener('click', renderFilteredPosts);
 
   $filterRecruitCheck.addEventListener('click', renderFilteredPosts);
 
