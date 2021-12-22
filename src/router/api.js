@@ -1,4 +1,5 @@
 const express = require('express');
+// import posting from '../model/Posting';
 
 const FILTER = {
   SPORTS: ['배드민턴', '야구', '농구', '당구', '볼링', '축구', '런닝'],
@@ -28,11 +29,11 @@ let posts = [
     title: `title ${0}`,
     writer: `writer ${0}`,
     city: 1,
-    sportsType: [3],
+    sportsType: [3, 4, 5],
     content: 'hello',
     date: '2021-12-13',
     recruit: true,
-    owner: { id: 0, nickname: '으르렁' },
+    owner: { id: 'kim', nickname: '으르렁' },
     comments: [
       {
         content: '첫 번째 댓글',
@@ -55,7 +56,7 @@ let posts = [
     content: 'hello',
     date: '2021-12-13',
     recruit: true,
-    owner: { id: 3, nickname: '토끼' },
+    owner: { id: 'kim', nickname: '으르렁' },
     comments: [
       {
         content: '첫 번째 댓글',
@@ -83,7 +84,7 @@ let posts = [
     content: 'hello',
     date: '2021-12-14',
     recruit: true,
-    owner: { id: 2, nickname: '원숭이' },
+    owner: { id: 'park', nickname: '원숭이' },
     comments: [
       {
         content: '첫 번째 댓글',
@@ -108,6 +109,7 @@ let posts = [
 
 // Functions
 const getPosting = id => posts.filter(posting => posting.id === +id);
+const getPostingOwner = id => posts.filter(posting => posting.owner.id === id);
 
 // Route
 const apiRouter = express.Router();
@@ -189,6 +191,22 @@ apiRouter.patch('/posts/:id', (req, res) => {
   } catch (error) {
     res.status(400).send(error);
   }
+});
+
+apiRouter.patch('/posts/setting/:ownerId', (req, res) => {
+  const {
+    params: { ownerId },
+    body: { nickname },
+  } = req;
+  posts = posts.map(posting =>
+    posting.owner.id === ownerId
+      ? {
+          ...posting,
+          owner: { ...posting.owner, nickname },
+        }
+      : posting,
+  );
+  res.send(getPostingOwner(posts));
 });
 
 apiRouter.patch('/posts/:postingId/comments/:commentId', (req, res) => {

@@ -4,9 +4,9 @@ import { todayFormat } from '../../../utils/date.js';
 import { TOAST_TYPE, toaster, createToastAction } from '../../../utils/toaster.js';
 import { PostListComponent } from '../../Home/PostList.js';
 
-export default function addEventWriting($target, $parent) {
-  const $cityList = $target.querySelector('.city-list');
-  const $sportsList = $target.querySelector('.sports-list');
+export default function addEventWriting($parent) {
+  const $cityList = $parent.querySelector('.city-list');
+  const $sportsList = $parent.querySelector('.sports-list');
   // post
   const postingSend = async payload => {
     try {
@@ -34,12 +34,12 @@ export default function addEventWriting($target, $parent) {
   listCreate(initialFilter.cities, $cityList);
   listCreate(initialFilter.sports, $sportsList);
 
-  const $citySportsWrap = $target.querySelector('.city-sports-wrap');
-  const $writingTitle = $target.querySelector('.writing-title');
-  const $sportsItems = $target.querySelector('.sports-items');
-  const $writingMainText = $target.querySelector('.writing-main-text');
-  const $writingSubmit = $target.querySelector('.writing-submit');
-  const $writingCancel = $target.querySelector('.writing-cancel');
+  const $citySportsWrap = $parent.querySelector('.city-sports-wrap');
+  const $writingTitle = $parent.querySelector('.writing-title');
+  const $sportsItems = $parent.querySelector('.sports-items');
+  const $writingMainText = $parent.querySelector('.writing-main-text');
+  const $writingSubmit = $parent.querySelector('.writing-submit');
+  const $writingCancel = $parent.querySelector('.writing-cancel');
 
   // 중복 방지
   const duplication = (listItems, selectItem) =>
@@ -55,7 +55,7 @@ export default function addEventWriting($target, $parent) {
   };
 
   $writingSubmit.addEventListener('click', () => {
-    const $cityItem = $target.querySelector('.city-items span');
+    const $cityItem = $parent.querySelector('.city-items span');
     if (necessaryContent($writingTitle, $cityItem, $sportsItems, $writingMainText)) return;
 
     const sportsArr = [...$sportsItems.querySelectorAll('span')].map(sports => +sports.getAttribute('data-index'));
