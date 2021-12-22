@@ -13,6 +13,7 @@ const getPostElements = data =>
       <h3 class="post-title">${postData.title}</h3>
       <ul class="post-filter-list">
         ${postData.sportsTypes
+          .slice(0, 3)
           .map(
             positionId => `
           <li class="post-sports-filter">
