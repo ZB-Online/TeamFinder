@@ -1,4 +1,5 @@
 import addHeaderEvent from './event/addHeaderEvent.js';
+import addLoginEvent from '../../page/main/login.js';
 
 export default function Header({ $parent, initialState }) {
   this.state = initialState;
@@ -12,13 +13,55 @@ export default function Header({ $parent, initialState }) {
 
   this.render = () => {
     this.$target.innerHTML = `
+    <section class="login-wrap">
+    <div class="login-box">
+      <div class="login-banner">
+        <span class="navbar-logo">TEAM_FINDER</span>
+        <div class="close-icon">
+          <box-icon name='x' class="close-icon"></box-icon>
+        </div>
+        
+      </div>
+      <div class="login-body">
+        <p class="sign-state">Sign In</p>
+        <form class="form" onsubmit="false">
+          <label class="input-label">
+            <span>ID</span>
+            <input type="text" class="input-box" placeholder="8~16글자로 입력해주세요">
+            <i class="icon icon-error bx bxs-x-circle"></i>
+          </label>
+
+          <label class="input-label">
+            <span>PW</span>
+            <input type="password" class="input-box" placeholder="8~16글자로 입력해주세요">
+            <i class="icon icon-error bx bxs-x-circle"></i>
+            </label>
+            
+          <label class="input-label hidden">
+            <span>별명</span>
+            <input type="text" class="input-box" placeholder="2~5글자로 입력해주세요">
+            <i class="icon icon-error bx bxs-x-circle"></i>
+          </label>
+        </form>
+
+        <p class="error-msg">로그인 정보가 올바르지 않습니다.</p>
+        <div class="btns">
+          <button type="submit" class="signin-btn disable-button" form="form" disabled>sign in</button>
+          <button type="submit" class="signup-btn display-toggle disable-button" form="form" disabled>sign up</button>
+          <a href="javascript:void(0)" class="delDeco signup">회원가입</a>
+          <a href="javascript:void(0)" class="delDeco signin display-toggle">로그인</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
     <header>
       <nav class="navbar">
         <a href="index.html"><p class="navbar-logo">TEAM_FINDER</p></a>
         <ul class="navbar-menus">
-          <li><a><button class="navbar-menus-item writing-btn">새 글 쓰기</button></a></li>
-          <li><button class="navbar-menus-item hidden">로그인</button></li>
-          <li class="navbar-user-wrapper ">
+          <li class="hidden"><a><button class="navbar-menus-item writing-btn">새 글 쓰기</button></a></li>
+          <li><button class="navbar-menus-item login">로그인</button></li>
+          <li class="navbar-user-wrapper hidden">
             <span class="navbar-user-name">우리집강아지</span>
             <img class="navbar-user-image" src="./assets/img/user.png" alt="유저 이미지" />
             <svg
@@ -45,6 +88,7 @@ export default function Header({ $parent, initialState }) {
 
   this.addEvent = () => {
     addHeaderEvent($parent);
+    addLoginEvent();
   };
 
   this.render();

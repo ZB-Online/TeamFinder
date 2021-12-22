@@ -249,3 +249,7 @@ apiRouter.delete('/posts/:postingId/comments/:commentId', (req, res) => {
 });
 
 module.exports = apiRouter;
+// <<<<<<< HEAD
+// // export default apiRouter;
+// =======
+// >>>>>>> 117c78c343483cc9962df04cff8d007156ccc232
