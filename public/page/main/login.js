@@ -101,7 +101,7 @@ const addLoginEvent = () =>{
       $errorMsg.textContent = '로그인 정보가 올바르지 않습니다.';
     }
     // 닫기 아이콘
-    if(e.target === document.querySelector('.close-icon')){
+    if(e.target === document.querySelector('box-icon')){
       loginHidden();
     }
   });

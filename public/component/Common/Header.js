@@ -1,7 +1,7 @@
 import addHeaderEvent from './event/addHeaderEvent.js';
 import addLoginEvent from '../../page/main/login.js';
 
-export default function Header ({ $parent, initialState }) {
+export default function Header({ $parent, initialState }) {
   this.state = initialState;
   this.$target = document.createElement('div');
   $parent.appendChild(this.$target);
@@ -17,7 +17,10 @@ export default function Header ({ $parent, initialState }) {
     <div class="login-box">
       <div class="login-banner">
         <span class="navbar-logo">TEAM_FINDER</span>
-        <span class="material-icons close-icon">close</span>
+        <div class="close-icon">
+          <box-icon name='x' class="close-icon"></box-icon>
+        </div>
+        
       </div>
       <div class="login-body">
         <p class="sign-state">Sign In</p>
@@ -73,8 +76,7 @@ export default function Header ({ $parent, initialState }) {
               <path d="M7 10l5 5 5-5z"></path>
             </svg>
             <ul class="user-menu-list hidden">
-              <li class="user-menu-item">내 작성글</li>
-              <li class="user-menu-item">설정</li>
+              <li class="user-menu-item nav-setting-btn">내 정보 수정</li>
               <li class="user-menu-item">로그아웃</li>
             </ul>
           </li>
