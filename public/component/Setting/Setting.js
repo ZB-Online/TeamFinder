@@ -78,3 +78,7 @@ export default function Setting({ $parent, initialState }) {
   this.render();
   this.addEvent();
 }
+export const SettingComponent = ($parent, initialState) => {
+  $parent.removeChild($parent.lastChild);
+  new Setting({ $parent, initialState });
+};

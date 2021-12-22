@@ -4,40 +4,12 @@ import PostList from './Home/PostList.js';
 import Writing from './Writing/Writing.js';
 import Setting from './Setting/Setting.js';
 
-const MainComponent = $parent => {
-  new PostList({
-    $parent,
-    initialState: {},
-  });
-};
-
-const CommentComponent = $parent => {
-  new Comment({
-    $parent,
-    initialState: {},
-  });
-};
-
-const WritingComponent = $parent => {
-  new Writing({
-    $parent,
-    initialState: {},
-  });
-};
-
-const SettingComponent = $parent => {
-  new Setting({
-    $parent,
-    initialState: {},
-  });
-};
-
 const routes = {
-  '/': MainComponent,
-  '/index.html': MainComponent,
-  '/posts': CommentComponent,
-  '/writing': WritingComponent,
-  '/setting': SettingComponent,
+  '/': $parent => new PostList({ $parent }),
+  '/index.html': $parent => new PostList({ $parent }),
+  '/posts': $parent => new Comment({ $parent }),
+  '/writing': $parent => new Writing({ $parent }),
+  '/setting': $parent => new Setting({ $parent }),
 };
 
 export default function App($app) {
@@ -45,16 +17,14 @@ export default function App($app) {
     isRoot: false,
   };
 
-  new Header({
-    $parent: $app,
-    initialState: {},
-  });
+  new Header({ $parent: $app, initialState: {} });
 
   window.onpopstate = function () {
-    const url = document.location.pathname.split(':')[0];
+    const url = document.location.pathname.split('?')[0];
     $app.removeChild($app.lastChild);
     routes[url]($app);
   };
 
-  routes['/']($app);
+  const url = document.location.pathname;
+  routes[url]($app);
 }

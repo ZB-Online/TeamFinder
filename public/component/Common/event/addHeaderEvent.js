@@ -1,5 +1,5 @@
-import Writing from '../../Writing/Writing.js';
-import Setting from '../../Setting/Setting.js';
+import { WritingComponent } from '../../Writing/Writing.js';
+import { SettingComponent } from '../../Setting/Setting.js';
 
 const addHeaderEvent = $parent => {
   const $navUserWrapper = document.querySelector('.navbar-user-wrapper');
@@ -13,19 +13,11 @@ const addHeaderEvent = $parent => {
 
   $navWritingBtn.addEventListener('click', () => {
     window.history.pushState({}, '/writing', window.location.origin + '/writing');
-    $parent.removeChild($parent.lastChild);
-    new Writing({
-      $parent,
-      initialState: {},
-    });
+    WritingComponent($parent);
   });
   $navSettingBtn.addEventListener('click', () => {
     window.history.pushState({}, '/setting', window.location.origin + '/setting');
-    $parent.removeChild($parent.lastChild);
-    new Setting({
-      $parent,
-      initialState: {},
-    });
+    SettingComponent($parent);
   });
 };
 

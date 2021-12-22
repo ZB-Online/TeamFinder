@@ -1,18 +1,15 @@
 import { client, basePosts, usersNickname } from '../../../api/axios.js';
 import { TOAST_TYPE, toaster, createToastAction } from '../../../utils/toaster.js';
 import { getPostElements } from '../../../utils/renderPost.js';
-import PostList from '../../Home/PostList.js';
+import { PostListComponent } from '../../Home/PostList.js';
 
 export default function addEventSetting($target, $parent) {
-  const mainMove = accessPrevention => {
-    accessPrevention
-      ? window.history.pushState({}, '/index', window.location.origin + '/index.html')
-      : window.history.replaceState({}, '/index', window.location.origin + '/index.html');
-    $parent.removeChild($parent.lastChild);
-    new PostList({
-      $parent,
-      initialState: {},
-    });
+  // 메인 디렉토리 이동
+  const backAllow = () => window.history.pushState({}, '/index', window.location.origin + '/index.html');
+  const backDisallow = () => window.history.replaceState({}, '/index', window.location.origin + '/index.html');
+  const mainMove = access => {
+    access();
+    PostListComponent($parent);
   };
 
   const userId = localStorage.getItem('teamfinderId');
@@ -55,7 +52,7 @@ export default function addEventSetting($target, $parent) {
       await patchPostOwnerNickname(userId, newNickname);
       localStorage.setItem('teamfinderNickname', $nickNameInput.value);
       toasterAlert(TOAST_TYPE.SUCCESS, 'Well done!', '회원 정보가 수정되었습니다.');
-      mainMove(false);
+      mainMove(backAllow);
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +64,7 @@ export default function addEventSetting($target, $parent) {
       await client.delete(`users/${userId}`);
       toasterAlert(TOAST_TYPE.SUCCESS, 'Well done!', '회원이 탈퇴 되었습니다.');
       localStorage.clear();
-      mainMove(true);
+      mainMove(backDisallow);
       // 메인 이동
     } catch (error) {
       console.log(error);
@@ -101,7 +98,7 @@ export default function addEventSetting($target, $parent) {
     if (localStorage.getItem('teamfinderNickname') === $nickNameInput.value || $nickNameInput.value.trim() === '') {
       localStorage.getItem('teamfinderNickname');
       toasterAlert(TOAST_TYPE.SUCCESS, 'Well done!', '회원 정보가 수정되었습니다.');
-      mainMove(false);
+      mainMove(backAllow);
     } else getNicknames($nickNameInput.value);
   });
 

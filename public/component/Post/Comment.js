@@ -31,3 +31,8 @@ export default function Comment ({ $parent, initialState }) {
   this.render();
   this.addEvent();
 }
+
+export const CommentComponent = ($parent, initialState) => {
+  $parent.removeChild($parent.lastChild);
+  new Comment({ $parent, initialState });
+};
