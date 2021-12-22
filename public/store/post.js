@@ -1,4 +1,4 @@
-import { todayFormat } from '../../../utils/date.js';
+import { todayFormat } from '../utils/date.js';
 
 const store = {
   state: {
@@ -8,24 +8,24 @@ const store = {
   // localStorage user
   _authUser: { id: 3, nickname: '토끼' },
   postListeners: [],
-  notify() {
+  notify () {
     console.log('[STATE]', this.state);
     this.postListeners.forEach(listener => listener(this.state, this._authUser));
   },
-  get post() {
+  get post () {
     return this.state.post;
   },
-  set post(newPost) {
+  set post (newPost) {
     this.state.post = newPost;
     this.notify();
   },
-  set likeActive(activeState) {
+  set likeActive (activeState) {
     this.state.likeActive = activeState;
   },
-  get editActive() {
+  get editActive () {
     return this.state.editActive;
   },
-  get authUser() {
+  get authUser () {
     return this._authUser;
   },
 };

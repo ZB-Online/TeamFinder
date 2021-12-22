@@ -1,16 +1,22 @@
-import Post from './Post/Post.js';
 import Header from './Common/Header.js';
-import PostList from './Home/PostList.js';
+import Main from './Home/Main.js';
+import PostDetail from './Post/PostDetail.js';
 import Writing from './Writing/Writing.js';
 
-const routes = {
-  '/': $parent => new PostList({ $parent }),
-  '/index.html': $parent => new PostList({ $parent }),
-  '/posts': $parent => new Post({ $parent }),
+export const ROUTE_TYPE = {
+  HOME: '/',
+  POSTS: '/posts',
+  WRITING: '/writing',
+};
+
+export const routes = {
+  '/': $parent => new Main({ $parent }),
+  '/index.html': $parent => new Main({ $parent }),
+  '/posts': $parent => new PostDetail({ $parent }),
   '/writing': $parent => new Writing({ $parent }),
 };
 
-export default function App($app) {
+export default function App ($app) {
   this.state = {
     isRoot: false,
   };

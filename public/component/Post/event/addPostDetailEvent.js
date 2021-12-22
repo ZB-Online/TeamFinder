@@ -1,21 +1,23 @@
-import { initialFilter } from '../../../store/filter.js';
-import store from '../postUtils/fetchPost.js';
-import render from '../postUtils/render.js';
+import { ROUTE_TYPE, routes } from '../../App.js';
 
-export default function addEvent() {
+import { initialFilter } from '../../../store/filter.js';
+import postStore from '../../../store/post.js';
+import render from '../postUtils/renderPost.js';
+
+export default function addPostDetailEvent ($parent) {
   const $modal = document.querySelector('.modal');
   const $postBox = document.querySelector('.post-box');
   const $commentBox = document.querySelector('.comment-box');
 
   const [id] = [...new URLSearchParams(new URL(window.location.href).search).values()];
 
-  store.getPost(id);
+  postStore.getPost(id);
 
   $postBox.addEventListener('click', ({ target }) => {
     if (!target.matches('.post-box button')) return;
 
     if (target.classList.contains('ended')) {
-      store.endedPost(id);
+      postStore.endedPost(id);
     }
 
     if (target.classList.contains('edit')) {
@@ -107,7 +109,7 @@ export default function addEvent() {
     }
 
     if (target.classList.contains('like')) {
-      store.changeLikeCount(id, target.classList.contains('active'));
+      postStore.changeLikeCount(id, target.classList.contains('active'));
     }
   });
 
@@ -119,8 +121,9 @@ export default function addEvent() {
     }
 
     if (target.classList.contains('apply')) {
-      // 삭제 시 메인으로
-      store.deletePost(id);
+      postStore.deletePost(id);
+      window.history.replaceState({}, ROUTE_TYPE.HOME, window.location.origin + ROUTE_TYPE.HOME);
+      routes[ROUTE_TYPE.HOME]($parent);
     }
   });
 
@@ -131,7 +134,7 @@ export default function addEvent() {
       const content = target.previousElementSibling.value.trim();
       if (!content) return;
 
-      store.uploadComment(id, content);
+      postStore.uploadComment(id, content);
     }
 
     if (target.classList.contains('edit')) {
@@ -153,7 +156,7 @@ export default function addEvent() {
     if (target.classList.contains('cancel')) {
       const $editBtn = target.closest('.comment-content').previousElementSibling.querySelector('.edit');
 
-      store.getPost(id);
+      postStore.getPost(id);
 
       $editBtn.classList.remove('active');
     }
@@ -162,18 +165,13 @@ export default function addEvent() {
       const content = target.parentNode.firstElementChild.value.trim();
       if (!content) return;
 
-      store.editComment(id, target.closest('.comment').dataset.id, content);
+      postStore.editComment(id, target.closest('.comment').dataset.id, content);
     }
 
     if (target.classList.contains('delete')) {
-      store.deleteComment(id, target.closest('.comment').dataset.id);
+      postStore.deleteComment(id, target.closest('.comment').dataset.id);
     }
   });
 
-  store.subscribe(render);
+  postStore.subscribe(render);
 }
-
-// export const PostComponent = ($parent, initialState) => {
-//   $parent.removeChild($parent.lastChild);
-//   new Post({ $parent, initialState });
-// };
