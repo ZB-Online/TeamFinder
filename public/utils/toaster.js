@@ -23,7 +23,7 @@ export const toaster = {
     const $toasts = document.querySelectorAll('.toast');
     $toasts.forEach($toast => {
       $toast.style.top = `${
-        this.toasts.indexOf($toast) * parseInt(getComputedStyle($toast).getPropertyValue('--toast-height'), 10)
+        this.toasts.indexOf($toast) * parseInt(getComputedStyle($toast).getPropertyValue('--toast-height'), 10) + 80
       }px`;
     });
   },
