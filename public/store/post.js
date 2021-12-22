@@ -5,8 +5,7 @@ const store = {
     post: {},
     likeActive: false,
   },
-  // localStorage user
-  _authUser: { id: 3, nickname: '토끼' },
+  _authUser: { id: localStorage.teamfinderId, nickname: localStorage.teamfinderNickname },
   postListeners: [],
   notify() {
     console.log('[STATE]', this.state);
@@ -30,7 +29,7 @@ const store = {
   },
 };
 
-const checkLogin = () => Object.keys(store.authUser).length === 0;
+const loggedIn = () => store.authUser.id;
 
 const subscribe = listener => {
   store.postListeners.push(listener);
@@ -73,7 +72,7 @@ const deletePost = async postId => {
 
 const changeLikeCount = async (postId, likeActive) => {
   try {
-    if (checkLogin()) throw new Error('로그인이 필요함.');
+    if (!loggedIn()) throw new Error('로그인이 필요함.');
 
     const { data: post } = await axios.patch(`/api/posts/${postId}/like`, { likeActive });
 
@@ -86,7 +85,7 @@ const changeLikeCount = async (postId, likeActive) => {
 
 const uploadComment = async (postId, content) => {
   try {
-    if (checkLogin()) throw new Error('로그인이 필요함.');
+    if (!loggedIn()) throw new Error('로그인이 필요함.');
 
     const { data: post } = await axios.post(`/api/posts/${postId}/comments`, {
       content,

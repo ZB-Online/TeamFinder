@@ -163,7 +163,7 @@ apiRouter.post('/posts', (req, res) => {
 
   try {
     const newPost = {
-      id: maxId + 1,
+      id: (maxId || 0) + 1,
       title,
       writer: 'writer 1',
       city,
