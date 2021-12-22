@@ -1,4 +1,4 @@
-import { client } from '../../../api/axios.js';
+import client from '../../../api/axios.js';
 import { initialFilter } from '../../../store/filter.js';
 import { todayFormat } from '../../../utils/date.js';
 

@@ -1,4 +1,4 @@
-import { client, basePosts, usersNickname } from '../../../api/axios.js';
+import client from '../../../api/axios.js';
 import { TOAST_TYPE, toaster, createToastAction } from '../../../utils/toaster.js';
 import { getPostElements } from '../../../utils/renderPost.js';
 import { PostListComponent } from '../../Home/PostList.js';
@@ -27,7 +27,7 @@ export default function addEventSetting($target, $parent) {
 
   const getAllPosts = async () => {
     try {
-      const res = await basePosts.get('posts/');
+      const res = await client.get('api/posts');
       myBooksRender([...res.data]);
     } catch (error) {
       console.log(error);
@@ -37,7 +37,7 @@ export default function addEventSetting($target, $parent) {
   // posts owner nickname 변경
   const patchPostOwnerNickname = async (userId, newNickname) => {
     try {
-      await basePosts.patch(`/posts/setting/${userId}`, { nickname: newNickname });
+      await client.patch(`api/posts/setting/${userId}`, { nickname: newNickname });
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +48,7 @@ export default function addEventSetting($target, $parent) {
   // 회원 닉네임 수정
   const patchUserNickname = async (userId, newNickname) => {
     try {
-      await usersNickname.patch(`users/${userId}`, { nickname: newNickname });
+      await client.patch(`users/${userId}`, { nickname: newNickname });
       await patchPostOwnerNickname(userId, newNickname);
       localStorage.setItem('teamfinderNickname', $nickNameInput.value);
       toasterAlert(TOAST_TYPE.SUCCESS, 'Well done!', '회원 정보가 수정되었습니다.');

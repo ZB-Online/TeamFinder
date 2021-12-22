@@ -1,6 +1,6 @@
 import { FILTER_TYPE, filterStore, initialFilter } from '../store/filter.js';
 
-import { client } from '../api/axios.js';
+import client from '../api/axios.js';
 
 const getPostElements = data =>
   data.map(postData => {
