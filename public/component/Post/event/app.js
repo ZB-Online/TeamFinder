@@ -48,6 +48,7 @@ export default function addEvent() {
     }
 
     if (target.classList.contains('apply')) {
+      // 삭제 시 메인으로
       store.deletePost(id);
     }
   });
@@ -100,3 +101,8 @@ export default function addEvent() {
 
   store.subscribe(render);
 }
+
+// export const PostComponent = ($parent, initialState) => {
+//   $parent.removeChild($parent.lastChild);
+//   new Post({ $parent, initialState });
+// };

@@ -82,3 +82,8 @@ export default function Writing ({ $parent, initialState }) {
   this.render();
   this.addEvent();
 }
+
+export const WritingComponent = ($parent, initialState) => {
+  $parent.removeChild($parent.lastChild);
+  new Writing({ $parent, initialState });
+};

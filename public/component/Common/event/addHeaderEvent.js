@@ -1,4 +1,4 @@
-import Writing from '../../Writing/Writing.js';
+import { WritingComponent } from '../../Writing/Writing.js';
 
 const addHeaderEvent = $parent => {
   const $navUserWrapper = document.querySelector('.navbar-user-wrapper');
@@ -11,11 +11,7 @@ const addHeaderEvent = $parent => {
 
   $navWritingBtn.addEventListener('click', () => {
     window.history.pushState({}, '/writing', window.location.origin + '/writing');
-    $parent.removeChild($parent.lastChild);
-    new Writing({
-      $parent,
-      initialState: {},
-    });
+    WritingComponent($parent);
   });
 };
 
