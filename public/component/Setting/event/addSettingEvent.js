@@ -1,15 +1,16 @@
 import client from '../../../api/axios.js';
 import { TOAST_TYPE, toaster, createToastAction } from '../../../utils/toaster.js';
 import { getPostElements } from '../../../utils/renderPost.js';
-import { PostListComponent } from '../../Home/PostList.js';
+
+import { ROUTE_TYPE, routes } from '../../App.js';
 
 export default function addEventSetting($target, $parent) {
   // 메인 디렉토리 이동
-  const backAllow = () => window.history.pushState({}, '/', window.location.origin + '/');
-  const backDisallow = () => window.history.replaceState({}, '/', window.location.origin + '/');
+  const backAllow = () => window.history.pushState({}, ROUTE_TYPE.HOME, window.location.origin + ROUTE_TYPE.HOME);
+  const backDisallow = () => window.history.replaceState({}, ROUTE_TYPE.HOME, window.location.origin + ROUTE_TYPE.HOME);
   const mainMove = access => {
     access();
-    PostListComponent($parent);
+    routes[ROUTE_TYPE.HOME]($parent);
   };
 
   const userId = localStorage.getItem('teamfinderId');

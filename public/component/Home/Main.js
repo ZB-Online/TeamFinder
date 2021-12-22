@@ -1,10 +1,11 @@
 import addFilter from './event/addFilter.js';
 import addPostListEvent from './event/addPostListEvent.js';
 
-export default function PostList({ $parent, initialState, onClick }) {
+export default function Main({ $parent, initialState, onClick }) {
   this.state = initialState;
   this.onClick = onClick;
   this.$target = document.createElement('div');
+  if ($parent.children.length > 1) $parent.removeChild($parent.lastChild);
   $parent.appendChild(this.$target);
 
   this.setState = nextState => {
@@ -68,8 +69,3 @@ export default function PostList({ $parent, initialState, onClick }) {
   this.render();
   this.addEvent();
 }
-
-export const PostListComponent = ($parent, initialState) => {
-  $parent.removeChild($parent.lastChild);
-  new PostList({ $parent, initialState });
-};

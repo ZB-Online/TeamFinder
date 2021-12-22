@@ -127,6 +127,10 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+textarea {
+  box-sizing: border-box;
+  font-family: sans-serif;
+}
 button {
   border: none;
   outline: none;

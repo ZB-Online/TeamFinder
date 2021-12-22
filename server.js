@@ -9,7 +9,7 @@ const PORT = 5500;
 app.use(express.static('public'));
 app.use(express.json());
 
-app.get(['/', '/posts', '/writing'], (req, res) => {
+app.get(['/', '/posts', '/writing', '/setting'], (req, res) => {
   res.format({
     'text/html': () => {
       res.sendFile(path.join(__dirname, '/public/index.html'));
