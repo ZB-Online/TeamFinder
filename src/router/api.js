@@ -1,5 +1,5 @@
+const data = require('./data.js');
 const express = require('express');
-// import posting from '../model/Posting';
 
 const FILTER = {
   SPORTS: ['배드민턴', '야구', '농구', '당구', '볼링', '축구', '런닝'],
@@ -23,96 +23,7 @@ const FILTER = {
 };
 
 // Mock Data
-let posts = [
-  {
-    id: 0,
-    title: `title ${0}`,
-    city: 1,
-    sportsTypes: [3],
-    content: 'hello',
-    date: '2021-12-13',
-    recruit: false,
-    likeCount: 2,
-    owner: { id: 0, nickname: '으르렁' },
-    comments: [
-      {
-        id: 1,
-        content: '첫 번째 댓글',
-        date: '2021-12-13',
-        owner: { id: 1, nickname: '호랑이' },
-      },
-      {
-        id: 2,
-        content: '두 번째 댓글',
-        date: '2021-12-14',
-        owner: { id: 2, nickname: '원숭이' },
-      },
-    ],
-  },
-  {
-    id: 1,
-    title: `title ${2}`,
-    city: 5,
-    sportsTypes: [2, 5],
-    content: 'hello\nasdf\n\n\nasdasdg',
-    date: '2021-12-13',
-    recruit: true,
-    likeCount: 3,
-    owner: { id: 3, nickname: '토끼' },
-    comments: [
-      {
-        id: 1,
-        content: '첫 번째 댓글',
-        date: '2021-12-13',
-        owner: { id: 0, nickname: '으르렁' },
-      },
-      {
-        id: 2,
-        content: '두 번째 댓글\nasdg\n\nasdf',
-        date: '2021-12-14',
-        owner: { id: 1, nickname: '호랑이' },
-      },
-      {
-        id: 3,
-        content: '세 번째 댓글',
-        date: '2021-12-14',
-        owner: { id: 2, nickname: '원숭이' },
-      },
-    ],
-  },
-  {
-    id: 2,
-    title: `title ${3}`,
-    city: 2,
-    sportsTypes: [4],
-    content: 'hello',
-    date: '2021-12-14',
-    recruit: true,
-    likeCount: 1,
-    owner: { id: 2, nickname: '원숭이' },
-    comments: [
-      {
-        id: 1,
-        content: '첫 번째 댓글',
-        date: '2021-12-14',
-        owner: { id: 2, nickname: '원숭이' },
-      },
-    ],
-  },
-  {
-    id: 3,
-    title: `title ${1}`,
-    city: 2,
-    sportsTypes: [1],
-    content: 'hello',
-    date: '2021-12-14',
-    recruit: false,
-    likeCount: 0,
-    owner: { id: 0, nickname: '으르렁' }, // user id
-    comments: [],
-  },
-];
-
+let posts = [...data];
 // Functions
 const getPost = id => posts.filter(post => post.id === +id);
 
@@ -312,7 +223,3 @@ apiRouter.delete('/posts/:postId/comments/:commentId', (req, res) => {
 });
 
 module.exports = apiRouter;
-// <<<<<<< HEAD
-// // export default apiRouter;
-// =======
-// >>>>>>> 117c78c343483cc9962df04cff8d007156ccc232

@@ -1,10 +1,17 @@
 import { ROUTE_TYPE, routes } from '../../App.js';
 
 const addHeaderEvent = $parent => {
-  const $navUserWrapper = document.querySelector('.navbar-user-wrapper');
-  const $navUserMenu = document.querySelector('.user-menu-list');
-  const $navWritingBtn = document.querySelector('.writing-btn');
-  const $navSettingBtn = document.querySelector('.nav-setting-btn');
+  const $navUserWrapper = $parent.querySelector('.navbar-user-wrapper');
+  const $navUserMenu = $parent.querySelector('.user-menu-list');
+  const $navWritingBtn = $parent.querySelector('.writing-btn');
+  const $navSettingBtn = $parent.querySelector('.nav-setting-btn');
+  const $mainLogo = $parent.querySelector('.main-logo');
+
+  $mainLogo.addEventListener('click', e => {
+    e.preventDefault();
+    window.history.pushState({}, ROUTE_TYPE.HOME, window.location.origin + ROUTE_TYPE.HOME);
+    routes[ROUTE_TYPE.HOME]($parent);
+  });
 
   $navUserWrapper.addEventListener('click', () => {
     $navUserMenu.classList.toggle('hidden');

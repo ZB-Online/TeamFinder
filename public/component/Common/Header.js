@@ -1,7 +1,7 @@
 import addHeaderEvent from './event/addHeaderEvent.js';
 import addLoginEvent from '../../page/main/login.js';
 
-export default function Header({ $parent, initialState }) {
+export default function Header ({ $parent, initialState }) {
   this.state = initialState;
   this.$target = document.createElement('div');
   $parent.appendChild(this.$target);
@@ -66,7 +66,7 @@ export default function Header({ $parent, initialState }) {
 
     <header>
       <nav class="navbar">
-        <a href="index.html"><p class="navbar-logo">TEAM_FINDER</p></a>
+        <a href="/" class="main-logo"><p class="navbar-logo">TEAM_FINDER</p></a>
         <ul class="navbar-menus">
           <li class="hidden"><a><button class="navbar-menus-item writing-btn">새 글 쓰기</button></a></li>
           <li><button class="navbar-menus-item login">로그인</button></li>
