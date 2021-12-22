@@ -82,11 +82,9 @@ export default function addEventWriting($parent) {
 
     // sports일 경우 중복 선택 방지
     const sportsDivision = e.target.parentNode.matches('.sports-list');
-    if (sportsDivision) {
-      if (duplication($sportsItems, e.target.textContent)) {
-        activeToggle(e.target.closest('.writing-container'));
-        return;
-      }
+    if (sportsDivision && duplication($sportsItems, e.target.textContent)) {
+      activeToggle(e.target.closest('.writing-container'));
+      return;
     }
     const itemCreate = `
   <li>
