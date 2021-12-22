@@ -144,7 +144,6 @@ const addLoginEvent = () =>{
       $signinBtn.removeAttribute('disabled');
       $signinBtn.classList.remove('disable-button');
     }
-    console.log($form[1].value.length);
   });
 
   // 별명 글자수 만들기

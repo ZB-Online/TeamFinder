@@ -1,10 +1,10 @@
 const express = require('express');
 // MOCK
 const users = [
-  {id: "kim", pw: "k123", nickname:"강아지"},
-  {id: "lee", pw: "l123", nickname:"고양이"},
-  {id: "park", pw: "p123", nickname:"두더지"},
-  {id: "yoon", pw: "y123", nickname:"호랑이"},
+  {id: "eastflow1", pw: "e1234567", nickname:"강아지"},
+  {id: "eastflow2", pw: "e1234567", nickname:"고양이"},
+  {id: "eastflow3", pw: "e1234567", nickname:"두더지"},
+  {id: "eastflow4", pw: "e1234567", nickname:"호랑이"},
 ];
 
 const rootRouter = express.Router();
