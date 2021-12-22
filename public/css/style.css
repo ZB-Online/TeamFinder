@@ -237,6 +237,7 @@ body {
 .post-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25%, auto));
+  row-gap: 25px;
 }
 
 .post {
@@ -277,7 +278,7 @@ h3.post-title {
   justify-content: space-evenly;
   align-items: center;
 }
-.post-filter {
+.post-sports-filter {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -294,7 +295,7 @@ h3.post-title {
 
 .infos {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
 }
 .info-city {

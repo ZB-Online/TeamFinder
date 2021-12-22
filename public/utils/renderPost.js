@@ -15,7 +15,7 @@ const getPostElements = data =>
         ${postData.sportsTypes
           .map(
             positionId => `
-          <li class="post-filter">
+          <li class="post-sports-filter">
             <img 
               class="post-filter-icon"
               src="/assets/img/filter/${initialFilter.sports[positionId]}.png"
@@ -30,16 +30,8 @@ const getPostElements = data =>
       <div class="infos">
         <span class="info-city">${initialFilter.cities[postData.city]}</span>
         <div class="info-item">
-            <box-icon class="info-icon" name="message-rounded-dots"></box-icon>
-          <span class="comments">11</span>
-        </div>
-            <div class="info-item">
-          <box-icon class="info-icon" name="street-view"></box-icon>
-          <span class="views">11</span>
-        </div>
-        <div class="info-item">
             <box-icon class="info-icon" name="heart" type="solid"></box-icon>
-          <span class="likes">11</span>
+          <span class="likes">${postData.likeCount}</span>
         </div>
       </div>
       ${postData.recruit ? '' : `<p class="recruited">모집완료</p>`}

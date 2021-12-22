@@ -9,7 +9,7 @@ export default function addEventWriting($parent) {
   const $cityList = $parent.querySelector('.city-list');
   const $sportsList = $parent.querySelector('.sports-list');
   // post
-  const postingSend = async payload => {
+  const postSend = async payload => {
     try {
       const res = await client.post('/api/posts', payload);
       if (res.status !== 200) throw new Error(res.status);
@@ -63,12 +63,12 @@ export default function addEventWriting($parent) {
     const writeVaules = {
       title: $writingTitle.value,
       city: +$cityItem.getAttribute('data-index'),
-      sportsType: sportsArr,
+      sportsTypes: sportsArr,
       content: $writingMainText.value,
       date: todayFormat(),
       owner: { id: localStorage.getItem('teamfinderId'), nickname: localStorage.getItem('teamfinderNickname') },
     };
-    postingSend(writeVaules);
+    postSend(writeVaules);
   });
 
   $writingCancel.addEventListener('click', () => {

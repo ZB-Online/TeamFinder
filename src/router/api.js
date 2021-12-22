@@ -172,6 +172,7 @@ apiRouter.post('/posts', (req, res) => {
       date,
       recruit: true,
       comments: [],
+      likeCount: 0,
       owner,
     };
 
@@ -244,7 +245,7 @@ apiRouter.patch('/posts/setting/:ownerId', (req, res) => {
   res.send(getPostOwner(posts));
 });
 
-apiRouter.patch('/posts/:postingId/comments/:commentId', (req, res) => {
+apiRouter.patch('/posts/:id/like', (req, res) => {
   const {
     params: { id },
     body: { likeActive },
