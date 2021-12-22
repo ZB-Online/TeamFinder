@@ -5,8 +5,8 @@ import { PostListComponent } from '../../Home/PostList.js';
 
 export default function addEventSetting($target, $parent) {
   // 메인 디렉토리 이동
-  const backAllow = () => window.history.pushState({}, '/index', window.location.origin + '/index.html');
-  const backDisallow = () => window.history.replaceState({}, '/index', window.location.origin + '/index.html');
+  const backAllow = () => window.history.pushState({}, '/', window.location.origin + '/');
+  const backDisallow = () => window.history.replaceState({}, '/', window.location.origin + '/');
   const mainMove = access => {
     access();
     PostListComponent($parent);
