@@ -1,0 +1,252 @@
+/* button */
+.btn {
+  margin: 0 3px;
+  padding: 5px 15px;
+  color: #fff;
+  background-color: #000;
+  font-size: 1.05rem;
+  font-weight: 600;
+  border-radius: 5px;
+}
+
+.cancel {
+  color: #000;
+  background-color: #e9ecef;
+}
+
+/* textarea */
+.textarea {
+  width: 100%;
+  height: 100px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  padding: 15px;
+  font-size: 1.05rem;
+  font-family: sans-serif;
+  outline: none;
+}
+
+.edit-content.textarea {
+  height: 500px;
+}
+
+/* modal */
+.modal-wrap {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal {
+  padding: 2rem 3rem;
+  background-color: #fff;
+  border-radius: 5px;
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+
+.modal > .message {
+  margin: 0 3px 1rem 3px;
+  line-height: 1.7;
+}
+
+/* all */
+.hidden {
+  display: none;
+}
+
+/* post */
+.post-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 600;
+  padding: 5rem 2.5rem;
+}
+
+.rewind {
+  max-width: 720px;
+  width: 100%;
+}
+
+.box {
+  max-width: 720px;
+  width: 100%;
+}
+
+h1.post-title {
+  font-size: 3rem;
+  padding: 3rem 0;
+}
+
+input.post-title {
+  width: 100%;
+  margin: 2.5rem 0;
+  padding: 0.5rem 2rem;
+  border: none;
+  outline: none;
+  border-bottom: 3px solid #dcdcdc;
+  border-radius: 5px;
+  font-size: 3rem;
+  font-family: sans-serif;
+  font-weight: 600;
+}
+
+.post-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.25rem;
+  padding: 1.25rem 0;
+}
+
+.post-owner-info {
+  display: flex;
+  align-items: center;
+}
+
+.post-owner-info > .writer {
+  padding-left: 1rem;
+}
+
+.post-info > .date {
+  color: #8c8c8c;
+}
+
+.btn-box {
+  height: 3rem;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn-box > button {
+  padding: 0 0.5rem;
+}
+
+.btn-box > .ended.active::after {
+  content: ' 취소';
+}
+
+.post-filter {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  align-items: center;
+  padding: 1.25rem 0;
+  border-bottom: 2px solid #dcdcdc;
+  font-size: 1.25rem;
+}
+
+.choose-filter-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.choose-filter-box > .filter-list li {
+  cursor: pointer;
+}
+
+.choose-filter-box > .filter-list li:hover {
+  background-color: #ffbdad;
+  border-color: #ffbdad;
+  color: #de350b;
+}
+
+.filter-btns {
+  display: flex;
+}
+
+.filter-btns button {
+  margin: 0 10px;
+  font-size: 2.5rem;
+  color: #dcdcdc;
+  transition: ease-in 0.3s;
+}
+
+.filter-btns button:hover {
+  color: #000;
+}
+
+.filter-list-all {
+  width: 100%;
+  height: 300px;
+  position: absolute;
+  padding: 0.5rem;
+  top: 5rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #8c8c8c;
+  overflow-y: scroll;
+  z-index: 99;
+}
+
+.filter-list-all li {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.filter-list-all li:hover {
+  background-color: #dcdcdc;
+  border-radius: 10px;
+  color: #000;
+}
+
+.filter-list {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: 1rem;
+}
+
+.filter-list li {
+  margin: 3px;
+  padding: 0.5rem 0.75rem;
+  background: #dce2f0;
+  border: 2px solid #dce2f0;
+  border-radius: 58px;
+}
+
+.post-content-box {
+  margin: 5rem 0;
+  font-size: 1.125rem;
+  word-break: break-all;
+  line-height: 1.7;
+  letter-spacing: -0.004em;
+}
+
+.post-content-box p {
+  margin-top: 1rem;
+  font-size: 1.125rem;
+  line-height: 1.7;
+}
+
+.post-like-count {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 1.5rem;
+}
+
+.like {
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  margin: 0 3px;
+  color: #999;
+  font-size: 1.7rem;
+  transition: ease-in-out 0.1s;
+}
+
+.like:hover {
+  font-size: 1.8rem;
+}
+
+.like.active {
+  color: #ef4343;
+}

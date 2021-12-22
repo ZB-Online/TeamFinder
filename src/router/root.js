@@ -1,6 +1,6 @@
 const express = require('express');
 // MOCK
-const users = [
+let users = [
   {id: "eastflow1", pw: "e1234567", nickname:"강아지"},
   {id: "eastflow2", pw: "e1234567", nickname:"고양이"},
   {id: "eastflow3", pw: "e1234567", nickname:"두더지"},

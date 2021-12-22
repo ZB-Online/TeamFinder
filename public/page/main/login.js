@@ -27,15 +27,11 @@ const addLoginEvent = () =>{
 
   const formInit = () => {
     // value 및 아이콘
-    $form[0].value = '';
-    $form[1].value = '';
-    $form[2].value = '';
-    $form[0].nextSibling.nextSibling.style.display = "none";
-    $form[1].nextSibling.nextSibling.style.display = "none";
-    $form[2].nextSibling.nextSibling.style.display = "none";
-    $form[0].nextSibling.nextSibling.nextSibling.nextSibling.classList.add('hidden');
-    $form[1].nextSibling.nextSibling.nextSibling.nextSibling.classList.add('hidden');
-    $form[2].nextSibling.nextSibling.nextSibling.nextSibling.classList.add('hidden');
+    for (let i = 0; i < 3; i++) {
+      $form[i].value = '';
+      $form[i].nextSibling.nextSibling.style.display = "none";
+      $form[i].nextSibling.nextSibling.nextSibling.nextSibling.classList.add('hidden');
+    }
   };
 
   const errVisible = () => {
@@ -120,7 +116,6 @@ const addLoginEvent = () =>{
   // 아이디 글자수 만들기
   // 키 다운 따로 걸기
   $form[0].addEventListener('input', () => {
-    console.log($form[1].nextSibling.nextSibling.nextSibling.nextSibling);
     if(/^\S{8,16}$/.test($form[0].value)) envisibleWarning(0);
     else visibleWarning(0);
   });
@@ -177,7 +172,10 @@ const addLoginEvent = () =>{
   $signupBtn.addEventListener('click', e => {
     e.preventDefault();
     
-    if($form[0].value === '' || $form[1].value === '' ||  $form[2].value === '')
+    if($form[0].value === '' || $form[1].value === '' ||  $form[2].value === '' 
+      || $form[0].value.length > 16 || $form[0].value.length < 8
+      || $form[1].value.length > 16 || $form[1].value.length < 8
+      || $form[2].value.length > 5 || $form[2].value.length < 2)
     $errorMsg.style.visibility = "visible";
     else{
       request.post('/signup', {

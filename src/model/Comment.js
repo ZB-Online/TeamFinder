@@ -1,4 +1,5 @@
 const comment = {
+  id: 1,
   content: '',
   date: '',
   // cycle

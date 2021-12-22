@@ -2,19 +2,20 @@ import client from '../../../api/axios.js';
 import { initialFilter } from '../../../store/filter.js';
 import { todayFormat } from '../../../utils/date.js';
 import { TOAST_TYPE, toaster, createToastAction } from '../../../utils/toaster.js';
-import { PostListComponent } from '../../Home/PostList.js';
+
+import { ROUTE_TYPE, routes } from '../../App.js';
 
 export default function addEventWriting($parent) {
   const $cityList = $parent.querySelector('.city-list');
   const $sportsList = $parent.querySelector('.sports-list');
   // post
-  const postingSend = async payload => {
+  const postSend = async payload => {
     try {
       const res = await client.post('/api/posts', payload);
       if (res.status !== 200) throw new Error(res.status);
       toaster.add(createToastAction(TOAST_TYPE.SUCCESS, 'well done!', '글 작성이 완료되었습니다!'));
-      window.history.replaceState({}, '/', window.location.origin + '/');
-      PostListComponent($parent);
+      window.history.pushState({}, ROUTE_TYPE.HOME, window.location.origin + ROUTE_TYPE.HOME);
+      routes[ROUTE_TYPE.HOME]($parent);
     } catch (error) {
       console.log(error);
     }
@@ -62,18 +63,18 @@ export default function addEventWriting($parent) {
     const writeVaules = {
       title: $writingTitle.value,
       city: +$cityItem.getAttribute('data-index'),
-      sportsType: sportsArr,
+      sportsTypes: sportsArr,
       content: $writingMainText.value,
       date: todayFormat(),
       owner: { id: localStorage.getItem('teamfinderId'), nickname: localStorage.getItem('teamfinderNickname') },
     };
-    postingSend(writeVaules);
+    postSend(writeVaules);
   });
 
   $writingCancel.addEventListener('click', () => {
     toaster.add(createToastAction(TOAST_TYPE.ERROR, 'Failure!', '글 작성이 취소되었습니다!'));
-    window.history.replaceState({}, '/', window.location.origin + '/');
-    PostListComponent($parent);
+    window.history.pushState({}, ROUTE_TYPE.HOME, window.location.origin + ROUTE_TYPE.HOME);
+    routes[ROUTE_TYPE.HOME]($parent);
   });
 
   // sports & city item pick

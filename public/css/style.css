@@ -237,6 +237,7 @@ body {
 .post-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(25%, auto));
+  row-gap: 25px;
 }
 
 .post {
@@ -260,7 +261,7 @@ body {
   justify-content: space-between;
   background-color: white;
 }
-.post-title {
+h3.post-title {
   text-align: center;
   font-weight: bold;
   min-height: 30px;
@@ -277,7 +278,7 @@ body {
   justify-content: space-evenly;
   align-items: center;
 }
-.post-filter {
+.post-sports-filter {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -294,7 +295,7 @@ body {
 
 .infos {
   display: flex;
-  justify-content: end;
+  justify-content: space-between;
   align-items: center;
 }
 .info-city {
@@ -391,8 +392,6 @@ body {
 
 .login-banner > .close-icon{
   display: inline;
-  /* width: 30px;
-  height: 30px; */
   position: absolute;
   right: 2px;
   line-height: 30px;
@@ -414,7 +413,6 @@ body {
   font-size: 2em;
   font-weight: 700;
   color: black;
-  /* text-shadow:1px 1px 1px black; */
 }
 
 .input-label{
@@ -452,7 +450,7 @@ body {
 
 .form .warning-msg{
   padding: 4px;
-  font-size: .9em;
+  font-size: .7em;
   text-align: center;
   color: red;
 }

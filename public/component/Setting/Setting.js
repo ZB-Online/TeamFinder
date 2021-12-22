@@ -3,6 +3,7 @@ import addSettingEvent from './event/addSettingEvent.js';
 export default function Setting({ $parent, initialState }) {
   this.state = initialState;
   this.$target = document.createElement('div');
+  if ($parent.children.length > 1) $parent.removeChild($parent.lastChild);
   $parent.appendChild(this.$target);
 
   this.setState = nextState => {
