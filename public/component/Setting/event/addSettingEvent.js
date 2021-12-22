@@ -15,6 +15,8 @@ export default function addEventSetting($target, $parent) {
 
   const userId = localStorage.getItem('teamfinderId');
   const $nickNameInput = $target.querySelector('.nickName-input');
+  const $navbarUserName = document.querySelector('.navbar-user-name');
+  const $navbarMenus = document.querySelector('.navbar-menus');
   // 작성 목록 렌더
   const myBookFilter = myBooks => myBooks.filter(myBook => myBook.owner.id === userId);
 
@@ -46,12 +48,19 @@ export default function addEventSetting($target, $parent) {
 
   const toasterAlert = (type, title, msg) => toaster.add(createToastAction(type, title, msg));
 
+  const navbarToggle = () => {
+    [...$navbarMenus.children].forEach(li => {
+      if (li.classList.toggle('hidden'));
+    });
+  };
+
   // 회원 닉네임 수정
   const patchUserNickname = async (userId, newNickname) => {
     try {
       await client.patch(`users/${userId}`, { nickname: newNickname });
       await patchPostOwnerNickname(userId, newNickname);
       localStorage.setItem('teamfinderNickname', $nickNameInput.value);
+      $navbarUserName.textContent = localStorage.getItem('teamfinderNickname');
       toasterAlert(TOAST_TYPE.SUCCESS, 'Well done!', '회원 정보가 수정되었습니다.');
       mainMove(backAllow);
     } catch (error) {
@@ -65,6 +74,7 @@ export default function addEventSetting($target, $parent) {
       await client.delete(`users/${userId}`);
       toasterAlert(TOAST_TYPE.SUCCESS, 'Well done!', '회원이 탈퇴 되었습니다.');
       localStorage.clear();
+      navbarToggle();
       mainMove(backDisallow);
       // 메인 이동
     } catch (error) {

@@ -1,4 +1,5 @@
 import addSettingEvent from './event/addSettingEvent.js';
+import addPostListEvent from '../Home/event/addPostListEvent.js';
 
 export default function Setting({ $parent, initialState }) {
   this.state = initialState;
@@ -74,6 +75,7 @@ export default function Setting({ $parent, initialState }) {
 
   this.addEvent = () => {
     addSettingEvent(this.$target, $parent);
+    addPostListEvent($parent, this.$target);
   };
 
   this.render();

@@ -128,7 +128,7 @@ const addLoginEvent = () =>{
 
   // 별명 글자수 만들기
   $form[2].addEventListener('input', () => {
-    if(/^\S{8,16}$/.test($form[2].value)) envisibleWarning(2);
+    if(/^\S{2,5}$/.test($form[2].value)) envisibleWarning(2);
     else visibleWarning(2);
   });
 
@@ -157,7 +157,6 @@ const addLoginEvent = () =>{
           localStorage.setItem('teamfinderId', userData[0]);
           localStorage.setItem('teamfinderNickname', userData[1]);
           document.querySelector('.navbar-user-name').textContent = localStorage.teamfinderNickname;
-
         }
         else { // 실패
           errVisible();
