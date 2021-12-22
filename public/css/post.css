@@ -33,6 +33,7 @@
 /* modal */
 .modal-wrap {
   position: fixed;
+  top: 0;
   width: 100%;
   height: 100vh;
   display: flex;
@@ -152,7 +153,9 @@ input.post-title {
 }
 
 .choose-filter-box > .filter-list li:hover {
-  /* 삭제 처리 */
+  background-color: #ffbdad;
+  border-color: #ffbdad;
+  color: #de350b;
 }
 
 .filter-btns {

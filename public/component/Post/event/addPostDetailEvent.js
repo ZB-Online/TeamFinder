@@ -4,7 +4,7 @@ import { initialFilter } from '../../../store/filter.js';
 import postStore from '../../../store/post.js';
 import render from '../postUtils/renderPost.js';
 
-export default function addPostDetailEvent ($parent) {
+export default function addPostDetailEvent($parent) {
   const $modal = document.querySelector('.modal');
   const $postBox = document.querySelector('.post-box');
   const $commentBox = document.querySelector('.comment-box');
@@ -16,19 +16,16 @@ export default function addPostDetailEvent ($parent) {
   $postBox.addEventListener('click', ({ target }) => {
     if (!(target.matches('.post-box button') || target.matches('.choose-filter-box li'))) return;
 
-    // 포스트 마감
     if (target.classList.contains('ended')) {
       postStore.endedPost(id);
     }
 
-    // 포스트 수정 레이아웃 활성화
     if (target.classList.contains('edit')) {
       if (target.classList.contains('active')) return;
 
       target.classList.add('active');
 
       [...$postBox.children].forEach(child => {
-        // 포스트 헤더
         if (child.classList.contains('post-header')) {
           const $postTitle = child.firstElementChild;
 
@@ -39,7 +36,6 @@ export default function addPostDetailEvent ($parent) {
           child.replaceChild($inputPostTitle, $postTitle);
         }
 
-        // 포스트 필터 지역 / 종목
         if (child.classList.contains('post-filter')) {
           const getOriginFilters = ($filterList, filter) =>
             [...$filterList.children]
@@ -64,7 +60,6 @@ export default function addPostDetailEvent ($parent) {
           child.replaceChild($chooseFilter, $filterList);
         }
 
-        // 포스트 내용
         if (child.classList.contains('post-content-box')) {
           const $postContent = child.firstElementChild;
 
@@ -75,7 +70,6 @@ export default function addPostDetailEvent ($parent) {
           child.replaceChild($inputPostContent, $postContent);
         }
 
-        // 포스트 수정 버튼 (취소 / 적용)
         if (child.classList.contains('post-like-count')) {
           const $editBtns = document.createElement('div');
           $editBtns.classList.add('edit-btns');
@@ -89,17 +83,14 @@ export default function addPostDetailEvent ($parent) {
       });
     }
 
-    // 포스트 삭제
     if (target.classList.contains('delete')) {
       $modal.closest('.modal-wrap').classList.remove('hidden');
     }
 
-    // 리스트 삭제
     if (target.classList.contains('delete-all')) {
       target.parentNode.previousElementSibling.innerHTML = '';
     }
 
-    // 전체 리스트 활성화 / 비활성화
     if (target.classList.contains('spread-filters')) {
       const $filterListAll = document.createElement('ul');
       const $parent = target.closest('.choose-filter-box');
@@ -120,8 +111,11 @@ export default function addPostDetailEvent ($parent) {
       }
     }
 
-    // 리스트 업데이트
-    if (target.matches('.filter-list-all li')) {
+    if (target.matches('.filter-list > li')) {
+      target.remove();
+    }
+
+    if (target.matches('.filter-list-all > li')) {
       const { filter } = target.closest('.post-filter').dataset;
 
       const $filterListAll = target.parentNode;
@@ -132,17 +126,17 @@ export default function addPostDetailEvent ($parent) {
       if (filter === 'cities') {
         $filterList.innerHTML = `<li data-index="${target.dataset.index}">${target.innerText}</li>`;
       } else {
-        $filterList.appendChild(target);
+        const isExist = [...$filterList.children].some($li => $li.dataset.index === target.dataset.index);
+        if (!isExist) $filterList.appendChild(target);
       }
+
       $filterListAll.remove();
     }
 
-    // 포스트 수정 취소
     if (target.classList.contains('cancel')) {
-      store.getPost(id);
+      postStore.getPost(id);
     }
 
-    // 포스트 수정 적용
     if (target.classList.contains('apply')) {
       const $postTitle = document.querySelector('.post-title');
       const $postFilters = document.querySelectorAll('.filter-list');
@@ -150,7 +144,7 @@ export default function addPostDetailEvent ($parent) {
 
       const filters = [...$postFilters].map($filterList => [...$filterList.children].map($li => +$li.dataset.index));
 
-      store.editPost(id, {
+      postStore.editPost(id, {
         title: $postTitle.value,
         city: filters[0],
         sportsTypes: filters[1],
@@ -158,7 +152,6 @@ export default function addPostDetailEvent ($parent) {
       });
     }
 
-    // 포스트 좋아요 +1 / -1
     if (target.classList.contains('like')) {
       postStore.changeLikeCount(id, target.classList.contains('active'));
     }

@@ -26,7 +26,6 @@ let posts = [
   {
     id: 0,
     title: `title ${0}`,
-    writer: `writer ${0}`,
     city: 1,
     sportsTypes: [3],
     content: 'hello',
@@ -52,7 +51,6 @@ let posts = [
   {
     id: 1,
     title: `title ${2}`,
-    writer: `writer ${2}`,
     city: 5,
     sportsTypes: [2, 5],
     content: 'hello\nasdf\n\n\nasdasdg',
@@ -84,7 +82,6 @@ let posts = [
   {
     id: 2,
     title: `title ${3}`,
-    writer: `writer ${3}`,
     city: 2,
     sportsTypes: [4],
     content: 'hello',
@@ -104,7 +101,6 @@ let posts = [
   {
     id: 3,
     title: `title ${1}`,
-    writer: `writer ${1}`,
     city: 2,
     sportsTypes: [1],
     content: 'hello',

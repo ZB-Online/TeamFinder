@@ -1,15 +1,13 @@
 const post = {
   id: 1,
   title: '',
-  writer: '',
   date: '',
   city: 2,
   sportsTypes: [],
   content: '',
   recruit: true,
   likeCount: 0,
-  // cycle
-  owner: '', // user id
+  owner: {},
   comments: [], // some comment
 };
 

@@ -15,7 +15,7 @@ const getBtnBox = (type, isOwner, recruit) =>
         </section>`
     : '';
 
-const getPostHeader = ({ title, writer, date }, postBoxBtns) => `
+const getPostHeader = ({ title, date, owner }, postBoxBtns) => `
   <section class="post-header">
     <h1 class="post-title">${title}</h1>
     <div class="post-info">
@@ -25,7 +25,7 @@ const getPostHeader = ({ title, writer, date }, postBoxBtns) => `
           src="https://hola-post-image.s3.ap-northeast-2.amazonaws.com/default.PNG"
           alt="default"
         />
-        <span class="writer">${writer}</span>
+        <span class="writer">${owner.nickname}</span>
       </div>
       <span class="date">${date}</span>
     </div>
@@ -99,13 +99,13 @@ const renderPost = (post, likeActive, authUser) => {
   const $postBox = document.querySelector('.post-box');
   const $commentBox = document.querySelector('.comment-box');
 
-  const { title, writer, date, city, sportsTypes, likeCount, owner, content, recruit, comments } = post;
+  const { title, date, city, sportsTypes, likeCount, owner, content, recruit, comments } = post;
   const { id } = authUser;
 
   const postBoxBtns = getBtnBox('post', isOwner(id, owner.id), recruit);
 
   $postBox.innerHTML = `
-    ${getPostHeader({ title, writer, date }, postBoxBtns)}
+    ${getPostHeader({ title, date, owner }, postBoxBtns)}
     ${getPostFilters({ city, sportsTypes })}
     ${getPostContent({ content })}
     ${getPostLikeCount({ likeCount }, likeActive)}`;
