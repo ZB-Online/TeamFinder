@@ -33,7 +33,7 @@ export default function Header({ $parent, initialState }) {
               <path d="M7 10l5 5 5-5z"></path>
             </svg>
             <ul class="user-menu-list hidden">
-              <li class="user-menu-item nav-setting-btn">설정</li>
+              <li class="user-menu-item nav-setting-btn">내 정보 수정</li>
               <li class="user-menu-item">로그아웃</li>
             </ul>
           </li>
