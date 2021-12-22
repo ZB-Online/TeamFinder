@@ -64,6 +64,10 @@
   padding: 5rem 2.5rem;
 }
 
+.hidden {
+  display: none;
+}
+
 .rewind {
   max-width: 720px;
   width: 100%;
