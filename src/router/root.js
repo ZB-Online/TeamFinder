@@ -45,7 +45,7 @@ rootRouter.delete('/users/:id', (req, res) => {
   try {
     const { id } = req.params;
     users = users.filter(user => user.id !== id);
-    res.send();
+    res.send(users);
   } catch (e) {
     console.log(e);
   }
