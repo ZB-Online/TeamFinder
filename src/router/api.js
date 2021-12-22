@@ -136,7 +136,7 @@ apiRouter.get('/posts/:id', (req, res) => {
 // POST
 apiRouter.post('/posts', (req, res) => {
   // body is not null
-  const { title, city, sportsType, content, date } = req.body;
+  const { title, city, sportsType, content, date, owner } = req.body;
 
   const maxId = (() => Math.max(...posts.map(({ id }) => id)))();
 
@@ -150,6 +150,7 @@ apiRouter.post('/posts', (req, res) => {
       content,
       date,
       recruit: true,
+      owner,
     };
 
     posts = [...posts, newPost];
