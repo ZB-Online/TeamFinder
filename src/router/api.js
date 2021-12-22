@@ -135,7 +135,7 @@ apiRouter.get('/posts', (req, res) => {
     const currentSports = req.query.sports.split(',');
     sendingData = sendingData.filter(
       post =>
-        currentCities.includes(FILTER.CITIES[post.city]) &&
+      currentCities.includes(FILTER.CITIES[post.city]) &&
         post.sportsTypes.some(sports => currentSports.includes(FILTER.SPORTS[sports])),
     );
   }
