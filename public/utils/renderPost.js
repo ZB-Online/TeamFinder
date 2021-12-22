@@ -46,7 +46,12 @@ const renderPostElements = data => {
   const $filterRecruitCheck = document.querySelector('.filter-recruit-input');
   const $contentList = document.querySelector('.post-list');
   $contentList.innerHTML = ``;
-  getPostElements($filterRecruitCheck.checked ? getRecruitingPostData(data) : data).forEach($post => {
+  const $popular = document.querySelector('.posts-filter-popular');
+  let sortedData = [...data].sort((data1, data2) => +data2.id - +data1.id);
+  if (!$popular.classList.contains('opacity')) {
+    sortedData = [...data].sort((data1, data2) => +data2.likeCount - +data1.likeCount);
+  }
+  getPostElements($filterRecruitCheck.checked ? getRecruitingPostData(sortedData) : sortedData).forEach($post => {
     $contentList.appendChild($post);
   });
 };
