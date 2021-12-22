@@ -34,15 +34,17 @@ const getPostHeader = ({ title, writer, date }, postBoxBtns) => `
 
 const getPostFilters = ({ city, sportsTypes }) => {
   const postFilter = {
-    city: `<li>${initialFilter.cities[city]}</li>`,
-    sportsTypes: sportsTypes.map(sportsType => `<li>${initialFilter.sports[sportsType]}</li>`).join(''),
+    cities: `<li data-index="${city}">${initialFilter.cities[city]}</li>`,
+    sports: sportsTypes
+      .map(sportsType => `<li data-index="${sportsType}">${initialFilter.sports[sportsType]}</li>`)
+      .join(''),
   };
 
   return Object.keys(postFilter)
     .map(
       filter => `
-        <section class="post-filter">
-          <span>${filter === 'city' ? '지역' : '종목'}</span>
+        <section class="post-filter" data-filter=${filter}>
+          <span>${filter === 'cities' ? '지역' : '종목'}</span>
           <ul class="filter-list">
             ${postFilter[filter]}
           </ul>
@@ -52,7 +54,7 @@ const getPostFilters = ({ city, sportsTypes }) => {
 };
 
 const getPostContent = ({ content }) => `
-  <section class="post-content">
+  <section class="post-content-box">
     <p>${formatContent(content)}</p>
   </section>`;
 

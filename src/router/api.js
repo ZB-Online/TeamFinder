@@ -54,7 +54,7 @@ let posts = [
     title: `title ${2}`,
     writer: `writer ${2}`,
     city: 5,
-    sportsTypes: [5],
+    sportsTypes: [2, 5],
     content: 'hello\nasdf\n\n\nasdasdg',
     date: '2021-12-13',
     recruit: true,
@@ -117,7 +117,13 @@ let posts = [
 ];
 
 // Functions
-const getPost = id => posts.filter(posting => posting.id === +id);
+const getPost = id => posts.filter(post => post.id === +id);
+
+const getMaxId = comments => Math.max(...comments.map(({ id }) => id));
+
+const changePost = newPost => {
+  posts = posts.map(post => (post.id === newPost.id ? newPost : post));
+};
 
 // Route
 const apiRouter = express.Router();
@@ -166,6 +172,7 @@ apiRouter.post('/posts', (req, res) => {
       content,
       date,
       recruit: true,
+      comments: [],
     };
 
     posts = [...posts, newPost];
@@ -175,12 +182,6 @@ apiRouter.post('/posts', (req, res) => {
     res.status(400).send(error);
   }
 });
-
-const getMaxId = comments => Math.max(...comments.map(({ id }) => id));
-
-const changePost = newPost => {
-  posts = posts.map(post => (post.id === newPost.id ? newPost : post));
-};
 
 apiRouter.post('/posts/:id/comments', (req, res) => {
   const {
@@ -202,11 +203,20 @@ apiRouter.post('/posts/:id/comments', (req, res) => {
 });
 
 apiRouter.patch('/posts/:id', (req, res) => {
-  const { id } = req.params;
+  const {
+    params: { id },
+    body,
+  } = req;
 
   try {
     const [post] = getPost(id);
-    const newPost = { ...post, recruit: !post.recruit };
+
+    let newPost = {};
+    if (Object.keys(body).length === 0) newPost = { ...post, recruit: !post.recruit };
+    else {
+      const { title, city, sportsTypes, content } = body;
+      newPost = { ...post, title, city, sportsTypes, content };
+    }
 
     changePost(newPost);
 

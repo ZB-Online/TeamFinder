@@ -54,6 +54,15 @@ const endedPost = async postId => {
   }
 };
 
+const editPost = async (postId, newPost) => {
+  try {
+    const { data: post } = await axios.patch(`/api/posts/${postId}`, newPost);
+    store.post = post;
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 const deletePost = async postId => {
   try {
     const res = await axios.delete(`/api/posts/${postId}`);
@@ -114,6 +123,7 @@ export default {
   subscribe,
   getPost,
   endedPost,
+  editPost,
   deletePost,
   changeLikeCount,
   uploadComment,

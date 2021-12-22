@@ -140,6 +140,61 @@ input.post-title {
   font-size: 1.25rem;
 }
 
+.choose-filter-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.choose-filter-box > .filter-list li {
+  cursor: pointer;
+}
+
+.choose-filter-box > .filter-list li:hover {
+  /* 삭제 처리 */
+}
+
+.filter-btns {
+  display: flex;
+}
+
+.filter-btns button {
+  margin: 0 10px;
+  font-size: 2.5rem;
+  color: #dcdcdc;
+  transition: ease-in 0.3s;
+}
+
+.filter-btns button:hover {
+  color: #000;
+}
+
+.filter-list-all {
+  width: 100%;
+  height: 300px;
+  position: absolute;
+  padding: 0.5rem;
+  top: 5rem;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+  background-color: #fff;
+  color: #8c8c8c;
+  overflow-y: scroll;
+  z-index: 99;
+}
+
+.filter-list-all li {
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.filter-list-all li:hover {
+  background-color: #dcdcdc;
+  border-radius: 10px;
+  color: #000;
+}
+
 .filter-list {
   display: flex;
   flex-wrap: wrap;
@@ -154,7 +209,7 @@ input.post-title {
   border-radius: 58px;
 }
 
-.post-content {
+.post-content-box {
   margin: 5rem 0;
   font-size: 1.125rem;
   word-break: break-all;
@@ -162,7 +217,7 @@ input.post-title {
   letter-spacing: -0.004em;
 }
 
-.post-content > div > p {
+.post-content-box p {
   margin-top: 1rem;
   font-size: 1.125rem;
   line-height: 1.7;

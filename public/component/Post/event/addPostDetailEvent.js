@@ -14,18 +14,21 @@ export default function addPostDetailEvent ($parent) {
   postStore.getPost(id);
 
   $postBox.addEventListener('click', ({ target }) => {
-    if (!target.matches('.post-box button')) return;
+    if (!(target.matches('.post-box button') || target.matches('.choose-filter-box li'))) return;
 
+    // 포스트 마감
     if (target.classList.contains('ended')) {
       postStore.endedPost(id);
     }
 
+    // 포스트 수정 레이아웃 활성화
     if (target.classList.contains('edit')) {
       if (target.classList.contains('active')) return;
 
       target.classList.add('active');
 
       [...$postBox.children].forEach(child => {
+        // 포스트 헤더
         if (child.classList.contains('post-header')) {
           const $postTitle = child.firstElementChild;
 
@@ -36,54 +39,33 @@ export default function addPostDetailEvent ($parent) {
           child.replaceChild($inputPostTitle, $postTitle);
         }
 
+        // 포스트 필터 지역 / 종목
         if (child.classList.contains('post-filter')) {
-          const listCreate = (categoriesArr, categories) => {
-            const $fragment = document.createDocumentFragment();
-            [...categoriesArr].forEach((category, index) => {
-              const $li = document.createElement('li');
-              $li.dataset.index = index;
-              $li.textContent = category;
-              $fragment.append($li);
-            });
-            console.log($fragment);
-            // categories.append($fragment);
-          };
+          const getOriginFilters = ($filterList, filter) =>
+            [...$filterList.children]
+              .map($li => `<li data-index=${$li.dataset.index}>${initialFilter[filter][$li.dataset.index]}</li>`)
+              .join('');
 
           const $filterList = child.querySelector('.filter-list');
 
-          // child.firstElementChild.innerText === '지역'
-          // listCreate(initialFilter.cities)
-
           const $chooseFilter = document.createElement('div');
+          $chooseFilter.classList.add('choose-filter-box');
 
           $chooseFilter.innerHTML = `
-            <div class="choose-container sports">
-              <div class="writing-container sports-container">
-                <ul class="writing-items sports-items"></ul>
-                <div>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="30"
-                    height="30"
-                    viewBox="0 0 24 24"
-                    class="sports-all-delete"
-                  >
-                    <path
-                      d="m16.192 6.344-4.243 4.242-4.242-4.242-1.414 1.414L10.535 12l-4.242 4.242 1.414 1.414 4.242-4.242 4.243 4.242 1.414-1.414L13.364 12l4.242-4.242z"
-                    ></path>
-                  </svg>
-                  <svg xmlns="http://www.w3.org/2000/svg" class="sports-show" width="30" height="30" viewBox="0 0 24 24">
-                    <path d="M16.293 9.293 12 13.586 7.707 9.293l-1.414 1.414L12 16.414l5.707-5.707z"></path>
-                  </svg>
-                </div>
-              </div>
-              <ul class="writing-list sports-list"></ul>
+            <ul class="filter-list"></ul>
+            <div class="filter-btns">
+              <button class="delete-all">&times;</button>
+              <button class="spread-filters">&#43;</button>
             </div>`;
+
+          const { filter } = child.dataset;
+          $chooseFilter.firstElementChild.innerHTML = getOriginFilters($filterList, filter);
 
           child.replaceChild($chooseFilter, $filterList);
         }
 
-        if (child.classList.contains('post-content')) {
+        // 포스트 내용
+        if (child.classList.contains('post-content-box')) {
           const $postContent = child.firstElementChild;
 
           const $inputPostContent = document.createElement('textarea');
@@ -93,8 +75,11 @@ export default function addPostDetailEvent ($parent) {
           child.replaceChild($inputPostContent, $postContent);
         }
 
+        // 포스트 수정 버튼 (취소 / 적용)
         if (child.classList.contains('post-like-count')) {
-          const $editBtns = document.createElement('editBtns');
+          const $editBtns = document.createElement('div');
+          $editBtns.classList.add('edit-btns');
+
           $editBtns.innerHTML = `
             <button class="btn cancel">취소</button>
             <button class="btn apply">수정</button>`;
@@ -104,10 +89,76 @@ export default function addPostDetailEvent ($parent) {
       });
     }
 
+    // 포스트 삭제
     if (target.classList.contains('delete')) {
       $modal.closest('.modal-wrap').classList.remove('hidden');
     }
 
+    // 리스트 삭제
+    if (target.classList.contains('delete-all')) {
+      target.parentNode.previousElementSibling.innerHTML = '';
+    }
+
+    // 전체 리스트 활성화 / 비활성화
+    if (target.classList.contains('spread-filters')) {
+      const $filterListAll = document.createElement('ul');
+      const $parent = target.closest('.choose-filter-box');
+
+      if (target.classList.toggle('active')) {
+        $filterListAll.classList.add('filter-list-all');
+
+        const createList = filters =>
+          [...filters].map((filter, index) => `<li data-index="${index}">${filter}</li>`).join('');
+
+        const { filter } = $parent.closest('.post-filter').dataset;
+
+        $filterListAll.innerHTML = createList(initialFilter[filter]);
+
+        $parent.appendChild($filterListAll);
+      } else {
+        $parent.removeChild($parent.lastElementChild);
+      }
+    }
+
+    // 리스트 업데이트
+    if (target.matches('.filter-list-all li')) {
+      const { filter } = target.closest('.post-filter').dataset;
+
+      const $filterListAll = target.parentNode;
+      $filterListAll.previousElementSibling.lastElementChild.classList.remove('active');
+
+      const $filterList = target.closest('.choose-filter-box').firstElementChild;
+
+      if (filter === 'cities') {
+        $filterList.innerHTML = `<li data-index="${target.dataset.index}">${target.innerText}</li>`;
+      } else {
+        $filterList.appendChild(target);
+      }
+      $filterListAll.remove();
+    }
+
+    // 포스트 수정 취소
+    if (target.classList.contains('cancel')) {
+      store.getPost(id);
+    }
+
+    // 포스트 수정 적용
+    if (target.classList.contains('apply')) {
+      const $postTitle = document.querySelector('.post-title');
+      const $postFilters = document.querySelectorAll('.filter-list');
+      const $postContent = document.querySelector('.edit-content');
+
+      const filters = [...$postFilters].map($filterList => [...$filterList.children].map($li => +$li.dataset.index));
+
+      store.editPost(id, {
+        title: $postTitle.value,
+        city: filters[0],
+        sportsTypes: filters[1],
+        content: $postContent.value,
+      });
+    }
+
+    // 포스트 좋아요 +1 / -1
     if (target.classList.contains('like')) {
       postStore.changeLikeCount(id, target.classList.contains('active'));
     }
