@@ -27,7 +27,7 @@ let posts = [...data];
 // Functions
 const getPost = id => posts.filter(post => post.id === +id);
 
-const getMaxId = comments => Math.max(...comments.map(({ id }) => id));
+const getMaxId = items => Math.max(...items.map(({ id }) => id), 0);
 
 const changePost = newPost => {
   posts = posts.map(post => (post.id === newPost.id ? newPost : post));
@@ -46,7 +46,7 @@ apiRouter.get('/posts', (req, res) => {
     const currentSports = req.query.sports.split(',');
     sendingData = sendingData.filter(
       post =>
-      currentCities.includes(FILTER.CITIES[post.city]) &&
+        currentCities.includes(FILTER.CITIES[post.city]) &&
         post.sportsTypes.some(sports => currentSports.includes(FILTER.SPORTS[sports])),
     );
   }
@@ -70,11 +70,9 @@ apiRouter.post('/posts', (req, res) => {
   // body is not null
   const { title, city, sportsTypes, content, date, owner } = req.body;
 
-  const maxId = (() => Math.max(...posts.map(({ id }) => id)))();
-
   try {
     const newPost = {
-      id: (maxId || 0) + 1,
+      id: getMaxId(posts) + 1,
       title,
       writer: 'writer 1',
       city,
