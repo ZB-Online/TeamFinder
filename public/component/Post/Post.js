@@ -1,9 +1,8 @@
-import addCommentEvent from './event/app.js';
+import addEvent from './event/app.js';
 
 export default function Comment({ $parent, initialState }) {
   this.state = initialState;
   this.$target = document.createElement('main');
-  // this.$target.classList.add('post-container');
   $parent.appendChild(this.$target);
 
   this.setState = nextState => {
@@ -50,7 +49,7 @@ export default function Comment({ $parent, initialState }) {
   };
 
   this.addEvent = () => {
-    addCommentEvent();
+    addEvent();
   };
 
   this.render();

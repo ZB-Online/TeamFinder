@@ -1,7 +1,7 @@
 import store from '../postUtils/fetchPost.js';
 import render from '../postUtils/render.js';
 
-export default function addCommentEvent() {
+export default function addEvent() {
   const $modal = document.querySelector('.modal');
   const $postBox = document.querySelector('.post-box');
   const $commentBox = document.querySelector('.comment-box');
@@ -19,6 +19,16 @@ export default function addCommentEvent() {
 
     if (target.classList.contains('edit')) {
       // goto edit page
+      [...$postBox.children].forEach(child => {
+        if (child.classList.contains('post-header')) {
+          const $postTitle = child.firstElementChild;
+
+          const $inputPostTitle = document.createElement('input');
+          $inputPostTitle.classList.add('post-title');
+
+          child.replaceChild($inputPostTitle, $postTitle);
+        }
+      });
     }
 
     if (target.classList.contains('delete')) {

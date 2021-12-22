@@ -79,6 +79,11 @@ h1.post-title {
   padding: 3rem 0;
 }
 
+input.post-title {
+  font-size: 3rem;
+  margin: 3rem 0;
+}
+
 .post-info {
   display: flex;
   justify-content: space-between;

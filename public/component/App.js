@@ -10,7 +10,7 @@ const MainComponent = $parent => {
   });
 };
 
-const CommentComponent = $parent => {
+const PostComponent = $parent => {
   new Post({
     $parent,
     initialState: {},
@@ -27,7 +27,7 @@ const WritingComponent = $parent => {
 const routes = {
   '/': MainComponent,
   '/index.html': MainComponent,
-  '/posts': CommentComponent,
+  '/posts': PostComponent,
   '/writing': WritingComponent,
 };
 

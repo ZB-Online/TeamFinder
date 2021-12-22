@@ -4,7 +4,6 @@ const store = {
   state: {
     post: {},
     likeActive: false,
-    editActive: false,
   },
   // localStorage user
   _authUser: { id: 3, nickname: '토끼' },

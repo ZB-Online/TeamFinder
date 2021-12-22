@@ -113,7 +113,7 @@ const renderPost = (post, likeActive, authUser) => {
     </ul>`;
 };
 
-const render = ({ post, likeActive, editActive }, authUser) => {
+const render = ({ post, likeActive }, authUser) => {
   renderPost(post, likeActive, authUser);
 };
 
