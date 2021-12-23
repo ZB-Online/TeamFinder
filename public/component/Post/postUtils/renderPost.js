@@ -117,13 +117,15 @@ const renderPost = (post, likeActive, authUser) => {
     </ul>`;
 };
 
-const render = ({ post, likeActive }, authUser) => {
+const render = state => {
+  const { post, likeActive } = state;
   try {
-    if (!post) throw new Error('Data Not Found');
+    // if (!post) throw new Error('Data Not Found');
+    const authUser = { id: localStorage.teamfinderId, nickname: localStorage.teamfinderNickname };
     renderPost(post, likeActive, authUser);
   } catch (e) {
-    window.history.replaceState({}, ROUTE_TYPE.HOME, window.location.origin + ROUTE_TYPE.HOME);
-    routes[ROUTE_TYPE.HOME](document.querySelector('#root'));
+    // window.history.replaceState({}, ROUTE_TYPE.HOME, window.location.origin + ROUTE_TYPE.HOME);
+    // routes[ROUTE_TYPE.HOME](document.querySelector('#root'));
   }
 };
 
