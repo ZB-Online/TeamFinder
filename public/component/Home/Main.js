@@ -1,9 +1,8 @@
 import addFilter from './event/addFilter.js';
 import addPostListEvent from './event/addPostListEvent.js';
 
-export default function Main({ $parent, initialState, onClick }) {
+export default function Main ({ $parent, initialState }) {
   this.state = initialState;
-  this.onClick = onClick;
   this.$target = document.createElement('div');
   if ($parent.children.length > 1) $parent.removeChild($parent.lastChild);
   $parent.appendChild(this.$target);
@@ -26,7 +25,7 @@ export default function Main({ $parent, initialState, onClick }) {
             </h1>
             <h2 class="banner-subtitle"><strong>TEAM_FINDER</strong>에서 함께 할 팀원을 찾아보세요</h2>
           </div>
-          <img class="banner-image" src="https://holaworld.io/images/logo/main.png" alt="people" />
+          <img class="banner-image" src="../../assets/img/team.png" alt="people" />
         </article>
         <article class="recruit">
           <div class="filter-wrapper-city">
