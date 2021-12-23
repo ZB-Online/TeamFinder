@@ -1,5 +1,5 @@
 import addHeaderEvent from './event/addHeaderEvent.js';
-import addLoginEvent from '../../page/main/login.js';
+import addLoginEvent from './event/login.js';
 
 export default function Header ({ $parent, initialState }) {
   this.state = initialState;
@@ -9,6 +9,7 @@ export default function Header ({ $parent, initialState }) {
   this.setState = nextState => {
     this.state = nextState;
     this.render();
+    this.addEvent();
   };
 
   this.render = () => {
@@ -97,7 +98,7 @@ export default function Header ({ $parent, initialState }) {
 
   this.addEvent = () => {
     addHeaderEvent($parent);
-    addLoginEvent();
+    addLoginEvent($parent);
   };
 
   this.render();
