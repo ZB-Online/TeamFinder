@@ -1,17 +1,22 @@
 # TeamFinder
 
-## Git Commit Message Convention
 
-- Feat: 새로운 기능 추가
-- Fix: 버그 수정
-- Modify: 기존 기능 변경
-- Docs: 문서 내용 변경
-- Style: 포맷, 세미콜론 수정 등 코드가 아닌 코드 스타일에 관련된 수정
-- Refactor: 리팩토링 코드 (기존 기능 및 style 코드 수정)
-- Test: 테스트 코드 추가 및 리팩토링 테스트 등
-- Chore: build task 수정, package manager configs 수정 등
+## Preview
 
-> Udacity의 깃 스타일 가이드를 참고했습니다. Udacity's git style guide
+<img src="https://user-images.githubusercontent.com/62092665/184060534-1c46c894-bb49-4ad9-80b7-3d687c41c36d.png" alt="demo screenshot" style="width: 600px" />
+
+
+<details>
+<summary>글 작성하기</summary>
+<img src="https://user-images.githubusercontent.com/62092665/184060550-6f3c9050-fe82-4c2e-adc1-d0aefa3bbdf9.png" alt="demo screenshot" style="width: 600px" />
+</details>
+
+<details>
+<summary>내 정보 수정</summary>
+<img src="https://user-images.githubusercontent.com/62092665/184060647-7160406d-3442-4a62-a37d-832c037f6130.png" alt="demo screenshot" style="width: 600px" />
+</details>
+
+
 
 ## API
 
